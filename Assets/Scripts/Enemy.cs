@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour {
 		maxHealth = enemyLevel * 3 + vitality;
 		currentHealth = maxHealth;
 		damage = strength / 5;
-		exp = enemyLevel * enemyLevel * 10;
+		exp = enemyLevel * 15;
 	}
 	
 	// Update is called once per frame
@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour {
 		// Check if player is in range to start moving towards
 		if (Vector3.Distance (transform.position, player.transform.position) <= MaxRange && Vector3.Distance (transform.position, player.transform.position) >= MinRange) {
 			MoveTowardsPlayer ();
-			if (Vector3.Distance (transform.position, player.transform.position) <= MinRange + 0.5f) {
+			if (Vector3.Distance (transform.position, player.transform.position) <= MaxRange) {
 				GetComponent<Rigidbody2D> ().isKinematic = true;
 			} else {
 				GetComponent<Rigidbody2D> ().isKinematic = false;
