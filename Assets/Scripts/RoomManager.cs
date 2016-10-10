@@ -11,6 +11,15 @@ public class RoomManager : MonoBehaviour {
 	private int rows = 8;
 	private int columns = 14;
 
+	// Room type
+	private bool enemyRoom;
+	private bool chestRoom;
+	private bool ladderRoom;
+	private bool npcRoom;
+
+	// Variables to determine whether exits exist on this room
+	private int nExit, eExit, sExit, wExit;
+
 	// Tile Sprites used to build room
 	public GameObject[] bottom_walls;
 	public GameObject[] top_walls;
@@ -27,15 +36,13 @@ public class RoomManager : MonoBehaviour {
 	public GameObject[] chests;
 	public GameObject[] items;
 	public GameObject[] npc;
+	public GameObject[] ladder;
 
 	// Transform holder for this room gameObject
 	private Transform roomHolder;
 
 	// List of vectors of all tiles on this room
 	private List<Vector3> gridPositions = new List<Vector3> ();
-
-	// Variables to determine whether exits exist on this room
-	private int nExit, eExit, sExit, wExit;
 
 	public void Awake(){
 		Initialization ();
@@ -57,10 +64,26 @@ public class RoomManager : MonoBehaviour {
 	// Creates the room gameObject
 	public void CreateRoom(){
 		roomHolder = new GameObject ("Current Room").transform;
-
-		if (roomX != 5 || roomY != 5) {
-			SpawnEnemies ();
+		// Checks if it's an enemy room
+		if (enemyRoom == true) {
+			// TODO: Restriction checks will be done in MapManager
+			if (roomX != 5 || roomY != 5) {
+				SpawnEnemies ();
+			}
 		}
+		// Checks if it's a chest room
+		else if (chestRoom == true) {
+
+		} 
+		// Checks if it's a ladder room
+		else if (ladderRoom == true) {
+			SpawnLadder ();
+		} 
+		// Checks if it's an NPC room
+		else if (npcRoom == true) {
+
+		}
+	
 
 		for (int x = 0; x <= columns; x++) {
 			for (int y = 0; y <= rows; y++) {
@@ -139,6 +162,11 @@ public class RoomManager : MonoBehaviour {
 		enemy.transform.SetParent (roomHolder);
 	}
 
+	public void SpawnLadder(){
+		GameObject ladderObject = Instantiate (ladder[0], new Vector3(4f, 7f, 0.1f), Quaternion.identity) as GameObject;
+		ladderObject.transform.SetParent (roomHolder);
+	}
+
 	public void SetPosition(int x, int y){
 		roomX = x;
 		roomY = y;
@@ -193,5 +221,37 @@ public class RoomManager : MonoBehaviour {
 
 	public void setWexit(int exist) {
 		wExit = exist;
+	}
+
+	/* Sets this room as an enemy room */
+	public void setRoomAsEnemy(){
+		enemyRoom = true;
+		chestRoom = false;
+		ladderRoom = false;
+		npcRoom = false;
+	}
+
+	/* Sets this room as a chest room */
+	public void setRoomAsChest(){
+		enemyRoom = false;
+		chestRoom = true;
+		ladderRoom = false;
+		npcRoom = false;
+	}
+
+	/* Sets this room as a ladder room */
+	public void setRoomAsLadder(){
+		enemyRoom = false;
+		chestRoom = false;
+		ladderRoom = true;
+		npcRoom = false;
+	}
+
+	/* Sets this room as an NPC room */
+	public void setRoomAsNPC(){
+		enemyRoom = false;
+		chestRoom = false;
+		ladderRoom = false;
+		npcRoom = true;
 	}
 }
