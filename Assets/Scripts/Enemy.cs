@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour {
 	private int currentHealth;
 	// damage = strength / 5
 	private int damage;
-	// exp = 10 * x^2 where x = enemylevel
+	// exp = 15x where x = enemylevel
 	private int exp;
 
 	// Starting position of enemy
@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour {
 		maxHealth = enemyLevel * 3 + vitality;
 		currentHealth = maxHealth;
 		damage = strength / 5;
-		exp = enemyLevel * enemyLevel * 10;
+		exp = enemyLevel * 15;
 	}
 	
 	// Update is called once per frame
@@ -74,17 +74,17 @@ public class Enemy : MonoBehaviour {
 			MoveTowardsPlayer ();
 			if (Vector3.Distance (transform.position, player.transform.position) <= MinRange + 0.5f) {
 				GetComponent<Rigidbody2D> ().isKinematic = true;
-			} else {
+			} else
 				GetComponent<Rigidbody2D> ().isKinematic = false;
-			}
+
 		} 
 		// If not then return to starting position if displaced
-		else if (transform.position.x != startX && transform.position.y != startY && Vector3.Distance(transform.position, player.transform.position) > MaxRange) {
+		else if (transform.position.x != startX && transform.position.y != startY && Vector3.Distance(transform.position, player.transform.position) > MaxRange){
 			ResetEnemy ();
-		} else
-			Stay ();
+		}
 	
 	}
+
 
 	// Stay still while resetting its restrictions
     private void Stay() {
