@@ -64,16 +64,18 @@ public class RoomManager : MonoBehaviour {
 	// Creates the room gameObject
 	public void CreateRoom(){
 		roomHolder = new GameObject ("Current Room").transform;
+
+//		if (roomX != 5 || roomY != 5) {
+//			SpawnEnemies ();
+//		}
 		// Checks if it's an enemy room
 		if (enemyRoom == true) {
 			// TODO: Restriction checks will be done in MapManager
-			if (roomX != 5 || roomY != 5) {
-				SpawnEnemies ();
-			}
+			SpawnEnemies ();
 		}
 		// Checks if it's a chest room
 		else if (chestRoom == true) {
-
+			SpawnChest ();
 		} 
 		// Checks if it's a ladder room
 		else if (ladderRoom == true) {
@@ -163,8 +165,13 @@ public class RoomManager : MonoBehaviour {
 	}
 
 	public void SpawnLadder(){
-		GameObject ladderObject = Instantiate (ladder[0], new Vector3(4f, 7f, 0.1f), Quaternion.identity) as GameObject;
+		GameObject ladderObject = Instantiate (ladder[0], new Vector3(7f, 4f, -0.1f), Quaternion.identity) as GameObject;
 		ladderObject.transform.SetParent (roomHolder);
+	}
+
+	public void SpawnChest(){
+		GameObject chestObject = Instantiate (chests[0], new Vector3(7f, 4f, -0.1f), Quaternion.identity) as GameObject;
+		chestObject.transform.SetParent (roomHolder);
 	}
 
 	public void SetPosition(int x, int y){

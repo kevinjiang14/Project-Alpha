@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 
 public class MapManager : MonoBehaviour {
 
@@ -28,6 +27,7 @@ public class MapManager : MonoBehaviour {
 	// Room GameObject list
 	private GameObject[] roomList;
 	private GameObject currentRoom;
+	private bool ladderExist;
 
 	// Public GameObjects to be instantiated
     public GameObject roomObject;
@@ -62,6 +62,7 @@ public class MapManager : MonoBehaviour {
 	 * Call this method when creating a new map for any reason
 	*/
 	public void Initialization (){
+		ladderExist = false;
 		roomList = new GameObject[100];
 		Map = new GameObject ("Map");
 		MapInitization ();
@@ -79,6 +80,7 @@ public class MapManager : MonoBehaviour {
 		bool sExit = false;
 		bool wExit = false;
 
+		// First room will contain no room type hence an empty room
 		if (room == null){
             index = (((int)Tcolumn) * 10) + ((int)Trow);
 			currentRoom = Instantiate(roomObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
@@ -164,8 +166,21 @@ public class MapManager : MonoBehaviour {
 					} else
 						wExit = true;
 
-					roomTemp.GetComponent<RoomManager> ().SetPosition ((int)Tcolumn, (int)Trow);
-                    roomTemp.GetComponent<RoomManager>().CreateRoom();
+					// Generate a random room type
+					int roomType = UnityEngine.Random.Range (0, 4);
+
+					if (roomType == 0 && ladderExist == false) {
+						tempRoomManager.setRoomAsLadder ();
+						ladderExist = true;
+					} else if (roomType == 1) {
+						tempRoomManager.setRoomAsEnemy ();
+					} else if (roomType == 2) {
+						tempRoomManager.setRoomAsChest ();
+					} else if (roomType == 3) {
+						tempRoomManager.setRoomAsNPC ();
+					}
+					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
+                    tempRoomManager.CreateRoom();
                     roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
@@ -246,8 +261,21 @@ public class MapManager : MonoBehaviour {
 					} else
 						wExit = true;
 
-					roomTemp.GetComponent<RoomManager> ().SetPosition ((int)Tcolumn, (int)Trow);
-					roomTemp.GetComponent<RoomManager>().CreateRoom();
+					// Generate a random room type
+					int roomType = UnityEngine.Random.Range (0, 4);
+
+					if (roomType == 0 && ladderExist == false) {
+						tempRoomManager.setRoomAsLadder ();
+						ladderExist = true;
+					} else if (roomType == 1) {
+						tempRoomManager.setRoomAsEnemy ();
+					} else if (roomType == 2) {
+						tempRoomManager.setRoomAsChest ();
+					} else if (roomType == 3) {
+						tempRoomManager.setRoomAsNPC ();
+					}
+					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
+					tempRoomManager.CreateRoom();
                     roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
@@ -328,8 +356,21 @@ public class MapManager : MonoBehaviour {
 					} else
 						sExit = true;
 
-					roomTemp.GetComponent<RoomManager> ().SetPosition ((int)Tcolumn, (int)Trow);
-					roomTemp.GetComponent<RoomManager>().CreateRoom();
+					// Generate a random room type
+					int roomType = UnityEngine.Random.Range (0, 4);
+
+					if (roomType == 0 && ladderExist == false) {
+						tempRoomManager.setRoomAsLadder ();
+						ladderExist = true;
+					} else if (roomType == 1) {
+						tempRoomManager.setRoomAsEnemy ();
+					} else if (roomType == 2) {
+						tempRoomManager.setRoomAsChest ();
+					} else if (roomType == 3) {
+						tempRoomManager.setRoomAsNPC ();
+					}
+					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
+					tempRoomManager.CreateRoom();
                     roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
@@ -410,8 +451,21 @@ public class MapManager : MonoBehaviour {
 					} else
 						wExit = true;
 
-					roomTemp.GetComponent<RoomManager> ().SetPosition ((int)Tcolumn, (int)Trow);
-					roomTemp.GetComponent<RoomManager>().CreateRoom();
+					// Generate a random room type
+					int roomType = UnityEngine.Random.Range (0, 4);
+
+					if (roomType == 0 && ladderExist == false) {
+						tempRoomManager.setRoomAsLadder ();
+						ladderExist = true;
+					} else if (roomType == 1) {
+						tempRoomManager.setRoomAsEnemy ();
+					} else if (roomType == 2) {
+						tempRoomManager.setRoomAsChest ();
+					} else if (roomType == 3) {
+						tempRoomManager.setRoomAsNPC ();
+					}
+					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
+					tempRoomManager.CreateRoom();
                     roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
