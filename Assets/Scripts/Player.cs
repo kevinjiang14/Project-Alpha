@@ -99,9 +99,17 @@ public class Player : MonoBehaviour{
 
 	// Respawn player
 	public void Respawn(){
+		Debug.Log ("You have died!");
+		Debug.Log ("Respawning...");
+
 		currentHealth = maxHealth;
 		// Perhaps some sort of repercussion for dying
 		// Respawn player at some predetermined location
+		ResetPlayerLocation();
+	}
+
+	// Resets player position to spawn position
+	public void ResetPlayerLocation(){
 		playerTransform.position =  new Vector3(82f, 49f, -0.01f);
 	}
 

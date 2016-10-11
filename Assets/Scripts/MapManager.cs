@@ -22,6 +22,7 @@ public class MapManager : MonoBehaviour {
 	private float startRow = 5;
 
 	// Floor count
+	// TODO: Create a textview for the floor level
 	private int floorLevel = 1;
 
 	// Room GameObject list
@@ -501,6 +502,11 @@ public class MapManager : MonoBehaviour {
 	public void RecreateMap(){
 		Destroy (Map);
 		numOfRooms = 0;
+		validMap = false;
 		Initialization ();
+	}
+
+	public void IncreaseFloor(){
+		floorLevel += 1;
 	}
 }
