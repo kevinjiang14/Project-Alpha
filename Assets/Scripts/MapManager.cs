@@ -167,16 +167,16 @@ public class MapManager : MonoBehaviour {
 						wExit = true;
 
 					// Generate a random room type
-					int roomType = UnityEngine.Random.Range (0, 4);
+					int roomType = UnityEngine.Random.Range (0, 10);
 
 					if (roomType == 0 && ladderExist == false) {
 						tempRoomManager.setRoomAsLadder ();
 						ladderExist = true;
-					} else if (roomType == 1) {
+					} else if (roomType >= 1 && roomType <= 5) {
 						tempRoomManager.setRoomAsEnemy ();
-					} else if (roomType == 2) {
+					} else if (roomType >= 6 && roomType <= 7) {
 						tempRoomManager.setRoomAsChest ();
-					} else if (roomType == 3) {
+					} else if (roomType >= 8 && roomType <= 9) {
 						tempRoomManager.setRoomAsNPC ();
 					}
 					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
@@ -262,16 +262,16 @@ public class MapManager : MonoBehaviour {
 						wExit = true;
 
 					// Generate a random room type
-					int roomType = UnityEngine.Random.Range (0, 4);
+					int roomType = UnityEngine.Random.Range (0, 10);
 
 					if (roomType == 0 && ladderExist == false) {
 						tempRoomManager.setRoomAsLadder ();
 						ladderExist = true;
-					} else if (roomType == 1) {
+					} else if (roomType >= 1 && roomType <= 5) {
 						tempRoomManager.setRoomAsEnemy ();
-					} else if (roomType == 2) {
+					} else if (roomType >= 6 && roomType <= 7) {
 						tempRoomManager.setRoomAsChest ();
-					} else if (roomType == 3) {
+					} else if (roomType >= 8 && roomType <= 9) {
 						tempRoomManager.setRoomAsNPC ();
 					}
 					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
@@ -357,16 +357,16 @@ public class MapManager : MonoBehaviour {
 						sExit = true;
 
 					// Generate a random room type
-					int roomType = UnityEngine.Random.Range (0, 4);
+					int roomType = UnityEngine.Random.Range (0, 10);
 
 					if (roomType == 0 && ladderExist == false) {
 						tempRoomManager.setRoomAsLadder ();
 						ladderExist = true;
-					} else if (roomType == 1) {
+					} else if (roomType >= 1 && roomType <= 5) {
 						tempRoomManager.setRoomAsEnemy ();
-					} else if (roomType == 2) {
+					} else if (roomType >= 6 && roomType <= 7) {
 						tempRoomManager.setRoomAsChest ();
-					} else if (roomType == 3) {
+					} else if (roomType >= 8 && roomType <= 9) {
 						tempRoomManager.setRoomAsNPC ();
 					}
 					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
@@ -452,16 +452,16 @@ public class MapManager : MonoBehaviour {
 						wExit = true;
 
 					// Generate a random room type
-					int roomType = UnityEngine.Random.Range (0, 4);
+					int roomType = UnityEngine.Random.Range (0, 10);
 
 					if (roomType == 0 && ladderExist == false) {
 						tempRoomManager.setRoomAsLadder ();
 						ladderExist = true;
-					} else if (roomType == 1) {
+					} else if (roomType >= 1 && roomType <= 5) {
 						tempRoomManager.setRoomAsEnemy ();
-					} else if (roomType == 2) {
+					} else if (roomType >= 6 && roomType <= 7) {
 						tempRoomManager.setRoomAsChest ();
-					} else if (roomType == 3) {
+					} else if (roomType >= 8 && roomType <= 9) {
 						tempRoomManager.setRoomAsNPC ();
 					}
 					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);

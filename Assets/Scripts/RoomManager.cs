@@ -83,7 +83,7 @@ public class RoomManager : MonoBehaviour {
 		} 
 		// Checks if it's an NPC room
 		else if (npcRoom == true) {
-
+			SpawnNPC ();
 		}
 	
 
@@ -172,6 +172,11 @@ public class RoomManager : MonoBehaviour {
 	public void SpawnChest(){
 		GameObject chestObject = Instantiate (chests[0], new Vector3(7f, 4f, -0.1f), Quaternion.identity) as GameObject;
 		chestObject.transform.SetParent (roomHolder);
+	}
+
+	public void SpawnNPC(){
+		GameObject NPCObject = Instantiate (npc [0], new Vector3 (7f, 4f, -0.1f), Quaternion.identity) as GameObject;
+		NPCObject.transform.SetParent (roomHolder);
 	}
 
 	public void SetPosition(int x, int y){

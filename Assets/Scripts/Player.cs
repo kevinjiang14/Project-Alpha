@@ -102,6 +102,7 @@ public class Player : MonoBehaviour{
 		currentHealth = maxHealth;
 		// Perhaps some sort of repercussion for dying
 		// Respawn player at some predetermined location
+		playerTransform.position =  new Vector3(82f, 49f, -0.01f);
 	}
 
 	// PLayer taking damage
