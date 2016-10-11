@@ -1,17 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class LevelManager : MonoBehaviour {
+public class RoomManager : MonoBehaviour {
 
-	// Level position
-	private int levelX;
-	private int levelY;
+	// Room position
+	private int roomX;
+	private int roomY;
 
-	// Size of the level
+	// Size of the room
 	private int rows = 8;
 	private int columns = 14;
 
-	// Tile Sprites used to build level
+	// Room type
+	private bool enemyRoom;
+	private bool chestRoom;
+	private bool ladderRoom;
+	private bool npcRoom;
+
+	// Variables to determine whether exits exist on this room
+	private int nExit, eExit, sExit, wExit;
+
+	// Tile Sprites used to build room
 	public GameObject[] bottom_walls;
 	public GameObject[] top_walls;
 	public GameObject[] left_walls;
@@ -22,27 +31,25 @@ public class LevelManager : MonoBehaviour {
 	public GameObject[] bottomleft_walls;
 	public GameObject[] floors;
 
-	// GameObjects to exist in level
+	// GameObjects to exist in room
 	public GameObject[] enemies;
 	public GameObject[] chests;
 	public GameObject[] items;
 	public GameObject[] npc;
+	public GameObject[] ladder;
 
-	// Transform holder for this level gameObject
-	private Transform levelHolder;
+	// Transform holder for this room gameObject
+	private Transform roomHolder;
 
-	// List of vectors of all tiles on this level
+	// List of vectors of all tiles on this room
 	private List<Vector3> gridPositions = new List<Vector3> ();
-
-	// Variables to determine whether exits exist on this level
-	private int nExit, eExit, sExit, wExit;
 
 	public void Awake(){
 		Initialization ();
-		SetupLevel ();
+		SetupRoom ();
 	}
 
-	//Method used for any initialization needed to be done
+	// Method used for any initialization needed to be done
 	public void Initialization (){
 		nExit = Random.Range (0, 2);
 		eExit = Random.Range (0, 2);
@@ -50,17 +57,35 @@ public class LevelManager : MonoBehaviour {
 		wExit = Random.Range (0, 2);
 	}
 
-	public void SetupLevel(){
+	public void SetupRoom(){
 		InitialiseGrid ();
 	}
 
-	// Creates the level gameObject
-	public void CreateLevel(){
-		levelHolder = new GameObject ("Current Level").transform;
+	// Creates the room gameObject
+	public void CreateRoom(){
+		roomHolder = new GameObject ("Current Room").transform;
 
-		if (levelX != 5 || levelY != 5) {
+//		if (roomX != 5 || roomY != 5) {
+//			SpawnEnemies ();
+//		}
+		// Checks if it's an enemy room
+		if (enemyRoom == true) {
+			// TODO: Restriction checks will be done in MapManager
 			SpawnEnemies ();
 		}
+		// Checks if it's a chest room
+		else if (chestRoom == true) {
+			SpawnChest ();
+		} 
+		// Checks if it's a ladder room
+		else if (ladderRoom == true) {
+			SpawnLadder ();
+		} 
+		// Checks if it's an NPC room
+		else if (npcRoom == true) {
+			SpawnNPC ();
+		}
+	
 
 		for (int x = 0; x <= columns; x++) {
 			for (int y = 0; y <= rows; y++) {
@@ -103,14 +128,14 @@ public class LevelManager : MonoBehaviour {
 
 				GameObject instance = Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
 
-				instance.transform.SetParent (levelHolder);
+				instance.transform.SetParent (roomHolder);
 			}
 		}
 
-        levelHolder.transform.SetParent(this.transform);
+        roomHolder.transform.SetParent(this.transform);
     }
 
-    //Creates a new list of board position with blank Vectors
+    // Creates a new list of board position with blank Vectors
     public void InitialiseGrid(){
 		gridPositions.Clear ();
 
@@ -121,28 +146,42 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
-	// TODO: set enemy's transform parent to an object that is first in hierarchy to prevent enemy falling below floor when moving into a lvl that they didnt spawn from
 	public void SpawnEnemies(){
 		GameObject enemy = Instantiate (enemies [0], new Vector3 (3f, 2f, -0.01f), Quaternion.identity) as GameObject;
-		enemy.GetComponent<Enemy> ().SetSpawn (levelX * 15 + 3, levelY * 9 + 2);
-		enemy.transform.SetParent (levelHolder);
+		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 3, roomY * 9 + 2);
+		enemy.transform.SetParent (roomHolder);
 
 		enemy = Instantiate (enemies [0], new Vector3 (3f, 6f, -0.01f), Quaternion.identity) as GameObject;
-		enemy.GetComponent<Enemy> ().SetSpawn (levelX * 15 + 3, levelY * 9 + 6);
-		enemy.transform.SetParent (levelHolder);
+		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 3, roomY * 9 + 6);
+		enemy.transform.SetParent (roomHolder);
 
 		enemy = Instantiate (enemies [0], new Vector3 (11f, 2f, -0.01f), Quaternion.identity) as GameObject;
-		enemy.GetComponent<Enemy> ().SetSpawn (levelX * 15 + 11, levelY * 9 + 2);
-		enemy.transform.SetParent (levelHolder);
+		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 11, roomY * 9 + 2);
+		enemy.transform.SetParent (roomHolder);
 
 		enemy = Instantiate (enemies [0], new Vector3 (11f, 6f, -0.01f), Quaternion.identity) as GameObject;
-		enemy.GetComponent<Enemy> ().SetSpawn (levelX * 15 + 11, levelY * 9 + 6);
-		enemy.transform.SetParent (levelHolder);
+		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 11, roomY * 9 + 6);
+		enemy.transform.SetParent (roomHolder);
+	}
+
+	public void SpawnLadder(){
+		GameObject ladderObject = Instantiate (ladder[0], new Vector3(7f, 4f, -0.1f), Quaternion.identity) as GameObject;
+		ladderObject.transform.SetParent (roomHolder);
+	}
+
+	public void SpawnChest(){
+		GameObject chestObject = Instantiate (chests[0], new Vector3(7f, 4f, -0.1f), Quaternion.identity) as GameObject;
+		chestObject.transform.SetParent (roomHolder);
+	}
+
+	public void SpawnNPC(){
+		GameObject NPCObject = Instantiate (npc [0], new Vector3 (7f, 4f, -0.1f), Quaternion.identity) as GameObject;
+		NPCObject.transform.SetParent (roomHolder);
 	}
 
 	public void SetPosition(int x, int y){
-		levelX = x;
-		levelY = y;
+		roomX = x;
+		roomY = y;
 	}
 
     public bool hasExits() {
@@ -194,5 +233,37 @@ public class LevelManager : MonoBehaviour {
 
 	public void setWexit(int exist) {
 		wExit = exist;
+	}
+
+	/* Sets this room as an enemy room */
+	public void setRoomAsEnemy(){
+		enemyRoom = true;
+		chestRoom = false;
+		ladderRoom = false;
+		npcRoom = false;
+	}
+
+	/* Sets this room as a chest room */
+	public void setRoomAsChest(){
+		enemyRoom = false;
+		chestRoom = true;
+		ladderRoom = false;
+		npcRoom = false;
+	}
+
+	/* Sets this room as a ladder room */
+	public void setRoomAsLadder(){
+		enemyRoom = false;
+		chestRoom = false;
+		ladderRoom = true;
+		npcRoom = false;
+	}
+
+	/* Sets this room as an NPC room */
+	public void setRoomAsNPC(){
+		enemyRoom = false;
+		chestRoom = false;
+		ladderRoom = false;
+		npcRoom = true;
 	}
 }
