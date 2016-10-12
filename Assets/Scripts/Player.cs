@@ -45,9 +45,11 @@ public class Player : MonoBehaviour{
 
 	/* Player transform */
 	private Transform playerTransform;
+    private Animator playerAnimation;
 
 	void Awake(){
 		playerTransform = GetComponent<Transform> ();
+        playerAnimation = GetComponent<Animator>();
 
 		// Initialize non-adjustable attributes
 		expToLVLUp = 20 * ((playerLevel * playerLevel) + playerLevel + 3);
@@ -78,11 +80,38 @@ public class Player : MonoBehaviour{
 	}
 
 	public void Move(){
-		movex = Input.GetAxisRaw ("Horizontal") * (Time.deltaTime * speed);
-		movey = Input.GetAxisRaw ("Vertical") * (Time.deltaTime * speed);
-		Vector3 direction = new Vector3 (movex, movey, 0);
-		playerTransform.Translate (direction);
-	}
+        Vector3 direction;
+
+        if (Input.GetAxisRaw("Horizontal") < 0){
+            playerAnimation.SetInteger("Direction", 1);
+            playerAnimation.SetFloat("Speed", 1.0f);
+            movex = Input.GetAxisRaw("Horizontal") * (Time.deltaTime * speed);
+            direction = new Vector3(movex, 0, 0);
+            playerTransform.Translate(direction);
+        }
+        else if (Input.GetAxisRaw("Horizontal") > 0){
+            playerAnimation.SetInteger("Direction", 3);
+            playerAnimation.SetFloat("Speed", 1.0f);
+            movex = Input.GetAxisRaw("Horizontal") * (Time.deltaTime * speed);
+            direction = new Vector3(movex, 0, 0);
+            playerTransform.Translate(direction);
+        }
+        else if (Input.GetAxisRaw("Vertical") < 0){
+            playerAnimation.SetInteger("Direction", 0);
+            playerAnimation.SetFloat("Speed", 1.0f);
+            movey = Input.GetAxisRaw("Vertical") * (Time.deltaTime * speed);
+            direction = new Vector3(0, movey, 0);
+            playerTransform.Translate(direction);
+        }
+        else if (Input.GetAxisRaw("Vertical") > 0){
+            playerAnimation.SetInteger("Direction", 2);
+            playerAnimation.SetFloat("Speed", 1.0f);
+            movey = Input.GetAxisRaw("Vertical") * (Time.deltaTime * speed);
+            direction = new Vector3(0, movey, 0);
+            playerTransform.Translate(direction);
+        }
+        else playerAnimation.SetFloat("Speed", 0.0f);
+    }
 
 	// Player attack
 	public void Attack(){
