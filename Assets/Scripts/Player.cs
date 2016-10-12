@@ -96,7 +96,6 @@ public class Player : MonoBehaviour{
             direction = new Vector3(movex, 0, 0);
             playerTransform.Translate(direction);
         }
-
         else if (Input.GetAxisRaw("Vertical") < 0){
             playerAnimation.SetInteger("Direction", 0);
             playerAnimation.SetFloat("Speed", 1.0f);
