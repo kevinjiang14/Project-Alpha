@@ -52,9 +52,7 @@ public class MapManager : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 
 		Initialization ();
-		while (validMap == false) {
-			IsMapOfValidSize ();
-		}
+
 		spawnPlayer(startColumn, startRow);
 	}
 
@@ -67,6 +65,9 @@ public class MapManager : MonoBehaviour {
 		roomList = new GameObject[100];
 		Map = new GameObject ("Map");
 		MapInitization ();
+		while (validMap == false) {
+			IsMapOfValidSize ();
+		}
 	}
 
     // Map Initialization

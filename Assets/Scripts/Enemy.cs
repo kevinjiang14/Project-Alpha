@@ -2,14 +2,14 @@
 using System.Collections;
 using System;
 
-public class Enemy : MonoBehaviour {
+public class Enemy: MonoBehaviour {
 
 	/* Base-Attributes */
-	private float speed = 0.7f;
-	private int enemyLevel = 1;
-	private int defense = 5;
-	private int strength = 10;
-	private int vitality = 5;
+	public float speed = 0.7f;
+	public int enemyLevel = 1;
+	public int defense = 5;
+	public int strength = 10;
+	public int vitality = 5;
 
 	/* Non-Adjustable Attributes */
 	// maxHealth = enemylevel * 3 + vitality
@@ -41,10 +41,12 @@ public class Enemy : MonoBehaviour {
     private GameObject player;
 	private Player playerScript;
 
+	private Animator enemyAnimation;
 	private Transform HPTextBox;
 
     // Use this for initialization
     void Start () {
+		enemyAnimation = GetComponent<Animator> ();
         player = GameObject.FindGameObjectWithTag("Player");
 		playerScript = player.GetComponent<Player> ();
 		HPTextBox = transform.GetChild (0);
@@ -68,36 +70,54 @@ public class Enemy : MonoBehaviour {
 		if (Vector3.Distance (transform.position, player.transform.position) <= attackRange && attackTimer >= attackSpeed) {
 			AttackPlayer ();
 		}
-
+		
 		// Check if player is in range to start moving towards
 		if (Vector3.Distance (transform.position, player.transform.position) <= MaxRange && Vector3.Distance (transform.position, player.transform.position) >= MinRange) {
 			MoveTowardsPlayer ();
-			if (Vector3.Distance (transform.position, player.transform.position) <= MinRange + 0.5f) {
+			if (Vector3.Distance (transform.position, player.transform.position) <= MinRange + 1.0f) {
 				GetComponent<Rigidbody2D> ().isKinematic = true;
-			} else
-				GetComponent<Rigidbody2D> ().isKinematic = false;
-
+			} else GetComponent<Rigidbody2D> ().isKinematic = false;
 		} 
 		// If not then return to starting position if displaced
-		else if (transform.position.x != startX && transform.position.y != startY && Vector3.Distance(transform.position, player.transform.position) > MaxRange){
+		else if (transform.position.x != startX && transform.position.y != startY && Vector3.Distance (transform.position, player.transform.position) > MaxRange) {
 			ResetEnemy ();
-		}
+		} else
+			Stay ();
 	
 	}
 
 
 	// Stay still while resetting its restrictions
     private void Stay() {
+		enemyAnimation.SetFloat ("Speed", 0.0f);
 		freezeTimer += Time.deltaTime;
 		if (freezeTimer >= freezetime) {
 			freezeTimer = 0f;
-			GetComponent<Rigidbody2D> ().isKinematic = false;
 		}
     }
 
 
 	// Move towards player
     private void MoveTowardsPlayer() {
+		float diffX = player.transform.position.x - transform.position.x;
+		float diffY = player.transform.position.y - transform.position.y;
+
+		if ((int)diffX > 0 && Vector3.Distance(transform.position, player.transform.position) >= MinRange) {
+			enemyAnimation.SetInteger ("Direction", 3);
+			enemyAnimation.SetFloat ("Speed", 1.0f);
+		} else if ((int)diffX < 0 && Vector3.Distance(transform.position, player.transform.position) >= MinRange) {
+			enemyAnimation.SetInteger ("Direction", 1);
+			enemyAnimation.SetFloat ("Speed", 1.0f);
+		} else if ((int)diffY < 0 && Vector3.Distance(transform.position, player.transform.position) >= MinRange) {
+			enemyAnimation.SetInteger ("Direction", 0);
+			enemyAnimation.SetFloat ("Speed", 1.0f);
+		} else if ((int)diffY > 0 && Vector3.Distance(transform.position, player.transform.position) >= MinRange) {
+			enemyAnimation.SetInteger ("Direction", 2);
+			enemyAnimation.SetFloat ("Speed", 1.0f);
+		} else
+			enemyAnimation.SetFloat ("Speed", 1.0f);
+
+
         Vector3 direction = new Vector3(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y, 0f);
         transform.Translate(direction * speed * Time.deltaTime);
     }
