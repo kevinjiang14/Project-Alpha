@@ -13,7 +13,7 @@ public class Player : MonoBehaviour{
 	// Dexterity increases critical rate and damge
     private int dexterity = 10;
 	// Defense lowers damage taken
-    private int defense = 10;
+    private int defense = 5;
 	// Luck increases rare item finds?
     private int luck = 5;
 
@@ -144,8 +144,8 @@ public class Player : MonoBehaviour{
 
 	// PLayer taking damage
 	public void TakeDamage(int i){
-		// damage taken = incoming damage - defense / 10
-		i = i - (defense / 10);
+		// damage taken = incoming damage - defense / 7
+		i = i - (defense / 7);
 		if (i >= 0) {
 			if (currentHealth - i <= 0) {
 				Respawn ();

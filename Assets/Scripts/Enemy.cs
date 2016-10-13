@@ -144,8 +144,8 @@ public class Enemy: MonoBehaviour {
 
 	// Enemy taking damage 
 	public void TakeDamage(int i){
-		// damage taken = incoming damage - defense / 10
-		i = i - (defense / 10);
+		// damage taken = incoming damage - defense / 7
+		i = i - (defense / 7);
 		if (currentHealth - i <= 0) {
 			Dead ();
 		} else
