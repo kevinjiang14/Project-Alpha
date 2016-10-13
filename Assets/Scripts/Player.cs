@@ -27,7 +27,7 @@ public class Player : MonoBehaviour{
 	// exp to level up = 20(x^2 + x + 3) where x = playerlvl
 	private int expToLVLUp;
 	// Miscellaneous
-	private float attackRange = 1.5f;
+	private float attackRange = 1.0f;
 	private float attackSpeed = 1;
 	private int healthRegen = 5;
 	private int freeAttrPoints = 0;
@@ -116,12 +116,41 @@ public class Player : MonoBehaviour{
 	// Player attack
 	public void Attack(){
         // TODO: Have player only damage enemies it is facing
-		// Reduce that enemy's health 
-		foreach (GameObject enemy in enemyList) {
-			if (Vector3.Distance (transform.position, enemy.transform.position) <= attackRange) {
-				enemy.GetComponent<Enemy> ().TakeDamage (damage);
+		// Reduce that enemy's health
+
+		if (playerAnimation.GetInteger ("Direction") == 0) {
+			foreach (GameObject enemy in enemyList) {
+				if (enemy.transform.position.y >= transform.position.y - attackRange && enemy.transform.position.y < transform.position.y && ((transform.position.y - enemy.transform.position.y > transform.position.x - enemy.transform.position.x && transform.position.x > enemy.transform.position.x) || (transform.position.y - enemy.transform.position.y > enemy.transform.position.x - transform.position.x && transform.position.x < enemy.transform.position.x))) {
+					enemy.GetComponent<Enemy> ().TakeDamage (damage);
+				}
 			}
 		}
+		else if (playerAnimation.GetInteger ("Direction") == 1) {
+			foreach (GameObject enemy in enemyList) {
+				if (enemy.transform.position.x >= transform.position.x - attackRange && enemy.transform.position.x < transform.position.x && ((transform.position.x - enemy.transform.position.x > transform.position.y - enemy.transform.position.y && transform.position.y > enemy.transform.position.y) || (transform.position.x - enemy.transform.position.x > enemy.transform.position.y - transform.position.y && transform.position.y < enemy.transform.position.y))) {
+					enemy.GetComponent<Enemy> ().TakeDamage (damage);
+				}
+			}
+		}
+		else if (playerAnimation.GetInteger ("Direction") == 2) {
+			foreach (GameObject enemy in enemyList) {
+				if (enemy.transform.position.y <= transform.position.y + attackRange && enemy.transform.position.y > transform.position.y && ((enemy.transform.position.y - transform.position.y > transform.position.x - enemy.transform.position.x && transform.position.x > enemy.transform.position.x) || (enemy.transform.position.y - transform.position.y > enemy.transform.position.x - transform.position.x && transform.position.x < enemy.transform.position.x))) {
+					enemy.GetComponent<Enemy> ().TakeDamage (damage);
+				}
+			}
+		}
+		else if (playerAnimation.GetInteger ("Direction") == 3) {
+			foreach (GameObject enemy in enemyList) {
+				if (enemy.transform.position.x <= transform.position.x + attackRange && enemy.transform.position.x > transform.position.x && ((enemy.transform.position.x - transform.position.x > transform.position.y - enemy.transform.position.y && transform.position.y > enemy.transform.position.y) || (enemy.transform.position.x - transform.position.x > enemy.transform.position.y - transform.position.y && transform.position.y < enemy.transform.position.y))) {
+					enemy.GetComponent<Enemy> ().TakeDamage (damage);
+				}
+			}
+		}
+//		foreach (GameObject enemy in enemyList) {
+//			if (Vector3.Distance (transform.position, enemy.transform.position) <= attackRange) {
+//				enemy.GetComponent<Enemy> ().TakeDamage (damage);
+//			}
+//		}
 
 		attackTimer = 0f;
 	}
