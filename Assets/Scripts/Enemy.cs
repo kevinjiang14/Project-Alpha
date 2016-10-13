@@ -2,14 +2,14 @@
 using System.Collections;
 using System;
 
-public class Enemy : MonoBehaviour {
+public class Enemy: MonoBehaviour {
 
 	/* Base-Attributes */
-	private float speed = 0.7f;
-	private int enemyLevel = 1;
-	private int defense = 5;
-	private int strength = 10;
-	private int vitality = 5;
+	public float speed = 0.7f;
+	public int enemyLevel = 1;
+	public int defense = 5;
+	public int strength = 10;
+	public int vitality = 5;
 
 	/* Non-Adjustable Attributes */
 	// maxHealth = enemylevel * 3 + vitality
