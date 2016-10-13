@@ -37,9 +37,15 @@ public class Enemy: MonoBehaviour {
 	private float attackRange = 1f;
 	private float attackSpeed = 1f;
 
+	// Enemy difficulty multiplier based on floor number
+	private int multiplier;
+
 	// Do I really need to explain what this it?
     private GameObject player;
 	private Player playerScript;
+
+	private GameObject map;
+	private MapManager mapScript;
 
 	private Animator enemyAnimation;
 	private Transform HPTextBox;
@@ -47,9 +53,17 @@ public class Enemy: MonoBehaviour {
     // Use this for initialization
     void Start () {
 		enemyAnimation = GetComponent<Animator> ();
+
         player = GameObject.FindGameObjectWithTag("Player");
 		playerScript = player.GetComponent<Player> ();
+
+		map = GameObject.FindGameObjectWithTag ("MapManager");
+		mapScript = map.GetComponent<MapManager> ();
+
 		HPTextBox = transform.GetChild (0);
+		multiplier = mapScript.getFloor ();
+
+		AdjustStats ();
 
 		// Initialize non-adjustable attributes
 		maxHealth = enemyLevel * 3 + vitality;
@@ -161,5 +175,12 @@ public class Enemy: MonoBehaviour {
 	public void SetSpawn(int x, int y){
 		startX = x;
 		startY = y;
+	}
+
+	public void AdjustStats(){
+		enemyLevel = enemyLevel + (multiplier / 2);
+		strength = strength * multiplier;
+		defense = defense * multiplier;
+		vitality = vitality * multiplier;
 	}
 }

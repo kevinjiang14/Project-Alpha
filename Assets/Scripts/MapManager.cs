@@ -510,4 +510,8 @@ public class MapManager : MonoBehaviour {
 	public void IncreaseFloor(){
 		floorLevel += 1;
 	}
+
+	public int getFloor(){
+		return floorLevel;
+	}
 }
