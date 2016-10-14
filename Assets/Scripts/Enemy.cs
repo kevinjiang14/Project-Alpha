@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
+[System.Serializable]
 public class Enemy: MonoBehaviour {
 
 	/* Base-Attributes */
