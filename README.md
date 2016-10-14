@@ -2,7 +2,7 @@
 A 2D dungeon crawler game
 
 
-Controls:\n
-Arrow keys - movement\n
-Q - Open/Close menu\n
+Controls:
+Arrow keys - movement
+Q - Open/Close menu
 A - Attack
