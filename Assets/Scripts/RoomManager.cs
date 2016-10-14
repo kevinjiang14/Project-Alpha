@@ -151,21 +151,25 @@ public class RoomManager : MonoBehaviour {
 		GameObject enemy = Instantiate (enemies [choice], new Vector3 (3f, 2f, -0.01f), Quaternion.identity) as GameObject;
 		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 3, roomY * 9 + 2);
 		enemy.transform.SetParent (roomHolder);
+		enemy.GetComponent<Enemy> ().EnemyType (choice);
 
 		choice = Random.Range (0, 3);
 		enemy = Instantiate (enemies [choice], new Vector3 (3f, 6f, -0.01f), Quaternion.identity) as GameObject;
 		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 3, roomY * 9 + 6);
 		enemy.transform.SetParent (roomHolder);
+		enemy.GetComponent<Enemy> ().EnemyType (choice);
 
 		choice = Random.Range (0, 3);
 		enemy = Instantiate (enemies [choice], new Vector3 (11f, 2f, -0.01f), Quaternion.identity) as GameObject;
 		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 11, roomY * 9 + 2);
 		enemy.transform.SetParent (roomHolder);
+		enemy.GetComponent<Enemy> ().EnemyType (choice);
 
 		choice = Random.Range (0, 3);
 		enemy = Instantiate (enemies [choice], new Vector3 (11f, 6f, -0.01f), Quaternion.identity) as GameObject;
 		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 11, roomY * 9 + 6);
 		enemy.transform.SetParent (roomHolder);
+		enemy.GetComponent<Enemy> ().EnemyType (choice);
 	}
 
 	public void SpawnLadder(){

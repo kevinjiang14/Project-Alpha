@@ -64,9 +64,9 @@ public class MapManager : MonoBehaviour {
 
 		DontDestroyOnLoad (gameObject);
 
-		Initialization ();
-
 		spawnPlayer(startColumn, startRow);
+
+		Initialization ();
 
         CreateMenus ();
 	}

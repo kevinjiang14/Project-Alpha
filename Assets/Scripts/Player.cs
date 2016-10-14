@@ -20,6 +20,7 @@ public class PlayerStats : Component{
     public float attackSpeed = 1f;
     public int healthRegen = 5;
     public int freeAttrPoints = 5;
+
 }
 
 public class Player : MonoBehaviour{

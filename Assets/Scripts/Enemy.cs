@@ -3,40 +3,41 @@ using System.Collections;
 using System;
 
 [System.Serializable]
-public class Enemy: MonoBehaviour {
-
-	/* Base-Attributes */
+public class EnemyStats : Component{
 	public float speed = 0.7f;
 	public int enemyLevel = 1;
 	public int defense = 5;
 	public int strength = 10;
 	public int vitality = 5;
+	public int currentHealth;
+	public float attackRange = 1f;
+	public float attackSpeed = 1f;
+	public int enemyType = 0;
+}
 
-	/* Non-Adjustable Attributes */
+public class Enemy: MonoBehaviour {
+
+	/* Enemy Stats */
+	private EnemyStats enemyStats;
+
+	private int enemyType;
 	// maxHealth = enemylevel * 3 + vitality
 	private int maxHealth;
-	private int currentHealth;
 	// damage = strength / 5
 	private int damage;
 	// exp = 15x where x = enemylevel
 	private int exp;
 
-	// Starting position of enemy
-	private int startX = 66;
-	private int startY = 49;
-
 	// Counting timers
 	private float attackTimer;
-	private float freezeTimer;
+
+	// Position of enemy
+	private int startX = 66;
+	private int startY = 49;
 
 	// Range when enemy starts moving towards player
 	private float MaxRange = 4f;
 	private float MinRange = 1f;
-
-	// Restrictions
-	private float freezetime = 0.5f;
-	private float attackRange = 1f;
-	private float attackSpeed = 1f;
 
 	// Enemy difficulty multiplier based on floor number
 	private int multiplier;
@@ -48,16 +49,25 @@ public class Enemy: MonoBehaviour {
 	private GameObject map;
 	private MapManager mapScript;
 
+	// Miscellaneous 
 	private Animator enemyAnimation;
 	private Transform HPTextBox;
 
     // Use this for initialization
     void Start () {
+		// Create new stats for the enemy
+		enemyStats = new EnemyStats();
+
+		ChangeStats ();
+
+		// Animator componenet
 		enemyAnimation = GetComponent<Animator> ();
 
+		// Find Player
         player = GameObject.FindGameObjectWithTag("Player");
 		playerScript = player.GetComponent<Player> ();
 
+		// Find MapManager
 		map = GameObject.FindGameObjectWithTag ("MapManager");
 		mapScript = map.GetComponent<MapManager> ();
 
@@ -67,22 +77,22 @@ public class Enemy: MonoBehaviour {
 		AdjustStats ();
 
 		// Initialize non-adjustable attributes
-		maxHealth = enemyLevel * 3 + vitality;
-		currentHealth = maxHealth;
-		damage = strength / 5;
-		exp = enemyLevel * 15;
+		maxHealth = enemyStats.enemyLevel * 3 + enemyStats.vitality;
+		enemyStats.currentHealth = maxHealth;
+		damage = enemyStats.strength / 5;
+		exp = enemyStats.enemyLevel * 15;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		// Update HP textbox
-		HPTextBox.GetComponent<TextMesh>().text = "" + currentHealth + "/" + maxHealth;
+		HPTextBox.GetComponent<TextMesh>().text = "" + enemyStats.currentHealth + "/" + maxHealth;
 
 		// Timer for attacking
 		attackTimer += Time.deltaTime;
 
 		// Check if enemy can attack play when in range and is free to attack
-		if (Vector3.Distance (transform.position, player.transform.position) <= attackRange && attackTimer >= attackSpeed) {
+		if (Vector3.Distance (transform.position, player.transform.position) <= enemyStats.attackRange && attackTimer >= enemyStats.attackSpeed) {
 			AttackPlayer ();
 		}
 		
@@ -105,10 +115,6 @@ public class Enemy: MonoBehaviour {
 	// Stay still while resetting its restrictions
     private void Stay() {
 		enemyAnimation.SetFloat ("Speed", 0.0f);
-		freezeTimer += Time.deltaTime;
-		if (freezeTimer >= freezetime) {
-			freezeTimer = 0f;
-		}
     }
 
 
@@ -134,7 +140,7 @@ public class Enemy: MonoBehaviour {
 
 
         Vector3 direction = new Vector3(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y, 0f);
-        transform.Translate(direction * speed * Time.deltaTime);
+		transform.Translate(direction * enemyStats.speed * Time.deltaTime);
     }
 
 	// Attack player
@@ -152,19 +158,19 @@ public class Enemy: MonoBehaviour {
 		transform.Translate (direction * Time.deltaTime);
 
 		// Regenerate health while not in aggro'd
-		if (currentHealth != maxHealth) {
-			currentHealth += 1;
+		if (enemyStats.currentHealth != maxHealth) {
+			enemyStats.currentHealth += 1;
 		}
 	}
 
 	// Enemy taking damage 
 	public void TakeDamage(int i){
 		// damage taken = incoming damage - defense / 7
-		i = i - (defense / 7);
-		if (currentHealth - i <= 0) {
+		i = i - (enemyStats.defense / 7);
+		if (enemyStats.currentHealth - i <= 0) {
 			Dead ();
 		} else
-			currentHealth -= i;
+			enemyStats.currentHealth -= i;
 	}
 
 	// Enemy is dead
@@ -179,9 +185,27 @@ public class Enemy: MonoBehaviour {
 	}
 
 	public void AdjustStats(){
-		enemyLevel = enemyLevel + (multiplier / 2);
-		strength = strength * multiplier;
-		defense = defense * multiplier;
-		vitality = vitality * multiplier;
+		if (multiplier > 2) {
+			enemyStats.enemyLevel = enemyStats.enemyLevel + (multiplier / 2);
+			enemyStats.strength = enemyStats.strength * multiplier;
+			enemyStats.defense = enemyStats.defense * multiplier;
+			enemyStats.vitality = enemyStats.vitality * multiplier;
+		}
+	}
+
+	public void EnemyType(int i){
+		enemyType = i;
+	}
+
+	public void ChangeStats(){
+		enemyStats.enemyType = enemyType;
+		if (enemyStats.enemyType == 0){
+			enemyStats.defense = 7;
+		} else if (enemyStats.enemyType == 1){
+			enemyStats.vitality = 7;
+		} else if (enemyStats.enemyType == 2){
+			enemyStats.strength = 12;
+		}
+		AdjustStats ();
 	}
 }
