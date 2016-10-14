@@ -1,13 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+
+public class MapInformation : Component {
+    // Current floor level
+    public int floorLevel = 1;
+    // TODO: minimum and maximum should increase as player gets to lower floors
+    public int MinRooms = 20;
+    public int MaxRooms = 35;
+}
 
 public class MapManager : MonoBehaviour {
 
     public static MapManager instance = null;
 
-	// Map Validation variables
-	private int numOfRooms = 0;
+    // Player's current menus
+    private GameObject currentMonitor;
+    private GameObject currentMenu;
+
+    // Map Validation variables
+    private int numOfRooms = 0;
 	private int MinRooms = 20;
 	private int MaxRooms = 35;
 	private bool validMap = false;
@@ -21,22 +32,22 @@ public class MapManager : MonoBehaviour {
 	private float startColumn = 5;
 	private float startRow = 5;
 
-	// Floor count
-	// TODO: Create a textview for the floor level
-	private int floorLevel = 1;
-
 	// Room GameObject list
 	private GameObject[] roomList;
 	private GameObject currentRoom;
 	private bool ladderExist;
 
-	// Public GameObjects to be instantiated
+    // Public GameObjects to be instantiated
+    public GameObject playerMonitorView;
+    public GameObject playerMenu;
     public GameObject roomObject;
     public GameObject playerList;
     public GameObject Camera;
 
 	// Player GameObject that is instantiated
 	private GameObject player;
+    
+    private MapInformation mapInfo;
 
     public void Awake(){
 
@@ -49,12 +60,32 @@ public class MapManager : MonoBehaviour {
 			Destroy (gameObject);
 		}
 
+        mapInfo = new MapInformation();
+
 		DontDestroyOnLoad (gameObject);
 
 		Initialization ();
 
 		spawnPlayer(startColumn, startRow);
+
+        CreateMenus ();
 	}
+
+    public void Update(){
+        if (Input.GetButtonDown("Menu"))
+        {
+            if (currentMenu.activeSelf == false)
+            {
+                currentMenu.SetActive(true);
+                currentMonitor.SetActive(false);
+            }
+            else
+            {
+                currentMenu.SetActive(false);
+                currentMonitor.SetActive(true);
+            }
+        }
+    }
 
 	/* 
 	 * Initialization of new GameObjects being filled with rooms
@@ -508,10 +539,26 @@ public class MapManager : MonoBehaviour {
 	}
 
 	public void IncreaseFloor(){
-		floorLevel += 1;
+		mapInfo.floorLevel += 1;
 	}
 
 	public int getFloor(){
-		return floorLevel;
+		return mapInfo.floorLevel;
 	}
+
+    public MapInformation getMapInfo(){
+        return mapInfo;
+    }
+
+    public void CreateMenus(){
+        currentMenu = Instantiate(playerMenu);
+        currentMenu.SetActive(false);
+        currentMonitor = Instantiate(playerMonitorView);
+    }
+
+    public void UpdateGame(){
+        RecreateMap();
+
+    }
+
 }
