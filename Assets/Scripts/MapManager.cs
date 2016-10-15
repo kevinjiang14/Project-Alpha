@@ -14,8 +14,11 @@ public class MapManager : MonoBehaviour {
     public static MapManager instance = null;
 
     // Player's current menus
+    private GameObject currentHotbar;
     private GameObject currentMonitor;
     private GameObject currentMenu;
+    private GameObject currentInventory;
+    private GameObject currentCharacter;
 
     // Map Validation variables
     private int numOfRooms = 0;
@@ -38,8 +41,11 @@ public class MapManager : MonoBehaviour {
 	private bool ladderExist;
 
     // Public GameObjects to be instantiated
+    public GameObject playerHotbar;
     public GameObject playerMonitorView;
     public GameObject playerMenu;
+    public GameObject playerInventory;
+    public GameObject playerCharacter;
     public GameObject roomObject;
     public GameObject playerList;
     public GameObject Camera;
@@ -50,7 +56,6 @@ public class MapManager : MonoBehaviour {
     private MapInformation mapInfo;
 
     public void Awake(){
-
 		// Verifying only one instance of MapManager is in existance
 		if (instance == null) {
 			instance = this;
@@ -72,16 +77,47 @@ public class MapManager : MonoBehaviour {
 	}
 
     public void Update(){
-        if (Input.GetButtonDown("Menu"))
+        if (Input.GetButtonDown("StatsMenu"))
         {
             if (currentMenu.activeSelf == false)
             {
                 currentMenu.SetActive(true);
                 currentMonitor.SetActive(false);
+                currentCharacter.SetActive(false);
             }
             else
             {
                 currentMenu.SetActive(false);
+                currentMonitor.SetActive(true);
+                currentCharacter.SetActive(false);
+            }
+        }
+
+        if (Input.GetButtonDown("Inventory"))
+        {
+            if(currentInventory.activeSelf == false)
+            {
+                currentInventory.SetActive(true);
+                currentMonitor.SetActive(false);
+            }
+            else
+            {
+                currentInventory.SetActive(false);
+                currentMonitor.SetActive(true);
+            }
+        }
+
+        if (Input.GetButtonDown("CharacterMenu"))
+        {
+            if (currentCharacter.activeSelf == false)
+            {
+                currentCharacter.SetActive(true);
+                currentMenu.SetActive(false);
+                currentMonitor.SetActive(false);
+            }
+            else
+            {
+                currentCharacter.SetActive(false);
                 currentMonitor.SetActive(true);
             }
         }
@@ -511,17 +547,20 @@ public class MapManager : MonoBehaviour {
         }
 	}
 
+    // Spawns player
 	public void spawnPlayer(float Pcolumn, float Prow){
 		Vector3 playerInitPosition = new Vector3(Pcolumn * 15f + 7f, Prow * 9f + 4f, -0.01f);
         player = Instantiate(playerList, playerInitPosition, Quaternion.identity) as GameObject;
 		SetCamera(player, playerInitPosition);
     }
 
+    // Creates the camera to follow player
     public void SetCamera(GameObject player, Vector3 cameraPosition){
         GameObject playerCamera = Instantiate(Camera, new Vector3(cameraPosition.x, cameraPosition.y, -10f), Quaternion.identity) as GameObject;
         playerCamera.transform.SetParent(player.transform);
     }
 
+    // Check if map has acceptable number of rooms
 	public void IsMapOfValidSize(){
 		if (numOfRooms >= MinRooms && numOfRooms <= MaxRooms) {
 			validMap = true;
@@ -531,6 +570,7 @@ public class MapManager : MonoBehaviour {
 		}
 	}
 
+    // Recreates the map
 	public void RecreateMap(){
 		Destroy (Map);
 		numOfRooms = 0;
@@ -538,27 +578,36 @@ public class MapManager : MonoBehaviour {
 		Initialization ();
 	}
 
+    // Increase the floor
 	public void IncreaseFloor(){
 		mapInfo.floorLevel += 1;
 	}
 
+    // Get current floor
 	public int getFloor(){
 		return mapInfo.floorLevel;
 	}
 
+    // Gets MapInformation
     public MapInformation getMapInfo(){
         return mapInfo;
     }
 
+    // Creates the player menus
     public void CreateMenus(){
         currentMenu = Instantiate(playerMenu);
         currentMenu.SetActive(false);
+        currentInventory = Instantiate(playerInventory);
+        currentInventory.SetActive(false);
+        currentCharacter = Instantiate(playerCharacter);
+        currentCharacter.SetActive(false);
         currentMonitor = Instantiate(playerMonitorView);
+        currentHotbar = Instantiate(playerHotbar);
     }
 
+    // Update game when game data is loaded
     public void UpdateGame(){
         RecreateMap();
-
     }
 
 }

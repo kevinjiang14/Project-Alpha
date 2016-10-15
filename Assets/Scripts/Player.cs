@@ -20,6 +20,9 @@ public class PlayerStats : Component{
     public float attackSpeed = 1f;
     public int healthRegen = 5;
     public int freeAttrPoints = 5;
+    public int regenAmount = 1;
+
+    public Inventory inventory;
 
 }
 
@@ -52,6 +55,7 @@ public class Player : MonoBehaviour{
 
 	void Awake(){
         stats = new PlayerStats();
+        stats.inventory = new Inventory();
 		playerTransform = GetComponent<Transform> ();
         playerAnimation = GetComponent<Animator>();
 
@@ -83,6 +87,7 @@ public class Player : MonoBehaviour{
 		}
 	}
 
+    // Player movement
 	public void Move(){
         Vector3 direction;
 
@@ -150,12 +155,6 @@ public class Player : MonoBehaviour{
 				}
 			}
 		}
-//		foreach (GameObject enemy in enemyList) {
-//			if (Vector3.Distance (transform.position, enemy.transform.position) <= attackRange) {
-//				enemy.GetComponent<Enemy> ().TakeDamage (damage);
-//			}
-//		}
-
 		attackTimer = 0f;
 	}
 
@@ -165,7 +164,7 @@ public class Player : MonoBehaviour{
 		Debug.Log ("Respawning...");
 
         stats.CurrentHealth = maxHealth;
-		// Perhaps some sort of repercussion for dying
+		// TODO:Perhaps some sort of repercussion for dying
 		// Respawn player at some predetermined location
 		ResetPlayerLocation();
 	}
@@ -200,17 +199,9 @@ public class Player : MonoBehaviour{
 	// Player health regeneration
 	public void HealthRegen(){
 		if (stats.CurrentHealth < maxHealth) {
-            stats.CurrentHealth += 1;
+            stats.CurrentHealth += stats.regenAmount;
 		}
 		regenTimer = 0;
-	}
-
-	public int getEXPtoLVL(){
-		return expToLVLUp;
-	}
-
-	public int getPlayerLVL(){
-		return stats.PlayerLevel;
 	}
 
 	public void LevelUp(){
@@ -222,36 +213,12 @@ public class Player : MonoBehaviour{
         stats.CurrentHealth = maxHealth;
 	}
 
-	public int getMaxHealth(){
-		return maxHealth;
-	}
-
-	public int getHealth(){
-		return stats.CurrentHealth;
-	}
-
-	public int getDamage(){
-		return damage;
-	}
-
-	public int getEXP(){
-		return stats.CurrentEXP;
-	}
-
-	public int getVitality(){
-		return stats.vitality;
-	}
-
 	public void IncreaseVitality(){
 		if (stats.freeAttrPoints > 0) {
             stats.vitality += 1;
             stats.freeAttrPoints -= 1;
 			UpdateStats ();
 		}
-	}
-
-	public int getStrength(){
-		return stats.strength;
 	}
 
 	public void IncreaseStrength(){
@@ -262,20 +229,12 @@ public class Player : MonoBehaviour{
 		}
 	}
 
-	public int getDexterity(){
-		return stats.dexterity;
-	}
-
 	public void IncreaseDexterity(){
 		if (stats.freeAttrPoints > 0) {
             stats.dexterity += 1;
             stats.freeAttrPoints -= 1;
 			UpdateStats ();
 		}
-	}
-
-	public int getDefense(){
-		return stats.defense;
 	}
 
 	public void IncreaseDefense(){
@@ -286,10 +245,6 @@ public class Player : MonoBehaviour{
 		}
 	}
 
-	public int getLuck(){
-		return stats.luck;
-	}
-
 	public void IncreaseLuck(){
 		if (stats.freeAttrPoints > 0) {
             stats.luck += 1;
@@ -298,11 +253,7 @@ public class Player : MonoBehaviour{
 		}
 	}
 
-    public PlayerStats getStats(){
-        return stats;
-    }
-
-	public void UpdateStats(){
+    public void UpdateStats(){
 		damage = stats.strength / 5;
 		maxHealth = (stats.PlayerLevel * 3) + stats.vitality;
 	}
@@ -312,7 +263,71 @@ public class Player : MonoBehaviour{
         UpdateStats();
     }
 
-	public int getFreePoints(){
+    public PlayerStats getStats()
+    {
+        return stats;
+    }
+
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public int getEXPtoLVL()
+    {
+        return expToLVLUp;
+    }
+
+    public int getDamage()
+    {
+        return damage;
+    }
+
+    public int getPlayerLVL()
+    {
+        return stats.PlayerLevel;
+    }
+
+    public int getHealth()
+    {
+        return stats.CurrentHealth;
+    }
+
+    public int getEXP()
+    {
+        return stats.CurrentEXP;
+    }
+
+    public int getVitality()
+    {
+        return stats.vitality;
+    }
+
+    public int getStrength()
+    {
+        return stats.strength;
+    }
+
+    public int getDexterity()
+    {
+        return stats.dexterity;
+    }
+
+    public int getDefense()
+    {
+        return stats.defense;
+    }
+
+    public int getLuck()
+    {
+        return stats.luck;
+    }
+
+    public int getFreePoints(){
 		return stats.freeAttrPoints;
 	}
+
+    public Inventory getInventory(){
+        return stats.inventory;
+    }
 }
