@@ -15,6 +15,28 @@ public class EnemyStats : Component{
 	public int enemyType = 0;
 }
 
+public class Skeleton : EnemyStats{
+
+    public Skeleton(){
+        defense = 7;
+    }
+}
+
+public class Slime : EnemyStats{
+
+    public Slime(){
+        enemyLevel = 2;
+        vitality = 7;
+    }
+}
+
+public class Bat : EnemyStats {
+
+    public Bat(){
+        strength = 12;
+    }
+}
+
 public class Enemy: MonoBehaviour {
 
 	/* Enemy Stats */
@@ -55,10 +77,6 @@ public class Enemy: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		// Create new stats for the enemy
-		enemyStats = new EnemyStats();
-
-		ChangeStats ();
 
 		// Animator componenet
 		enemyAnimation = GetComponent<Animator> ();
@@ -194,18 +212,14 @@ public class Enemy: MonoBehaviour {
 	}
 
 	public void EnemyType(int i){
-		enemyType = i;
-	}
+		if(i == 0){
+            enemyStats = new Skeleton();
+        } else if(i == 1){
+            enemyStats = new Slime();
+        } else if(i == 2){
+            enemyStats = new Bat();
+        }
 
-	public void ChangeStats(){
-		enemyStats.enemyType = enemyType;
-		if (enemyStats.enemyType == 0){
-			enemyStats.defense = 7;
-		} else if (enemyStats.enemyType == 1){
-			enemyStats.vitality = 7;
-		} else if (enemyStats.enemyType == 2){
-			enemyStats.strength = 12;
-		}
-		AdjustStats ();
-	}
+        AdjustStats();
+    }
 }

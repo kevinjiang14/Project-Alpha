@@ -51,6 +51,7 @@ public class Player : MonoBehaviour{
 	private Transform playerTransform;
     private Animator playerAnimation;
 
+    /* Player data */
     private PlayerStats stats;
 
 	void Awake(){
@@ -68,8 +69,8 @@ public class Player : MonoBehaviour{
 	}
 
 	void FixedUpdate(){
-		// Timer increments
-		attackTimer += Time.deltaTime;
+        // Timer increments
+        attackTimer += Time.deltaTime;
 		regenTimer += Time.deltaTime;
 
 		if (regenTimer >= stats.healthRegen) {
@@ -212,6 +213,18 @@ public class Player : MonoBehaviour{
 		maxHealth = (stats.PlayerLevel * 3) + stats.vitality;
         stats.CurrentHealth = maxHealth;
 	}
+
+    public void UseItem(GameObject item){
+        Item itemScript = item.GetComponent<Item>();
+        if (maxHealth - stats.CurrentHealth >= itemScript.healthrecovery)
+        {
+            stats.CurrentHealth += itemScript.healthrecovery;
+            stats.inventory.DecreaseItemQuantity(item);
+        } else{
+            stats.CurrentHealth = maxHealth;
+            stats.inventory.DecreaseItemQuantity(item);
+        }
+    }
 
 	public void IncreaseVitality(){
 		if (stats.freeAttrPoints > 0) {
