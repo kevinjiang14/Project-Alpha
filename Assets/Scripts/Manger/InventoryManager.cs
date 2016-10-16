@@ -22,19 +22,17 @@ public class InventoryManager : MonoBehaviour{
         if (tempInventoryHolder != null){
             foreach (GameObject item in tempInventoryHolder)
             {
-                Transform slot = transform.Find("ItemSlots").Find("ItemGrid").Find(string.Format("Slot{0}", numOfItems));
-                slot.GetChild(0).GetComponent<Image>().sprite = item.GetComponent<SpriteRenderer>().sprite;
-                slot.GetChild(1).GetComponent<Text>().text = inventoryDictionary[item].ToString();
-                numOfItems++;
+				InventorySlotManager slot = transform.Find ("ItemSlots").Find ("ItemGrid").Find (string.Format ("Slot{0}", numOfItems)).GetComponent<InventorySlotManager> ();
+				slot.InsertItem (item, inventoryDictionary [item]);
+				numOfItems++;
             }
         }
     }
 
     public void ClearInventory(){
         for(int i = 0; i < 40; i++){
-            Transform tempInventorySlots = transform.Find("ItemSlots").Find("ItemGrid").Find(string.Format("Slot{0}", i));
-            tempInventorySlots.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("TransparentSprite");
-            tempInventorySlots.GetChild(1).GetComponent<Text>().text = "";
+			InventorySlotManager tempInventorySlots = transform.Find ("ItemSlots").Find ("ItemGrid").Find (string.Format ("Slot{0}", i)).GetComponent<InventorySlotManager> ();
+			tempInventorySlots.RemoveItem ();
         }
     }
 }

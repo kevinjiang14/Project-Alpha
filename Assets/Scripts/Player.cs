@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerStats : Component{
     public int PlayerLevel = 1;
@@ -53,8 +54,10 @@ public class Player : MonoBehaviour{
 
     /* Player data */
     private PlayerStats stats;
+	private GameObject characterMenu;
 
 	void Awake(){
+		characterMenu = GameObject.FindGameObjectWithTag ("CharacterMenu");
         stats = new PlayerStats();
         stats.inventory = new Inventory();
 		playerTransform = GetComponent<Transform> ();
@@ -225,6 +228,55 @@ public class Player : MonoBehaviour{
             stats.inventory.DecreaseItemQuantity(item);
         }
     }
+
+	public void EquipItem(GameObject item){
+		if (item.tag == "Head") {
+			characterMenu.transform.Find ("Head").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Body") {
+			characterMenu.transform.Find ("Body").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Hand") {
+			characterMenu.transform.Find ("Hand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Leg") {
+			characterMenu.transform.Find ("Leg").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Feet") {
+			characterMenu.transform.Find ("Feet").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Accessory1") {
+			characterMenu.transform.Find ("Accessory1").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Accessory2") {
+			characterMenu.transform.Find ("Accessory2").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Accessory3") {
+			characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Mainhand") {
+			characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Offhand") {
+			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		}
+
+	}
+
+	public void UnequipItem(GameObject item){
+		if (item.tag == "Head") {
+			characterMenu.transform.Find ("Head").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		} else if (item.tag == "Body") {
+			characterMenu.transform.Find ("Body").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		} else if (item.tag == "Hand") {
+			characterMenu.transform.Find ("Hand").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		} else if (item.tag == "Leg") {
+			characterMenu.transform.Find ("Leg").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		} else if (item.tag == "Feet") {
+			characterMenu.transform.Find ("Feet").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		} else if (item.tag == "Accessory1") {
+			characterMenu.transform.Find ("Accessory1").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		} else if (item.tag == "Accessory2") {
+			characterMenu.transform.Find ("Accessory2").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		} else if (item.tag == "Accessory3") {
+			characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		} else if (item.tag == "Mainhand") {
+			characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		} else if (item.tag == "Offhand") {
+			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().UnequipItem();
+		}
+	}
 
 	public void IncreaseVitality(){
 		if (stats.freeAttrPoints > 0) {
