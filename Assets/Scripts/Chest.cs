@@ -27,7 +27,7 @@ public class Chest : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         // Randomly assign an item to the chest
-        int choice = Random.Range(0, 3);
+        int choice = Random.Range(0, possibleItems.Length);
         item = possibleItems[choice];
 	}
 
@@ -38,6 +38,4 @@ public class Chest : MonoBehaviour {
             player.getInventory().AddtoInventory(item, 1);
 		}
 	}
-	
-
 }

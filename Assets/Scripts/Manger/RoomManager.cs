@@ -34,7 +34,6 @@ public class RoomManager : MonoBehaviour {
 	// GameObjects to exist in room
 	public GameObject[] enemies;
 	public GameObject[] chests;
-	public GameObject[] items;
 	public GameObject[] npc;
 	public GameObject[] ladder;
 

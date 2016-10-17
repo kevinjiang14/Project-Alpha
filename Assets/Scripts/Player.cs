@@ -19,7 +19,7 @@ public class PlayerStats : Component{
     public float speed = 4f;
     public float attackRange = 1f;
     public float attackSpeed = 1f;
-    public int healthRegen = 5;
+    public float regenRate = 5f;
     public int freeAttrPoints = 5;
     public int regenAmount = 1;
 
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour{
         attackTimer += Time.deltaTime;
         regenTimer += Time.deltaTime;
 
-		if (regenTimer >= stats.healthRegen) {
+		if (regenTimer >= stats.regenRate) {
 			HealthRegen();
 		}
 
@@ -202,8 +202,11 @@ public class Player : MonoBehaviour{
 	// Player health regeneration
 	public void HealthRegen(){
 		if (stats.CurrentHealth < maxHealth) {
-            stats.CurrentHealth += stats.regenAmount;
-		}
+            if (stats.CurrentHealth + stats.regenAmount > maxHealth){
+                stats.CurrentHealth = maxHealth;
+            } else stats.CurrentHealth += stats.regenAmount;
+
+        }
 		regenTimer = 0;
 	}
 
@@ -228,6 +231,7 @@ public class Player : MonoBehaviour{
         }
     }
 
+    // TODO: Possibly implement requirements to equip item
 	public void EquipItem(GameObject item){
         characterMenu = GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>().getCurrentCharacter();
         characterMenu.SetActive(true);
@@ -241,11 +245,11 @@ public class Player : MonoBehaviour{
 			characterMenu.transform.Find ("Leg").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		} else if (item.tag == "Feet") {
 			characterMenu.transform.Find ("Feet").GetComponent<EquipmentSlotManager> ().EquipItem (item);
-		} else if (item.tag == "Accessory1") {
+		} else if (item.tag == "Crown") {
 			characterMenu.transform.Find ("Accessory1").GetComponent<EquipmentSlotManager> ().EquipItem (item);
-		} else if (item.tag == "Accessory2") {
+		} else if (item.tag == "Necklace") {
 			characterMenu.transform.Find ("Accessory2").GetComponent<EquipmentSlotManager> ().EquipItem (item);
-		} else if (item.tag == "Accessory3") {
+		} else if (item.tag == "Ring") {
 			characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		} else if (item.tag == "Mainhand") {
             characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
@@ -272,7 +276,7 @@ public class Player : MonoBehaviour{
         stats.speed += tempItemScript.speed;
         stats.attackRange += tempItemScript.attackRange;
         stats.attackSpeed -= tempItemScript.attackSpeed;
-        stats.healthRegen += tempItemScript.healthRegen;
+        stats.regenRate -= tempItemScript.regenRate;
         stats.regenAmount += tempItemScript.regenAmount;
         UpdateStats();
     }
@@ -288,7 +292,7 @@ public class Player : MonoBehaviour{
         stats.speed -= tempItemScript.speed;
         stats.attackRange -= tempItemScript.attackRange;
         stats.attackSpeed += tempItemScript.attackSpeed;
-        stats.healthRegen -= tempItemScript.healthRegen;
+        stats.regenRate += tempItemScript.regenRate;
         stats.regenAmount -= tempItemScript.regenAmount;
         UpdateStats();
     }

@@ -12,7 +12,7 @@ public class Equipment : Component{
     public int Speed { get; set; }
     public float AttackRange { get; set; }
     public float AttackSpeed { get; set; }
-    public int HealthRegen { get; set; }
+    public float HealthRegen { get; set; }
     public int RegenAmount { get; set; }
 }
 
@@ -43,7 +43,7 @@ public class Item : MonoBehaviour {
     public int speed;
     public float attackRange;
     public float attackSpeed;
-    public int healthRegen;
+    public float regenRate;
     public int regenAmount;
 
     // Benefits if item is consumable
@@ -69,7 +69,7 @@ public class Item : MonoBehaviour {
             equipment.Speed = speed;
             equipment.AttackRange = attackRange;
             equipment.AttackSpeed = attackSpeed;
-            equipment.HealthRegen = healthRegen;
+            equipment.HealthRegen = regenRate;
             equipment.RegenAmount = regenAmount;
         }
 	}
