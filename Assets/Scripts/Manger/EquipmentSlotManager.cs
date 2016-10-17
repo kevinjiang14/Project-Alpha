@@ -7,8 +7,12 @@ public class EquipmentSlotManager : MonoBehaviour {
 	private GameObject EquippedItem;
 	private Inventory PlayerInventory;
 
-	// Equip new item
-	public void EquipItem (GameObject item){
+    void Start(){
+        gameObject.GetComponent<Button>().onClick.AddListener(UnequipItem);
+    }
+
+    // Equip new item
+    public void EquipItem (GameObject item){
 		if (EquippedItem != null) {
 			UnequipItem ();
 		}
@@ -22,10 +26,14 @@ public class EquipmentSlotManager : MonoBehaviour {
 
 	// Unequip current item
 	public void UnequipItem(){
-		// Add equipped item back to player's inventory
-		PlayerInventory = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getInventory ();
-		PlayerInventory.AddtoInventory (EquippedItem, 1);
-		EquippedItem = null;
-		transform.GetChild (0).GetComponent<Image> ().sprite = Resources.Load<Sprite>("TransparentSprite");
+        if (EquippedItem != null)
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UnequipItem(EquippedItem);
+            // Add equipped item back to player's inventory
+            PlayerInventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getInventory();
+            PlayerInventory.AddtoInventory(EquippedItem, 1);
+            EquippedItem = null;
+            transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("TransparentSprite");
+        }
 	}
 }

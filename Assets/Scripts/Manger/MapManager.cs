@@ -82,13 +82,11 @@ public class MapManager : MonoBehaviour {
             if (currentMenu.activeSelf == false)
             {
                 currentMenu.SetActive(true);
-                currentMonitor.SetActive(false);
                 currentCharacter.SetActive(false);
             }
             else
             {
                 currentMenu.SetActive(false);
-                currentMonitor.SetActive(true);
                 currentCharacter.SetActive(false);
             }
         }
@@ -98,12 +96,10 @@ public class MapManager : MonoBehaviour {
             if(currentInventory.activeSelf == false)
             {
                 currentInventory.SetActive(true);
-                currentMonitor.SetActive(false);
             }
             else
             {
                 currentInventory.SetActive(false);
-                currentMonitor.SetActive(true);
             }
         }
 
@@ -113,12 +109,10 @@ public class MapManager : MonoBehaviour {
             {
                 currentCharacter.SetActive(true);
                 currentMenu.SetActive(false);
-                currentMonitor.SetActive(false);
             }
             else
             {
                 currentCharacter.SetActive(false);
-                currentMonitor.SetActive(true);
             }
         }
     }
@@ -610,4 +604,23 @@ public class MapManager : MonoBehaviour {
         RecreateMap();
     }
 
+    public GameObject getCurrentHotbar(){
+        return currentHotbar;
+    }
+
+    public GameObject getCurrentMonitor(){
+        return currentMonitor;
+    }
+
+    public GameObject getCurrentMenu(){
+        return currentMenu;
+    }
+
+    public GameObject getCurrentInventory(){
+        return currentInventory;
+    }
+
+    public GameObject getCurrentCharacter(){
+        return currentCharacter;
+    }
 }

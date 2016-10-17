@@ -57,7 +57,6 @@ public class Player : MonoBehaviour{
 	private GameObject characterMenu;
 
 	void Awake(){
-		characterMenu = GameObject.FindGameObjectWithTag ("CharacterMenu");
         stats = new PlayerStats();
         stats.inventory = new Inventory();
 		playerTransform = GetComponent<Transform> ();
@@ -74,7 +73,7 @@ public class Player : MonoBehaviour{
 	void FixedUpdate(){
         // Timer increments
         attackTimer += Time.deltaTime;
-		regenTimer += Time.deltaTime;
+        regenTimer += Time.deltaTime;
 
 		if (regenTimer >= stats.healthRegen) {
 			HealthRegen();
@@ -230,7 +229,9 @@ public class Player : MonoBehaviour{
     }
 
 	public void EquipItem(GameObject item){
-		if (item.tag == "Head") {
+        characterMenu = GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>().getCurrentCharacter();
+        characterMenu.SetActive(true);
+        if (item.tag == "Head") {
 			characterMenu.transform.Find ("Head").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		} else if (item.tag == "Body") {
 			characterMenu.transform.Find ("Body").GetComponent<EquipmentSlotManager> ().EquipItem (item);
@@ -247,36 +248,50 @@ public class Player : MonoBehaviour{
 		} else if (item.tag == "Accessory3") {
 			characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		} else if (item.tag == "Mainhand") {
-			characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+            characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		} else if (item.tag == "Offhand") {
 			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		}
 
-	}
+        // Check for bonus stats from items/potions/etc.
+        IncreaseBonusStats(item);
+
+    }
 
 	public void UnequipItem(GameObject item){
-		if (item.tag == "Head") {
-			characterMenu.transform.Find ("Head").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		} else if (item.tag == "Body") {
-			characterMenu.transform.Find ("Body").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		} else if (item.tag == "Hand") {
-			characterMenu.transform.Find ("Hand").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		} else if (item.tag == "Leg") {
-			characterMenu.transform.Find ("Leg").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		} else if (item.tag == "Feet") {
-			characterMenu.transform.Find ("Feet").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		} else if (item.tag == "Accessory1") {
-			characterMenu.transform.Find ("Accessory1").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		} else if (item.tag == "Accessory2") {
-			characterMenu.transform.Find ("Accessory2").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		} else if (item.tag == "Accessory3") {
-			characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		} else if (item.tag == "Mainhand") {
-			characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		} else if (item.tag == "Offhand") {
-			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().UnequipItem();
-		}
+        RemoveBonusStats(item);
 	}
+
+    public void IncreaseBonusStats(GameObject item){
+        Item tempItemScript = item.GetComponent<Item>();
+        stats.vitality += tempItemScript.vitality;
+        stats.strength += tempItemScript.strength;
+        stats.dexterity += tempItemScript.dexterity;
+        stats.defense += tempItemScript.defense;
+        stats.luck += tempItemScript.luck;
+        stats.speed += tempItemScript.speed;
+        stats.attackRange += tempItemScript.attackRange;
+        stats.attackSpeed -= tempItemScript.attackSpeed;
+        stats.healthRegen += tempItemScript.healthRegen;
+        stats.regenAmount += tempItemScript.regenAmount;
+        UpdateStats();
+    }
+
+    public void RemoveBonusStats(GameObject item)
+    {
+        Item tempItemScript = item.GetComponent<Item>();
+        stats.vitality -= tempItemScript.vitality;
+        stats.strength -= tempItemScript.strength;
+        stats.dexterity -= tempItemScript.dexterity;
+        stats.defense -= tempItemScript.defense;
+        stats.luck -= tempItemScript.luck;
+        stats.speed -= tempItemScript.speed;
+        stats.attackRange -= tempItemScript.attackRange;
+        stats.attackSpeed += tempItemScript.attackSpeed;
+        stats.healthRegen -= tempItemScript.healthRegen;
+        stats.regenAmount -= tempItemScript.regenAmount;
+        UpdateStats();
+    }
 
 	public void IncreaseVitality(){
 		if (stats.freeAttrPoints > 0) {
@@ -321,6 +336,10 @@ public class Player : MonoBehaviour{
     public void UpdateStats(){
 		damage = stats.strength / 5;
 		maxHealth = (stats.PlayerLevel * 3) + stats.vitality;
+        if(stats.CurrentHealth > maxHealth)
+        {
+            stats.CurrentHealth = maxHealth;
+        }
 	}
 
     public void UpdatePlayer(){
