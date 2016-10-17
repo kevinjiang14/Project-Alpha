@@ -42,7 +42,6 @@ public class Enemy: MonoBehaviour {
 	/* Enemy Stats */
 	private EnemyStats enemyStats;
 
-	private int enemyType;
 	// maxHealth = enemylevel * 3 + vitality
 	private int maxHealth;
 	// damage = strength / 5
@@ -219,7 +218,6 @@ public class Enemy: MonoBehaviour {
         } else if(i == 2){
             enemyStats = new Bat();
         }
-
         AdjustStats();
     }
 }

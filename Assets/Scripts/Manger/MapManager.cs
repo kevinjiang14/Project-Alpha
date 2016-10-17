@@ -4,7 +4,7 @@ using System.Collections;
 public class MapInformation : Component {
     // Current floor level
     public int floorLevel = 1;
-    // TODO: minimum and maximum should increase as player gets to lower floors
+    // TODO: minimum and maximum should increase as player gets to higher floor number
     public int MinRooms = 20;
     public int MaxRooms = 35;
 }
@@ -22,8 +22,6 @@ public class MapManager : MonoBehaviour {
 
     // Map Validation variables
     private int numOfRooms = 0;
-	private int MinRooms = 20;
-	private int MaxRooms = 35;
 	private bool validMap = false;
 
 	// Map GameObject of the current map
@@ -152,9 +150,10 @@ public class MapManager : MonoBehaviour {
 		if (room == null){
             index = (((int)Tcolumn) * 10) + ((int)Trow);
 			currentRoom = Instantiate(roomObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
-			currentRoom.GetComponent<RoomManager> ().SetPosition ((int)Tcolumn, (int)Trow);
-			currentRoom.GetComponent<RoomManager>().CreateRoom();
-            currentRoom.transform.Translate((int)Tcolumn * 15, (int)Trow * 9, 0);
+			RoomManager tempRoomManager = currentRoom.GetComponent<RoomManager> ();
+			tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
+			tempRoomManager.CreateRoom();
+			currentRoom.transform.Translate(Tcolumn * (tempRoomManager.getColumn() + 1), Trow * (tempRoomManager.getRow() + 1), 0f);
 			currentRoom.transform.SetParent (Map.transform);
 			roomList[index] = currentRoom;
 			numOfRooms += 1;
@@ -251,7 +250,7 @@ public class MapManager : MonoBehaviour {
 
                     tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
                     tempRoomManager.CreateRoom();
-                    roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
+					roomTemp.transform.Translate(Tcolumn * (tempRoomManager.getColumn() + 1), Trow * (tempRoomManager.getRow() + 1), 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
 
@@ -348,7 +347,7 @@ public class MapManager : MonoBehaviour {
 
                     tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
 					tempRoomManager.CreateRoom();
-                    roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
+					roomTemp.transform.Translate(Tcolumn * (tempRoomManager.getColumn() + 1), Trow * (tempRoomManager.getRow() + 1), 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
 
@@ -445,7 +444,7 @@ public class MapManager : MonoBehaviour {
 
                     tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
 					tempRoomManager.CreateRoom();
-                    roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
+					roomTemp.transform.Translate(Tcolumn * (tempRoomManager.getColumn() + 1), Trow * (tempRoomManager.getRow() + 1), 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
 
@@ -546,7 +545,7 @@ public class MapManager : MonoBehaviour {
 
                     tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
 					tempRoomManager.CreateRoom();
-                    roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
+					roomTemp.transform.Translate(Tcolumn * (tempRoomManager.getColumn() + 1), Trow * (tempRoomManager.getRow() + 1), 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
 
@@ -573,7 +572,7 @@ public class MapManager : MonoBehaviour {
 
     // Check if map has acceptable number of rooms
 	public void IsMapOfValidSize(){
-		if (numOfRooms >= MinRooms && numOfRooms <= MaxRooms) {
+		if (numOfRooms >= mapInfo.MinRooms && numOfRooms <= mapInfo.MaxRooms) {
 			validMap = true;
 		} else {
 			validMap = false;
