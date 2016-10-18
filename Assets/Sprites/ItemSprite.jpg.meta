@@ -1,9 +1,135 @@
 fileFormatVersion: 2
 guid: a193919760c904c6f82bd4c7ec033bd5
-timeCreated: 1476714215
+timeCreated: 1476816590
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: ItemSprite_0
+    21300002: ItemSprite_1
+    21300004: ItemSprite_2
+    21300006: ItemSprite_3
+    21300008: ItemSprite_4
+    21300010: ItemSprite_5
+    21300012: ItemSprite_6
+    21300014: ItemSprite_7
+    21300016: ItemSprite_8
+    21300018: ItemSprite_9
+    21300020: ItemSprite_10
+    21300022: ItemSprite_11
+    21300024: ItemSprite_12
+    21300026: ItemSprite_13
+    21300028: ItemSprite_14
+    21300030: ItemSprite_15
+    21300032: ItemSprite_16
+    21300034: ItemSprite_17
+    21300036: ItemSprite_18
+    21300038: ItemSprite_19
+    21300040: ItemSprite_20
+    21300042: ItemSprite_21
+    21300044: ItemSprite_22
+    21300046: ItemSprite_23
+    21300048: ItemSprite_24
+    21300050: ItemSprite_25
+    21300052: ItemSprite_26
+    21300054: ItemSprite_27
+    21300056: ItemSprite_28
+    21300058: ItemSprite_29
+    21300060: ItemSprite_30
+    21300062: ItemSprite_31
+    21300064: ItemSprite_32
+    21300066: ItemSprite_33
+    21300068: ItemSprite_34
+    21300070: ItemSprite_35
+    21300072: ItemSprite_36
+    21300074: ItemSprite_37
+    21300076: ItemSprite_38
+    21300078: ItemSprite_39
+    21300080: ItemSprite_40
+    21300082: ItemSprite_41
+    21300084: ItemSprite_42
+    21300086: ItemSprite_43
+    21300088: ItemSprite_44
+    21300090: ItemSprite_45
+    21300092: ItemSprite_46
+    21300094: ItemSprite_47
+    21300096: ItemSprite_48
+    21300098: ItemSprite_49
+    21300100: ItemSprite_50
+    21300102: ItemSprite_51
+    21300104: ItemSprite_52
+    21300106: ItemSprite_53
+    21300108: ItemSprite_54
+    21300110: ItemSprite_55
+    21300112: ItemSprite_56
+    21300114: ItemSprite_57
+    21300116: ItemSprite_58
+    21300118: ItemSprite_59
+    21300120: ItemSprite_60
+    21300122: ItemSprite_61
+    21300124: ItemSprite_62
+    21300126: ItemSprite_63
+    21300128: ItemSprite_64
+    21300130: ItemSprite_65
+    21300132: ItemSprite_66
+    21300134: ItemSprite_67
+    21300136: ItemSprite_68
+    21300138: ItemSprite_69
+    21300140: ItemSprite_70
+    21300142: ItemSprite_71
+    21300144: ItemSprite_72
+    21300146: ItemSprite_73
+    21300148: ItemSprite_74
+    21300150: ItemSprite_75
+    21300152: ItemSprite_76
+    21300154: ItemSprite_77
+    21300156: ItemSprite_78
+    21300158: ItemSprite_79
+    21300160: ItemSprite_80
+    21300162: ItemSprite_81
+    21300164: ItemSprite_82
+    21300166: ItemSprite_83
+    21300168: ItemSprite_84
+    21300170: ItemSprite_85
+    21300172: ItemSprite_86
+    21300174: ItemSprite_87
+    21300176: ItemSprite_88
+    21300178: ItemSprite_89
+    21300180: ItemSprite_90
+    21300182: ItemSprite_91
+    21300184: ItemSprite_92
+    21300186: ItemSprite_93
+    21300188: ItemSprite_94
+    21300190: ItemSprite_95
+    21300192: ItemSprite_96
+    21300194: ItemSprite_97
+    21300196: ItemSprite_98
+    21300198: ItemSprite_99
+    21300200: ItemSprite_100
+    21300202: ItemSprite_101
+    21300204: ItemSprite_102
+    21300206: ItemSprite_103
+    21300208: ItemSprite_104
+    21300210: ItemSprite_105
+    21300212: ItemSprite_106
+    21300214: ItemSprite_107
+    21300216: ItemSprite_108
+    21300218: ItemSprite_109
+    21300220: ItemSprite_110
+    21300222: ItemSprite_111
+    21300224: ItemSprite_112
+    21300226: ItemSprite_113
+    21300228: ItemSprite_114
+    21300230: ItemSprite_115
+    21300232: ItemSprite_116
+    21300234: ItemSprite_117
+    21300236: ItemSprite_118
+    21300238: ItemSprite_119
+    21300240: ItemSprite_120
+    21300242: ItemSprite_121
+    21300244: ItemSprite_122
+    21300246: ItemSprite_123
+    21300248: ItemSprite_124
+    21300250: ItemSprite_125
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,7 +177,1645 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ItemSprite_0
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_1
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_2
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_3
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_4
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_5
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_6
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_7
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_8
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_9
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_10
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_11
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_12
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_13
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 403
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_14
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_15
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_16
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_17
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_18
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_19
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_20
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_21
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_22
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_23
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_24
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_25
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_26
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_27
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 355
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_28
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_29
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_30
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_31
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_32
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_33
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_34
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_35
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_36
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_37
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_38
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_39
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_40
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_41
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 307
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_42
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_43
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_44
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_45
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_46
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_47
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_48
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_49
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_50
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_51
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_52
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_53
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_54
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_55
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 259
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_56
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_57
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_58
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_59
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_60
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_61
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_62
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_63
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_64
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_65
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_66
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_67
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_68
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_69
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 211
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_70
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_71
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_72
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_73
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_74
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_75
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_76
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_77
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_78
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_79
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_80
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_81
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_82
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_83
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 163
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_84
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_85
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_86
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_87
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_88
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_89
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_90
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_91
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_92
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_93
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_94
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_95
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_96
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_97
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 115
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_98
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_99
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_100
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_101
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_102
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_103
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_104
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_105
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_106
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_107
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_108
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_109
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_110
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_111
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 67
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_112
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_113
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_114
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_115
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_116
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_117
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_118
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_119
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_120
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_121
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_122
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_123
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_124
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ItemSprite_125
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 19
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
