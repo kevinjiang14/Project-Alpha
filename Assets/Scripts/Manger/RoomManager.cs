@@ -44,12 +44,8 @@ public class RoomManager : MonoBehaviour {
 	// Transform holder for this room gameObject
 	private Transform roomHolder;
 
-	// List of vectors of all tiles on this room
-	private List<Vector3> gridPositions = new List<Vector3> ();
-
 	public void Awake(){
 		Initialization ();
-		SetupRoom ();
 	}
 
 	// Method used for any initialization needed to be done
@@ -60,18 +56,11 @@ public class RoomManager : MonoBehaviour {
 		wExit = Random.Range (0, 2);
 	}
 
-	public void SetupRoom(){
-		InitialiseGrid ();
-	}
-
 	// Creates the room gameObject
 	public void CreateRoom(){
 		roomHolder = new GameObject ("Current Room").transform;
-//		if (roomX != 5 || roomY != 5) {
-//			SpawnEnemies ();
-//		}
-// Checks if it's an enemy room
-        if (enemyRoom == true) {
+		// Checks if it's an enemy room
+		if (enemyRoom == true) {
 			// TODO: Restriction checks will be done in MapManager
 			SpawnEnemies ();
 		}
@@ -89,8 +78,8 @@ public class RoomManager : MonoBehaviour {
 		}
 
 //        (x == 7 && y == 0 && sExit == 1) || (x == 7 && y == rows && nExit == 1) || (x == 0 && y == 4 && wExit == 1) || (x == columns && y == 4 && eExit == 1)
-
-        for (int x = 0; x <= columns; x++) {
+	// Create the floor and walls for the room
+		for (int x = 0; x <= columns; x++) {
 			for (int y = 0; y <= rows; y++) {
                 GameObject instance;
                 GameObject toInstantiate;
@@ -190,17 +179,7 @@ public class RoomManager : MonoBehaviour {
         roomHolder.transform.SetParent(this.transform);
     }
 
-    // Creates a new list of board position with blank Vectors
-    public void InitialiseGrid(){
-		gridPositions.Clear ();
-
-		for (int x = 0; x < columns; x++) {
-			for (int y = 0; y < rows; y++) {
-				gridPositions.Add (new Vector3 (x, y, 0f));
-			}
-		}
-	}
-
+	// Creates the enemies in the room 
 	public void SpawnEnemies(){
 		int choice = Random.Range (0, 3);
 		GameObject enemy = Instantiate (enemies [choice], new Vector3 (3f, 2f, -0.01f), Quaternion.identity) as GameObject;
@@ -227,26 +206,31 @@ public class RoomManager : MonoBehaviour {
 		enemy.GetComponent<Enemy> ().EnemyType (choice);
 	}
 
+	// Creates the ladder in the room
 	public void SpawnLadder(){
 		GameObject ladderObject = Instantiate (ladder[0], new Vector3(7f, 4f, -0.1f), Quaternion.identity) as GameObject;
 		ladderObject.transform.SetParent (roomHolder);
 	}
 
+	// Createst the chest in the room
 	public void SpawnChest(){
 		GameObject chestObject = Instantiate (chests[0], new Vector3(7f, 4f, -0.1f), Quaternion.identity) as GameObject;
 		chestObject.transform.SetParent (roomHolder);
 	}
 
+	// Creats the NPC in the room
 	public void SpawnNPC(){
 		GameObject NPCObject = Instantiate (npc [0], new Vector3 (7f, 4f, -0.1f), Quaternion.identity) as GameObject;
 		NPCObject.transform.SetParent (roomHolder);
 	}
 
+	// Sets the room coordinate
 	public void SetPosition(int x, int y){
 		roomX = x;
 		roomY = y;
 	}
 
+	// Method for checking if the room has any exits
     public bool hasExits() {
         if (nExit == 1 || eExit == 1 || sExit == 1 || wExit == 1) {
             return true;
@@ -254,6 +238,7 @@ public class RoomManager : MonoBehaviour {
         else return false;
     }
 
+	// Method for checking if the room has a north exit
     public bool hasNExit() {
         if (nExit == 1) {
             return true;
@@ -261,6 +246,7 @@ public class RoomManager : MonoBehaviour {
         else return false;
     }
 
+	// Method for checking if the room has a east exit
     public bool hasEExit() {
         if (eExit == 1) {
             return true;
@@ -268,6 +254,7 @@ public class RoomManager : MonoBehaviour {
         else return false;
     }
 
+	// Method for checking if the room has a south exit
 	public bool hasSExit() {
         if (sExit == 1) {
             return true;
@@ -275,6 +262,7 @@ public class RoomManager : MonoBehaviour {
         else return false;
     }
 
+	// Method for checking if the room has a west exit
     public bool hasWExit() {
         if (wExit == 1) {
             return true;
@@ -282,18 +270,22 @@ public class RoomManager : MonoBehaviour {
         else return false;
     }
 
+	/* Method for setting the existance of north exit */
 	public void setNexit(int exist) {
 		nExit = exist;
 	}
 
+	/* Method for setting the existance of east exit */
 	public void setEexit(int exist) {
 		eExit = exist;
 	}
 
+	/* Method for setting the existance of south exit */
 	public void setSexit(int exist) {
 		sExit = exist;
 	}
 
+	/* Method for setting the existance of west exit */
 	public void setWexit(int exist) {
 		wExit = exist;
 	}
@@ -328,5 +320,15 @@ public class RoomManager : MonoBehaviour {
 		chestRoom = false;
 		ladderRoom = false;
 		npcRoom = true;
+	}
+
+	/* Method to get the number of rows in the room */
+	public int getRow(){
+		return rows;
+	}
+
+	/* Method to get the number of columns in the room */
+	public int getColumn(){
+		return columns;
 	}
 }
