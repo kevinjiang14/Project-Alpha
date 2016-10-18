@@ -30,6 +30,10 @@ public class RoomManager : MonoBehaviour {
 	public GameObject[] bottomright_walls;
 	public GameObject[] bottomleft_walls;
 	public GameObject[] floors;
+    public GameObject southDoor;
+    public GameObject westDoor;
+    public GameObject northDoor;
+    public GameObject eastDoor;
 
 	// GameObjects to exist in room
 	public GameObject[] enemies;
@@ -63,12 +67,11 @@ public class RoomManager : MonoBehaviour {
 	// Creates the room gameObject
 	public void CreateRoom(){
 		roomHolder = new GameObject ("Current Room").transform;
-
 //		if (roomX != 5 || roomY != 5) {
 //			SpawnEnemies ();
 //		}
-		// Checks if it's an enemy room
-		if (enemyRoom == true) {
+// Checks if it's an enemy room
+        if (enemyRoom == true) {
 			// TODO: Restriction checks will be done in MapManager
 			SpawnEnemies ();
 		}
@@ -84,50 +87,103 @@ public class RoomManager : MonoBehaviour {
 		else if (npcRoom == true) {
 			SpawnNPC ();
 		}
-	
 
-		for (int x = 0; x <= columns; x++) {
+//        (x == 7 && y == 0 && sExit == 1) || (x == 7 && y == rows && nExit == 1) || (x == 0 && y == 4 && wExit == 1) || (x == columns && y == 4 && eExit == 1)
+
+        for (int x = 0; x <= columns; x++) {
 			for (int y = 0; y <= rows; y++) {
-				GameObject toInstantiate = floors [Random.Range (0, floors.Length)];
-				if ((x == 7 && y == 0 && sExit == 1) || (x == 7 && y == rows && nExit == 1) || (x == 0 && y == 4 && wExit == 1) || (x == columns && y == 4 && eExit == 1)){
-					toInstantiate = floors [Random.Range (0, floors.Length)];
-				}
-				else if (x == 0 && y == 0){
-					//bottom left corner
-					toInstantiate = bottomleft_walls [Random.Range (0, bottomleft_walls.Length)];
-				}
-				else if (x == 0 && y == rows){
-					//top left corner
-					toInstantiate = topleft_walls [Random.Range (0, topleft_walls.Length)];
-				}
-				else if (x == columns && y == 0){
-					//bottom right corner
-					toInstantiate = bottomright_walls [Random.Range (0, bottomright_walls.Length)];
-				}
-				else if (x == columns && y == rows){
-					//top right corner
-					toInstantiate = topright_walls [Random.Range (0, topright_walls.Length)];
-				}
-				else if (x == 0){
-					//left row
-					toInstantiate = left_walls [Random.Range (0, left_walls.Length)];
-				}
-				else if (y == 0){
-					//bottom row
-					toInstantiate = bottom_walls [Random.Range (0, bottom_walls.Length)];
-				}
-				else if (x == columns){
-					//right row
-					toInstantiate = right_walls [Random.Range (0, right_walls.Length)];
-				}
-				else if (y == rows){
-					//top row
-					toInstantiate = top_walls [Random.Range (0, top_walls.Length)];
-				}
+                GameObject instance;
+                GameObject toInstantiate;
+                if (x == 7 && y == 0 && sExit == 1)
+                {
+                    toInstantiate = southDoor;
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
 
-				GameObject instance = Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
+                    instance.GetComponent<DoorManager>().SetDoortoRoom((roomX * 10 + roomY), 0);
+                }
+                else if (x == 0 && y == 4 && wExit == 1)
+                {
+                    toInstantiate = westDoor;
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
 
-				instance.transform.SetParent (roomHolder);
+                    instance.GetComponent<DoorManager>().SetDoortoRoom((roomX * 10 + roomY), 1);
+                }
+                else if (x == 7 && y == rows && nExit == 1)
+                {
+                    toInstantiate = northDoor;
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                    instance.GetComponent<DoorManager>().SetDoortoRoom((roomX * 10 + roomY), 2);
+                }
+                else if (x == columns && y == 4 && eExit == 1)
+                {
+                    toInstantiate = eastDoor;
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                    instance.GetComponent<DoorManager>().SetDoortoRoom((roomX * 10 + roomY), 3);
+                }
+                else if (x == 0 && y == 0)
+                {
+                    //bottom left corner
+                    toInstantiate = bottomleft_walls[Random.Range(0, bottomleft_walls.Length)];
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                }
+                else if (x == 0 && y == rows)
+                {
+                    //top left corner
+                    toInstantiate = topleft_walls[Random.Range(0, topleft_walls.Length)];
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                }
+                else if (x == columns && y == 0)
+                {
+                    //bottom right corner
+                    toInstantiate = bottomright_walls[Random.Range(0, bottomright_walls.Length)];
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                }
+                else if (x == columns && y == rows)
+                {
+                    //top right corner
+                    toInstantiate = topright_walls[Random.Range(0, topright_walls.Length)];
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                }
+                else if (x == 0)
+                {
+                    //left row
+                    toInstantiate = left_walls[Random.Range(0, left_walls.Length)];
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                }
+                else if (y == 0)
+                {
+                    //bottom row
+                    toInstantiate = bottom_walls[Random.Range(0, bottom_walls.Length)];
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                }
+                else if (x == columns)
+                {
+                    //right row
+                    toInstantiate = right_walls[Random.Range(0, right_walls.Length)];
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                }
+                else if (y == rows)
+                {
+                    //top row
+                    toInstantiate = top_walls[Random.Range(0, top_walls.Length)];
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                }
+                else {
+                    toInstantiate = floors[Random.Range(0, floors.Length)];
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                }
+
+                instance.transform.SetParent (roomHolder);
 			}
 		}
 
@@ -148,25 +204,25 @@ public class RoomManager : MonoBehaviour {
 	public void SpawnEnemies(){
 		int choice = Random.Range (0, 3);
 		GameObject enemy = Instantiate (enemies [choice], new Vector3 (3f, 2f, -0.01f), Quaternion.identity) as GameObject;
-		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 3, roomY * 9 + 2);
+		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 3, roomY * 8 + 2);
 		enemy.transform.SetParent (roomHolder);
 		enemy.GetComponent<Enemy> ().EnemyType (choice);
 
 		choice = Random.Range (0, 3);
 		enemy = Instantiate (enemies [choice], new Vector3 (3f, 6f, -0.01f), Quaternion.identity) as GameObject;
-		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 3, roomY * 9 + 6);
+		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 3, roomY * 8 + 6);
 		enemy.transform.SetParent (roomHolder);
 		enemy.GetComponent<Enemy> ().EnemyType (choice);
 
 		choice = Random.Range (0, 3);
 		enemy = Instantiate (enemies [choice], new Vector3 (11f, 2f, -0.01f), Quaternion.identity) as GameObject;
-		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 11, roomY * 9 + 2);
+		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 11, roomY * 8 + 2);
 		enemy.transform.SetParent (roomHolder);
 		enemy.GetComponent<Enemy> ().EnemyType (choice);
 
 		choice = Random.Range (0, 3);
 		enemy = Instantiate (enemies [choice], new Vector3 (11f, 6f, -0.01f), Quaternion.identity) as GameObject;
-		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 15 + 11, roomY * 9 + 6);
+		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 11, roomY * 8 + 6);
 		enemy.transform.SetParent (roomHolder);
 		enemy.GetComponent<Enemy> ().EnemyType (choice);
 	}

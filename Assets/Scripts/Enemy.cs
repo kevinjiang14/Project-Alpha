@@ -117,7 +117,7 @@ public class Enemy: MonoBehaviour {
 		// Check if player is in range to start moving towards
 		if (Vector3.Distance (transform.position, player.transform.position) <= MaxRange && Vector3.Distance (transform.position, player.transform.position) >= MinRange) {
 			MoveTowardsPlayer ();
-			if (Vector3.Distance (transform.position, player.transform.position) <= MinRange + 1.0f) {
+			if (Vector3.Distance (transform.position, player.transform.position) <= MinRange) {
 				GetComponent<Rigidbody2D> ().isKinematic = true;
 			} else GetComponent<Rigidbody2D> ().isKinematic = false;
 		} 

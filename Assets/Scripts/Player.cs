@@ -174,7 +174,7 @@ public class Player : MonoBehaviour{
 
 	// Resets player position to spawn position
 	public void ResetPlayerLocation(){
-		playerTransform.position =  new Vector3(82f, 49f, -0.01f);
+		playerTransform.position =  new Vector3(77f, 44f, -0.01f);
 	}
 
 	// PLayer taking damage

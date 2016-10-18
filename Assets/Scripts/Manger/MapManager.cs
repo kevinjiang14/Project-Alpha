@@ -154,7 +154,7 @@ public class MapManager : MonoBehaviour {
 			currentRoom = Instantiate(roomObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 			currentRoom.GetComponent<RoomManager> ().SetPosition ((int)Tcolumn, (int)Trow);
 			currentRoom.GetComponent<RoomManager>().CreateRoom();
-            currentRoom.transform.Translate((int)Tcolumn * 15, (int)Trow * 9, 0);
+            currentRoom.transform.Translate((int)Tcolumn * 14, (int)Trow * 8, 0);
 			currentRoom.transform.SetParent (Map.transform);
 			roomList[index] = currentRoom;
 			numOfRooms += 1;
@@ -251,11 +251,12 @@ public class MapManager : MonoBehaviour {
 
                     tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
                     tempRoomManager.CreateRoom();
-                    roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
+                    roomTemp.transform.Translate(Tcolumn * 14f, Trow * 8f, 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
 
                     roomList[index] = roomTemp;
+                    roomTemp.SetActive(false);
                     CreateMap(roomTemp, Tcolumn, Trow);
                     Trow -= 1;
                 }
@@ -348,11 +349,12 @@ public class MapManager : MonoBehaviour {
 
                     tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
 					tempRoomManager.CreateRoom();
-                    roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
+                    roomTemp.transform.Translate(Tcolumn * 14f, Trow * 8f, 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
 
                     roomList[index] = roomTemp;
+                    roomTemp.SetActive(false);
                     CreateMap(roomTemp, Tcolumn, Trow);
                     Trow += 1;
                 }
@@ -445,11 +447,12 @@ public class MapManager : MonoBehaviour {
 
                     tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
 					tempRoomManager.CreateRoom();
-                    roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
+                    roomTemp.transform.Translate(Tcolumn * 14f, Trow * 8f, 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
 
                     roomList[index] = roomTemp;
+                    roomTemp.SetActive(false);
                     CreateMap(roomTemp, Tcolumn, Trow);
                     Tcolumn -= 1;
                 }
@@ -546,11 +549,12 @@ public class MapManager : MonoBehaviour {
 
                     tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
 					tempRoomManager.CreateRoom();
-                    roomTemp.transform.Translate(Tcolumn * 15f, Trow * 9f, 0f);
+                    roomTemp.transform.Translate(Tcolumn * 14f, Trow * 8f, 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
 
                     roomList[index] = roomTemp;
+                    roomTemp.SetActive(false);
                     CreateMap(roomTemp, Tcolumn, Trow);
                     Tcolumn += 1;
                 }
@@ -560,7 +564,7 @@ public class MapManager : MonoBehaviour {
 
     // Spawns player
 	public void spawnPlayer(float Pcolumn, float Prow){
-		Vector3 playerInitPosition = new Vector3(Pcolumn * 15f + 7f, Prow * 9f + 4f, -0.01f);
+		Vector3 playerInitPosition = new Vector3(Pcolumn * 14f + 7f, Prow * 8f + 4f, -0.01f);
         player = Instantiate(playerList, playerInitPosition, Quaternion.identity) as GameObject;
 		SetCamera(player, playerInitPosition);
     }
@@ -639,5 +643,9 @@ public class MapManager : MonoBehaviour {
 
     public GameObject getCurrentCharacter(){
         return currentCharacter;
+    }
+
+    public GameObject[] getRoomList(){
+        return roomList;
     }
 }
