@@ -221,9 +221,9 @@ public class Player : MonoBehaviour{
 
     public void UseItem(GameObject item){
         Item itemScript = item.GetComponent<Item>();
-        if (maxHealth - stats.CurrentHealth >= itemScript.healthrecovery)
+        if (maxHealth - stats.CurrentHealth >= itemScript.healthRecovery)
         {
-            stats.CurrentHealth += itemScript.healthrecovery;
+            stats.CurrentHealth += itemScript.healthRecovery;
             stats.inventory.DecreaseItemQuantity(item);
         } else{
             stats.CurrentHealth = maxHealth;

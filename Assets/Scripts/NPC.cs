@@ -7,7 +7,7 @@ public class NPC : MonoBehaviour {
 	private Player player;
 
 	// Array of randomly selected items in shop
-	private GameObject[] shop;
+	private ArrayList shop;
 	private GameObject shopMenu;
 
 	// Public array of gameobjects that are possible of being selected to be placed in shop
@@ -15,12 +15,22 @@ public class NPC : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		// Randomly generate shop items
+        shop = new ArrayList();
+        // Randomly generate shop items
+        for (int i = 0; i < items.Length; i++) {
+            // RNG on item appearing in shop
+            int roll = Random.Range(0, 100);
+
+            // Add item to shop if item is rolled
+            if (roll <= items[i].GetComponent<Item>().chance) {
+                shop.Add(items[i]);
+            }
+
+        }        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
 
 	}
 

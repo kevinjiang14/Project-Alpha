@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Equipment : Component{
     public int ItemID { get; set; }
+    public int Chance { get; set; }
+    public int Cost { get; set; }
 
     public int Vitality { get; set; }
     public int Strength { get; set; }
@@ -18,8 +20,11 @@ public class Equipment : Component{
 
 public class Consumable : Component{
     public int ItemID { get; set; }
+    public int Chance { get; set; }
+    public int Cost { get; set; }
 
     public int HealthRecovery { get; set; }
+    public int ManaRecovery { get; set; }
 }
 
 
@@ -33,6 +38,8 @@ public class Item : MonoBehaviour {
     public int ItemType;
 
     public int itemID;
+    public int chance;
+    public int cost;
 
     // Stats if item is equipable
     public int vitality;
@@ -47,7 +54,8 @@ public class Item : MonoBehaviour {
     public int regenAmount;
 
     // Benefits if item is consumable
-    public int healthrecovery;
+    public int healthRecovery;
+    public int manaRecovery;
 
     private Equipment equipment;
     private Consumable consumable;
@@ -57,10 +65,17 @@ public class Item : MonoBehaviour {
 	    if(ItemType == 0){
             consumable = new Consumable();
             consumable.ItemID = itemID;
-            consumable.HealthRecovery = healthrecovery;
+            consumable.Chance = chance;
+            consumable.Cost = cost;
+
+            consumable.HealthRecovery = healthRecovery;
+            consumable.ManaRecovery = manaRecovery;
         } else if(ItemType == 1){
             equipment = new Equipment();
             equipment.ItemID = itemID;
+            equipment.Chance = chance;
+            equipment.Cost = cost;
+
             equipment.Vitality = vitality;
             equipment.Strength = strength;
             equipment.Dexterity = dexterity;
