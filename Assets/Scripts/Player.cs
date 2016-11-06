@@ -23,6 +23,8 @@ public class PlayerStats : Component{
     public int freeAttrPoints = 5;
     public int regenAmount = 1;
 
+	public int money = 100;
+
     public Inventory inventory;
 
 }
@@ -346,6 +348,14 @@ public class Player : MonoBehaviour{
         }
 	}
 
+	public void IncreaseMoney(int amount){
+		stats.money += amount;
+	}
+
+	public void DecreaseMoney(int amount){
+		stats.money -= amount;
+	}
+
     public void UpdatePlayer(){
         ResetPlayerLocation();
         UpdateStats();
@@ -413,6 +423,10 @@ public class Player : MonoBehaviour{
 
     public int getFreePoints(){
 		return stats.freeAttrPoints;
+	}
+
+	public int getMoney(){
+		return stats.money;
 	}
 
     public Inventory getInventory(){

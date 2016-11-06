@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 
 public class NPC : MonoBehaviour {
@@ -7,15 +8,16 @@ public class NPC : MonoBehaviour {
 	private Player player;
 
 	// Array of randomly selected items in shop
-	private ArrayList shop;
-	private GameObject shopMenu;
+	private List<GameObject> shopItems;
+	public GameObject shopMenu;
 
 	// Public array of gameobjects that are possible of being selected to be placed in shop
 	public GameObject[] items;
 
 	// Use this for initialization
 	void Start () {
-        shop = new ArrayList();
+		shopMenu = Instantiate (shopMenu);
+		shopItems = new List<GameObject> ();
         // Randomly generate shop items
         for (int i = 0; i < items.Length; i++) {
             // RNG on item appearing in shop
@@ -23,10 +25,12 @@ public class NPC : MonoBehaviour {
 
             // Add item to shop if item is rolled
             if (roll <= items[i].GetComponent<Item>().chance) {
-                shop.Add(items[i]);
+                shopItems.Add(items[i]);
             }
 
-        }        
+        }
+
+		shopMenu.GetComponent<ShopManager> ().AddItemsToShop (shopItems);
 	}
 	
 	// Update is called once per frame
@@ -38,6 +42,10 @@ public class NPC : MonoBehaviour {
 		if (coll.gameObject.tag == "Player") {
 			shopMenu.SetActive (true);
 		}
+	}
+
+	void OnCollisionExit2D(Collision2D coll){
+		shopMenu.SetActive (false);
 	}
 
 	public void setShopMenu(GameObject menu){
