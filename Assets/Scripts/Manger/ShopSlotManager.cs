@@ -16,7 +16,7 @@ public class ShopSlotManager : MonoBehaviour {
 	public void BuyItem(){
 		playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-		if (playerScript.getMoney >= item.GetComponent<Item> ().cost) {
+		if (playerScript.getMoney() >= item.GetComponent<Item> ().cost && item != null) {
 			playerScript.DecreaseMoney (item.GetComponent<Item> ().cost);
 			playerScript.getInventory ().AddtoInventory (item, 1);
 		}
@@ -27,6 +27,6 @@ public class ShopSlotManager : MonoBehaviour {
 
 		transform.Find ("ItemIcon").GetComponent<Image> ().sprite = item.GetComponent<SpriteRenderer> ().sprite;
 		transform.Find ("ItemName").GetComponent<Text> ().text = item.name;
-		transform.Find ("ItemCost").GetComponent<Text> ().text = "" + item.GetComponent<Item> ().cost;
+		transform.Find ("ItemCost").GetComponent<Text> ().text = "" + item.GetComponent<Item> ().cost + "g";
 	}
 }

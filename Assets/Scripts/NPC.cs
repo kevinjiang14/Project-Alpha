@@ -31,6 +31,7 @@ public class NPC : MonoBehaviour {
         }
 
 		shopMenu.GetComponent<ShopManager> ().AddItemsToShop (shopItems);
+        shopMenu.SetActive(false);
 	}
 	
 	// Update is called once per frame
