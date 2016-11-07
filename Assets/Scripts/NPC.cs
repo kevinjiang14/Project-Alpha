@@ -48,8 +48,4 @@ public class NPC : MonoBehaviour {
 	void OnCollisionExit2D(Collision2D coll){
 		shopMenu.SetActive (false);
 	}
-
-	public void setShopMenu(GameObject menu){
-		shopMenu = menu;
-	}
 }

@@ -42,12 +42,9 @@ public class Enemy: MonoBehaviour {
 	/* Enemy Stats */
 	private EnemyStats enemyStats;
 
-	// maxHealth = enemylevel * 3 + vitality
-	private int maxHealth;
-	// damage = strength / 5
-	private int damage;
-	// exp = 15x where x = enemylevel
-	private int exp;
+	private int maxHealth;	// maxHealth = enemylevel * 3 + vitality
+	private int damage;		// damage = strength / 5
+	private int exp;		// exp = 15x where x = enemylevel
 
 	// Counting timers
 	private float attackTimer;

@@ -4,20 +4,19 @@ using System.Collections.Generic;
 
 public class ShopManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	public GameObject menuSlot;
 
 	public void AddItemsToShop(List<GameObject> items){
 		for (int i = 0; i < items.Count; i++) {
-			ShopSlotManager ssManager = transform.Find ("ShopSlots").Find ("Layout").Find (string.Format ("Slot{0}", i)).GetComponent<ShopSlotManager> ();
+			GameObject slot = AddSlot ();
+			ShopSlotManager ssManager = slot.GetComponent<ShopSlotManager> ();
 			ssManager.AddItem (items[i]);
 		}
+	}
+
+	public GameObject AddSlot(){
+		GameObject slot = Instantiate (menuSlot);
+		slot.transform.SetParent(transform.Find ("ShopSlots").Find ("Layout"));
+		return slot;
 	}
 }
