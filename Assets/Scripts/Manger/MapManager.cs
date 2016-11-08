@@ -234,8 +234,12 @@ public class MapManager : MonoBehaviour {
 					} else
 						wExit = true;
 
-					// Generate a random room type
-					int roomType = UnityEngine.Random.Range (0, 10);
+                    // Generate a random room type
+                    int roomType;
+                    if (mapInfo.floorLevel % 10 == 0) {
+                        roomType = UnityEngine.Random.Range(1, 10);
+                    }
+					else roomType = UnityEngine.Random.Range (0, 10);
 
 					if (roomType == 0 && ladderExist == false) {
 						tempRoomManager.setRoomAsLadder ();
@@ -332,8 +336,13 @@ public class MapManager : MonoBehaviour {
 					} else
 						wExit = true;
 
-					// Generate a random room type
-					int roomType = UnityEngine.Random.Range (0, 10);
+                    // Generate a random room type
+                    int roomType;
+                    if (mapInfo.floorLevel % 10 == 0)
+                    {
+                        roomType = UnityEngine.Random.Range(1, 10);
+                    }
+                    else roomType = UnityEngine.Random.Range(0, 10);
 
                     if (roomType == 0 && ladderExist == false){
                         tempRoomManager.setRoomAsLadder();
@@ -430,8 +439,13 @@ public class MapManager : MonoBehaviour {
 					} else
 						sExit = true;
 
-					// Generate a random room type
-					int roomType = UnityEngine.Random.Range (0, 10);
+                    // Generate a random room type
+                    int roomType;
+                    if (mapInfo.floorLevel % 10 == 0)
+                    {
+                        roomType = UnityEngine.Random.Range(1, 10);
+                    }
+                    else roomType = UnityEngine.Random.Range(0, 10);
 
                     if (roomType == 0 && ladderExist == false){
                         tempRoomManager.setRoomAsLadder();
@@ -529,13 +543,14 @@ public class MapManager : MonoBehaviour {
 						wExit = true;
 
                     // Generate a random room type
+                    int roomType;
+                    if (mapInfo.floorLevel % 10 == 0)
+                    {
+                        roomType = UnityEngine.Random.Range(1, 10);
+                    }
+                    else roomType = UnityEngine.Random.Range(0, 10);
 
-                    int roomType = UnityEngine.Random.Range (0, 10);
-
-//                    if (roomType == 0 && ladderExist == false){
-
-                    // Force room spawn as ladder room for now until I fully work out how I want rooms to spawn
-                    if (ladderExist == false){
+                    if (roomType == 0 && ladderExist == false){
                         tempRoomManager.setRoomAsLadder();
                         ladderExist = true;
                     } else if (roomType >= 1 && roomType <= 2 && numofChest < maxChest){

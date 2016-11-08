@@ -16,6 +16,7 @@ public class RoomManager : MonoBehaviour {
 	private bool chestRoom;
 	private bool ladderRoom;
 	private bool npcRoom;
+    private bool bossFloor;
 
 	// Variables to determine whether exits exist on this room
 	private int nExit, eExit, sExit, wExit;
@@ -44,8 +45,12 @@ public class RoomManager : MonoBehaviour {
 	// Transform holder for this room gameObject
 	private Transform roomHolder;
 
+    // Map information
+    private MapManager currentMap;
+
 	public void Awake(){
 		Initialization ();
+        currentMap = GameObject.Find("MapManager").GetComponent<MapManager>();
 	}
 
 	// Method used for any initialization needed to be done
