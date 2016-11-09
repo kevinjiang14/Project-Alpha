@@ -55,6 +55,7 @@ public class MapManager : MonoBehaviour {
 	private GameObject player;
     
     private MapInformation mapInfo;
+	private bool bossFloor = false;
 
     public void Awake(){
 		// Verifying only one instance of MapManager is in existance
@@ -136,6 +137,10 @@ public class MapManager : MonoBehaviour {
 
     // Map Initialization
     public void MapInitization(){
+		if (mapInfo.floorLevel % 1 == 0) {
+			bossFloor = true;
+		} else
+			bossFloor = false;
         CreateMap(null, startColumn, startRow);
     }
 
@@ -234,13 +239,15 @@ public class MapManager : MonoBehaviour {
 					} else
 						wExit = true;
 
-                    // Generate a random room type
+					// Generate a random room type (ladder room excluded when on a boss floor)
                     int roomType;
-                    if (mapInfo.floorLevel % 10 == 0) {
-                        roomType = UnityEngine.Random.Range(1, 10);
-                    }
-					else roomType = UnityEngine.Random.Range (0, 10);
+					if (bossFloor == true) {
+						roomType = UnityEngine.Random.Range (1, 10);
+					} else {
+						roomType = UnityEngine.Random.Range (0, 10);
+					}
 
+					// Set room type
 					if (roomType == 0 && ladderExist == false) {
 						tempRoomManager.setRoomAsLadder ();
 						ladderExist = true;
@@ -252,8 +259,8 @@ public class MapManager : MonoBehaviour {
                         NPCexist = true;
 					} else tempRoomManager.setRoomAsEnemy();
 
-                    tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
-                    tempRoomManager.CreateRoom();
+					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
+					tempRoomManager.CreateRoom();
 					roomTemp.transform.Translate(Tcolumn * tempRoomManager.getColumn(), Trow * tempRoomManager.getRow(), 0f);
 					roomTemp.transform.SetParent (Map.transform);
 					numOfRooms += 1;
@@ -336,14 +343,15 @@ public class MapManager : MonoBehaviour {
 					} else
 						wExit = true;
 
-                    // Generate a random room type
+					// Generate a random room type (ladder room excluded when on a boss floor)
                     int roomType;
-                    if (mapInfo.floorLevel % 10 == 0)
-                    {
-                        roomType = UnityEngine.Random.Range(1, 10);
-                    }
-                    else roomType = UnityEngine.Random.Range(0, 10);
+					if (bossFloor == true) {
+						roomType = UnityEngine.Random.Range (1, 10);
+					} else {
+						roomType = UnityEngine.Random.Range (0, 10);
+					}
 
+					// Set room type
                     if (roomType == 0 && ladderExist == false){
                         tempRoomManager.setRoomAsLadder();
                         ladderExist = true;
@@ -355,7 +363,7 @@ public class MapManager : MonoBehaviour {
                         NPCexist = true;
                     } else tempRoomManager.setRoomAsEnemy();
 
-                    tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
+					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
 					tempRoomManager.CreateRoom();
 					roomTemp.transform.Translate(Tcolumn * tempRoomManager.getColumn(), Trow * tempRoomManager.getRow(), 0f);
 					roomTemp.transform.SetParent (Map.transform);
@@ -439,14 +447,15 @@ public class MapManager : MonoBehaviour {
 					} else
 						sExit = true;
 
-                    // Generate a random room type
+					// Generate a random room type (ladder room excluded when on a boss floor)
                     int roomType;
-                    if (mapInfo.floorLevel % 10 == 0)
-                    {
-                        roomType = UnityEngine.Random.Range(1, 10);
-                    }
-                    else roomType = UnityEngine.Random.Range(0, 10);
+					if (bossFloor == true) {
+						roomType = UnityEngine.Random.Range (1, 10);
+					} else {
+						roomType = UnityEngine.Random.Range (0, 10);
+					}
 
+					// Set room type
                     if (roomType == 0 && ladderExist == false){
                         tempRoomManager.setRoomAsLadder();
                         ladderExist = true;
@@ -458,7 +467,7 @@ public class MapManager : MonoBehaviour {
                         NPCexist = true;
                     } else tempRoomManager.setRoomAsEnemy();
 
-                    tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
+					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
 					tempRoomManager.CreateRoom();
 					roomTemp.transform.Translate(Tcolumn * tempRoomManager.getColumn(), Trow * tempRoomManager.getRow(), 0f);
 					roomTemp.transform.SetParent (Map.transform);
@@ -480,9 +489,11 @@ public class MapManager : MonoBehaviour {
                     Tcolumn--;
                     index = ((int)Tcolumn * 10) + (int)Trow;
 
+					// Local Room objects
 					GameObject roomTemp = Instantiate(roomObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 					RoomManager tempRoomManager = roomTemp.GetComponent<RoomManager> ();
 
+					// Exit checks
 					tempRoomManager.setEexit (1);
 					eExit = true;
 					// Check if new room is on edge to close off exits
@@ -542,14 +553,15 @@ public class MapManager : MonoBehaviour {
 					} else
 						wExit = true;
 
-                    // Generate a random room type
+					// Generate a random room type (ladder room excluded when on a boss floor)
                     int roomType;
-                    if (mapInfo.floorLevel % 10 == 0)
-                    {
-                        roomType = UnityEngine.Random.Range(1, 10);
-                    }
-                    else roomType = UnityEngine.Random.Range(0, 10);
+					if (bossFloor == true) {
+						roomType = UnityEngine.Random.Range (1, 10);
+					} else {
+						roomType = UnityEngine.Random.Range (0, 10);
+					}
 
+					// Set room type
                     if (roomType == 0 && ladderExist == false){
                         tempRoomManager.setRoomAsLadder();
                         ladderExist = true;
@@ -561,7 +573,7 @@ public class MapManager : MonoBehaviour {
                         NPCexist = true;
                     } else tempRoomManager.setRoomAsEnemy();
 
-                    tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
+					tempRoomManager.SetPosition ((int)Tcolumn, (int)Trow);
 					tempRoomManager.CreateRoom();
 					roomTemp.transform.Translate(Tcolumn * tempRoomManager.getColumn(), Trow * tempRoomManager.getRow(), 0f);
 					roomTemp.transform.SetParent (Map.transform);
@@ -591,9 +603,19 @@ public class MapManager : MonoBehaviour {
 
     // Check if map has acceptable number of rooms
 	public void IsMapOfValidSize(){
+		// General check of whether floor is big enough or small enough 
 		if (numOfRooms >= mapInfo.MinRooms && numOfRooms <= mapInfo.MaxRooms) {
 			validMap = true;
 		} else {
+			validMap = false;
+			RecreateMap ();
+		}
+		// Check for Boss Floors
+		if (bossFloor == true && BossRoomPlacementCheck () == true) {
+			// Create Boss Room	
+			CreateBossRoom(BossRoomEntrance());
+			validMap = true;
+		} else if (bossFloor == true && BossRoomPlacementCheck () == false) {
 			validMap = false;
 			RecreateMap ();
 		}
@@ -633,6 +655,74 @@ public class MapManager : MonoBehaviour {
         currentMonitor = Instantiate(playerMonitorView);
         currentHotbar = Instantiate(playerHotbar);
     }
+
+	// Check if theres a valid spot for the boss room
+	public bool BossRoomPlacementCheck(){
+		for(int i = 0; i < roomList.Length; i++){
+			// Bound the index check away from the top/left/right walls to avoid out of bound exception
+			if(i >= 10 && i % 10 <= 6 && i < 90){
+				// Check if there is a 3x3 open area to put a boss room down
+				if(roomList[i - 7] == null && roomList[i - 8] == null && roomList[i - 9] == null && 
+					roomList[i + 1] == null && roomList[i + 2] == null && roomList[i + 3] == null && 
+					roomList[i + 11] == null && roomList[i + 12] == null && roomList[i + 13] == null && 
+					roomList[i] != null){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	// Get the index of the room that will lead to the boss room
+	public int BossRoomEntrance(){
+		for(int i = 0; i < roomList.Length; i++){
+			// Bound the index check away from the top/left/right walls to avoid out of bound exception
+			if(i >= 10 && i % 10 <= 6 && i < 90){
+				// Check if there is a 3x3 open area to put a boss room down
+				if(roomList[i - 7] == null && roomList[i - 8] == null && roomList[i - 9] == null && 
+					roomList[i + 1] == null && roomList[i + 2] == null && roomList[i + 3] == null && 
+					roomList[i + 11] == null && roomList[i + 12] == null && roomList[i + 13] == null && 
+					roomList[i] != null){
+					return i;
+				}
+			}
+		}
+		// Return out of bound index in the case that we forget to check if the boss room can be created in the first place
+		return -1;
+	}
+
+	// Create boss room
+	public void CreateBossRoom(int index){
+		// Get the row and column for Boss Room 
+		int row = index % 10;
+		int column = (index - row) / 10;
+
+		// Spawn Boss Room
+		int bossRoomIndex = index - 9;
+		int bossRow = bossRoomIndex % 10;
+		int bossColumn = (bossRoomIndex - bossRow) / 10;
+		GameObject roomTemp = Instantiate(roomObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+		RoomManager tempRoomManager = roomTemp.GetComponent<RoomManager> ();
+		tempRoomManager.SetPosition (column, row);
+		tempRoomManager.CreateBossRoom ();
+		roomTemp.transform.Translate(bossColumn * 14, bossRow * 8, 0);
+		roomTemp.transform.SetParent (Map.transform);
+
+		// Set appropriate indexes in roomList to boss room
+		roomList[index - 9] = roomTemp;
+		roomList[index - 8] = roomTemp;
+		roomList[index - 7] = roomTemp;
+		roomList[index + 1] = roomTemp;
+		roomList[index + 2] = roomTemp;
+		roomList[index + 3] = roomTemp;
+		roomList[index + 11] = roomTemp;
+		roomList[index + 12] = roomTemp;
+		roomList[index + 13] = roomTemp;
+
+		// Open the North exit of the room leading to Boss Room and recreate the room
+		roomList[index].GetComponent<RoomManager>().setNexit(1);
+		roomList [index].GetComponent<RoomManager> ().CreateRoom ();
+	}
 
     // Update game when game data is loaded
     public void UpdateGame(){
