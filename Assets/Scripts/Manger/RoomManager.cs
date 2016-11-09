@@ -185,7 +185,7 @@ public class RoomManager : MonoBehaviour {
 		}
     }
 
-	public void CreateBossRoom(){
+	public void CreateBossRoom(int floor){
 		// Set room type
 		setRoomAsBoss ();
 
@@ -198,6 +198,11 @@ public class RoomManager : MonoBehaviour {
 			foreach (Transform child in this.transform) {
 				Destroy (child);
 			}
+		}
+
+		// Spawn Boss
+		if (bossRoom == true) {
+			SpawnBoss (floor);
 		}
 
 		// Create the floor and walls for the room
@@ -276,6 +281,14 @@ public class RoomManager : MonoBehaviour {
 				instance.transform.SetParent (this.transform);
 			}
 		}
+	}
+
+	// Creates the boss in the room
+	public void SpawnBoss(int floor){
+		GameObject Boss = Instantiate (bosses [floor / 5], new Vector3 (19f, 15f, -0.1f), Quaternion.identity) as GameObject;
+		Boss.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 19, roomY * 8 + 15);
+		Boss.GetComponent<Enemy> ().EnemyType (100);
+		Boss.transform.SetParent (this.transform);
 	}
 
 	// Creates the enemies in the room 

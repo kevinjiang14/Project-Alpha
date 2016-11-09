@@ -138,10 +138,10 @@ public class MapManager : MonoBehaviour {
 
     // Map Initialization
     public void MapInitization(){
-		if (mapInfo.floorLevel % 1 == 0) {
+		if (mapInfo.floorLevel % 5 == 0) {
 			bossFloor = true;
-		} else
-			bossFloor = false;
+		} else bossFloor = false;
+
         CreateMap(null, startColumn, startRow);
     }
 
@@ -272,15 +272,16 @@ public class MapManager : MonoBehaviour {
                     Trow -= 1;
                 }
             }
+
 			// Check if boss room can be spawned at this point
-			if (bossRoomExist == false) {
-				index = (((int)Tcolumn) * 10) + ((int)Trow);
-				if (BossRoomPlacementCheck (index) == true) {
-					// Spawn Boss room if allowed
-					CreateBossRoom (index);
-					bossRoomExist = true;
-				}
-			}
+//			if (bossRoomExist == false) {
+//				index = (((int)Tcolumn) * 10) + ((int)Trow);
+//				if (BossRoomPlacementCheck (index) == true) {
+//					// Spawn Boss room if allowed
+//					CreateBossRoom (index);
+//					bossRoomExist = true;
+//				}
+//			}
 
             // Spawn South room
             if (roomScript.hasSExit() == true && ((int)Tcolumn) * 10 + ((int)Trow - 1) >= 0 && (int)Trow >= 0){
@@ -596,7 +597,6 @@ public class MapManager : MonoBehaviour {
                     Tcolumn += 1;
                 }
             }
-
         }
 	}
 
@@ -615,26 +615,24 @@ public class MapManager : MonoBehaviour {
 
     // Check if map has acceptable number of rooms
 	public void IsMapOfValidSize(){
-		// General check of whether floor is big enough or small enough 
-		if (numOfRooms >= mapInfo.MinRooms && numOfRooms <= mapInfo.MaxRooms) {
+		// General check of whether floor is big enough or small enough (Ignore number of rooms when it's a boss floor)
+		if (numOfRooms >= mapInfo.MinRooms && numOfRooms <= mapInfo.MaxRooms && bossFloor == false) {
 			validMap = true;
-		} else {
-			validMap = false;
-			RecreateMap ();
 		}
 		/*
 		 * Used with old Boss Room generation
-		 * 
+		 */ 
 		// Check for Boss Floors
-		if (bossFloor == true && BossRoomPlacementCheck () == true) {
+		else if (bossFloor == true && BossRoomPlacementCheck () == true && numOfRooms >= mapInfo.MinRooms && numOfRooms <= mapInfo.MaxRooms) {
 			// Create Boss Room	
 			CreateBossRoom(BossRoomEntrance());
 			validMap = true;
-		} else if (bossFloor == true && BossRoomPlacementCheck () == false) {
+		}
+		else {
 			validMap = false;
 			RecreateMap ();
 		}
-		*/
+
 	}
 
     // Recreates the map
@@ -677,8 +675,8 @@ public class MapManager : MonoBehaviour {
 	 * Original Method to check for valid room room placement.
 	 * Used for spawning the boss room after the whole floor is done spawning.
 	 * Proved to be too slow so avoiding this for now.
-	 * I like this idea better so I will tweak it in the future and implement this algorithm instead
-
+	 * I like this idea better so I will tweak it in the future and implement this instead
+	 */
 	// Check if theres a valid spot for the boss room
 	public bool BossRoomPlacementCheck(){
 		for(int i = 0; i < roomList.Length; i++){
@@ -695,23 +693,27 @@ public class MapManager : MonoBehaviour {
 		}
 		return false;
 	}
-	*/
+
 
 	// New checker for if an area is acceptable to spawn boss room
-	public bool BossRoomPlacementCheck(int index){
-		Debug.Log ("Index of room leading to Boss Room: " + index);
-		if (roomList [index - 7] == null && roomList [index - 8] == null && roomList [index - 9] == null &&
-		   roomList [index + 1] == null && roomList [index + 2] == null && roomList [index + 3] == null &&
-		   roomList [index + 11] == null && roomList [index + 12] == null && roomList [index + 13] == null) {
-			return true;
-		} else
-			return false;
-	}
+//	public bool BossRoomPlacementCheck(int index){
+//		// Bound the index check away from the top/left/right walls to avoid out of bound exception
+//		if (index >= 10 && index % 10 <= 6 && index < 90) {
+//			// Check if there is a 3x3 open area to put a boss room down
+//			if (roomList [index - 7] == null && roomList [index - 8] == null && roomList [index - 9] == null &&
+//			    roomList [index + 1] == null && roomList [index + 2] == null && roomList [index + 3] == null &&
+//			    roomList [index + 11] == null && roomList [index + 12] == null && roomList [index + 13] == null) {
+//				return true;
+//			} else
+//				return false;
+//		} else
+//			return false;
+//	}
 
 	/*
 	 * Used to get the index of where the Boss Room can be spawned north of.
 	 * Get back to this idea when I can
-	 * 
+	 */
 	// Get the index of the room that will lead to the boss room
 	public int BossRoomEntrance(){
 		for(int i = 0; i < roomList.Length; i++){
@@ -729,13 +731,13 @@ public class MapManager : MonoBehaviour {
 		// Return out of bound index in the case that we forget to check if the boss room can be created in the first place
 		return -1;
 	}
-	*/
+
 
 	// Create boss room
 	public void CreateBossRoom(int index){
 		// Get the row and column for Boss Room 
-		int row = index % 10;
-		int column = (index - row) / 10;
+		int row = (index % 10);
+		int column = ((index - row) / 10);
 
 		// Spawn Boss Room
 		int bossRoomIndex = index - 9;
@@ -748,17 +750,18 @@ public class MapManager : MonoBehaviour {
 		tempRoomManager.setNexit (0);
 		tempRoomManager.setEexit (0);
 		tempRoomManager.setWexit (0);
-		tempRoomManager.SetPosition (column, row);
-		tempRoomManager.CreateBossRoom ();
+		tempRoomManager.SetPosition (column - 1, row + 1);
+		tempRoomManager.CreateBossRoom (mapInfo.floorLevel);
 		roomTemp.transform.Translate(bossColumn * 14, bossRow * 8, 0);
 		roomTemp.transform.SetParent (Map.transform);
 		roomTemp.SetActive (false);
 
 		// Set appropriate indexes in roomList to boss room
+		roomList[index + 1] = roomTemp;
+		tempRoomManager.setSexit (0);
 		roomList[index - 9] = roomTemp;
 		roomList[index - 8] = roomTemp;
 		roomList[index - 7] = roomTemp;
-		roomList[index + 1] = roomTemp;
 		roomList[index + 2] = roomTemp;
 		roomList[index + 3] = roomTemp;
 		roomList[index + 11] = roomTemp;

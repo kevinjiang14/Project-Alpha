@@ -12,7 +12,9 @@ public class EnemyStats : Component{
 	public int currentHealth;
 	public float attackRange = 1f;
 	public float attackSpeed = 1f;
-	public int enemyType = 0;
+	// Range when enemy starts moving towards player
+	public float MaxRange = 4f;
+	public float MinRange = 1f;
 }
 
 public class Skeleton : EnemyStats{
@@ -37,6 +39,18 @@ public class Bat : EnemyStats {
     }
 }
 
+public class SkeletonBoss : EnemyStats {
+
+	public SkeletonBoss(){
+		enemyLevel = 10;
+		defense = 30;
+		strength = 10;
+		vitality = 50;
+
+		MaxRange = 10f;
+	}
+}
+
 public class Enemy: MonoBehaviour {
 
 	/* Enemy Stats */
@@ -53,10 +67,6 @@ public class Enemy: MonoBehaviour {
 	private int startX = 66;
 	private int startY = 49;
 
-	// Range when enemy starts moving towards player
-	private float MaxRange = 4f;
-	private float MinRange = 1f;
-
 	// Enemy difficulty multiplier based on floor number
 	private int multiplier;
 
@@ -70,6 +80,8 @@ public class Enemy: MonoBehaviour {
 	// Miscellaneous 
 	private Animator enemyAnimation;
 	private Transform HPTextBox;
+
+	private bool collision = false;
 
     // Use this for initialization
     void Start () {
@@ -106,25 +118,40 @@ public class Enemy: MonoBehaviour {
 		attackTimer += Time.deltaTime;
 
 		// Check if enemy can attack play when in range and is free to attack
-		if (Vector3.Distance (transform.position, player.transform.position) <= enemyStats.attackRange && attackTimer >= enemyStats.attackSpeed) {
-			AttackPlayer ();
-		}
-		
+//		if (Vector3.Distance (transform.position, player.transform.position) <= enemyStats.attackRange && attackTimer >= enemyStats.attackSpeed) {
+//			AttackPlayer ();
+//		}
+
 		// Check if player is in range to start moving towards
-		if (Vector3.Distance (transform.position, player.transform.position) <= MaxRange && Vector3.Distance (transform.position, player.transform.position) >= MinRange) {
+		if (Vector3.Distance (transform.position, player.transform.position) <= enemyStats.MaxRange && collision == false) {
 			MoveTowardsPlayer ();
-			if (Vector3.Distance (transform.position, player.transform.position) <= MinRange) {
-				GetComponent<Rigidbody2D> ().isKinematic = true;
-			} else GetComponent<Rigidbody2D> ().isKinematic = false;
 		} 
 		// If not then return to starting position if displaced
-		else if (transform.position.x != startX && transform.position.y != startY && Vector3.Distance (transform.position, player.transform.position) > MaxRange) {
+		else if (transform.position.x != startX && transform.position.y != startY && Vector3.Distance (transform.position, player.transform.position) > enemyStats.MaxRange) {
 			ResetEnemy ();
-		} else
-			Stay ();
-	
+		}
+	}
+		
+	void OnCollisionEnter2D(Collision2D coll){
+		if (coll.gameObject.tag == "Player") {
+			collision = true;
+		}
 	}
 
+	void OnCollisionStay2D(Collision2D coll) {
+		// If collision is with player then attack, if enemy then don't move
+		if (coll.gameObject.tag == "Player" && attackTimer > enemyStats.attackSpeed) {
+			GetComponent<Rigidbody2D> ().isKinematic = true;
+			AttackPlayer ();
+			Stay ();
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D coll){
+		if (coll.gameObject.tag == "Player") {
+			collision = false;
+		}
+	}
 
 	// Stay still while resetting its restrictions
     private void Stay() {
@@ -134,19 +161,21 @@ public class Enemy: MonoBehaviour {
 
 	// Move towards player
     private void MoveTowardsPlayer() {
+		GetComponent<Rigidbody2D> ().isKinematic = false;
+
 		float diffX = player.transform.position.x - transform.position.x;
 		float diffY = player.transform.position.y - transform.position.y;
 
-		if ((int)diffX > 0 && Vector3.Distance(transform.position, player.transform.position) >= MinRange) {
+		if ((int)diffX > 0 && Vector3.Distance(transform.position, player.transform.position) >= enemyStats.MinRange) {
 			enemyAnimation.SetInteger ("Direction", 3);
 			enemyAnimation.SetFloat ("Speed", 1.0f);
-		} else if ((int)diffX < 0 && Vector3.Distance(transform.position, player.transform.position) >= MinRange) {
+		} else if ((int)diffX < 0 && Vector3.Distance(transform.position, player.transform.position) >= enemyStats.MinRange) {
 			enemyAnimation.SetInteger ("Direction", 1);
 			enemyAnimation.SetFloat ("Speed", 1.0f);
-		} else if ((int)diffY < 0 && Vector3.Distance(transform.position, player.transform.position) >= MinRange) {
+		} else if ((int)diffY < 0 && Vector3.Distance(transform.position, player.transform.position) >= enemyStats.MinRange) {
 			enemyAnimation.SetInteger ("Direction", 0);
 			enemyAnimation.SetFloat ("Speed", 1.0f);
-		} else if ((int)diffY > 0 && Vector3.Distance(transform.position, player.transform.position) >= MinRange) {
+		} else if ((int)diffY > 0 && Vector3.Distance(transform.position, player.transform.position) >= enemyStats.MinRange) {
 			enemyAnimation.SetInteger ("Direction", 2);
 			enemyAnimation.SetFloat ("Speed", 1.0f);
 		} else
@@ -199,8 +228,8 @@ public class Enemy: MonoBehaviour {
 	}
 
 	public void AdjustStats(){
-		if (multiplier > 2) {
-			enemyStats.enemyLevel = enemyStats.enemyLevel + (multiplier / 2);
+		if (multiplier > 1) {
+			enemyStats.enemyLevel = enemyStats.enemyLevel + multiplier;
 			enemyStats.strength = enemyStats.strength * multiplier;
 			enemyStats.defense = enemyStats.defense * multiplier;
 			enemyStats.vitality = enemyStats.vitality * multiplier;
@@ -208,7 +237,9 @@ public class Enemy: MonoBehaviour {
 	}
 
 	public void EnemyType(int i){
-		if(i == 0){
+		if(i == 100){
+			enemyStats = new SkeletonBoss ();
+		} else if(i == 0){
             enemyStats = new Skeleton();
         } else if(i == 1){
             enemyStats = new Slime();
