@@ -64,7 +64,7 @@ public class RoomManager : MonoBehaviour {
 		// Destroy existing room if it exist
 		if (this.transform.childCount > 0) {
 			foreach (Transform child in this.transform) {
-				Destroy (child);
+				Destroy (child.gameObject);
 			}
 		}
 

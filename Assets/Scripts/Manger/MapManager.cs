@@ -56,6 +56,7 @@ public class MapManager : MonoBehaviour {
     
     private MapInformation mapInfo;
 	private bool bossFloor = false;
+	private bool bossRoomExist = false;
 
     public void Awake(){
 		// Verifying only one instance of MapManager is in existance
@@ -271,6 +272,16 @@ public class MapManager : MonoBehaviour {
                     Trow -= 1;
                 }
             }
+			// Check if boss room can be spawned at this point
+			if (bossRoomExist == false) {
+				index = (((int)Tcolumn) * 10) + ((int)Trow);
+				if (BossRoomPlacementCheck (index) == true) {
+					// Spawn Boss room if allowed
+					CreateBossRoom (index);
+					bossRoomExist = true;
+				}
+			}
+
             // Spawn South room
             if (roomScript.hasSExit() == true && ((int)Tcolumn) * 10 + ((int)Trow - 1) >= 0 && (int)Trow >= 0){
                 if (roomList[((int)Tcolumn) * 10 + ((int)Trow - 1)] == null){
@@ -584,7 +595,8 @@ public class MapManager : MonoBehaviour {
                     CreateMap(roomTemp, Tcolumn, Trow);
                     Tcolumn += 1;
                 }
-            }          
+            }
+
         }
 	}
 
@@ -610,6 +622,9 @@ public class MapManager : MonoBehaviour {
 			validMap = false;
 			RecreateMap ();
 		}
+		/*
+		 * Used with old Boss Room generation
+		 * 
 		// Check for Boss Floors
 		if (bossFloor == true && BossRoomPlacementCheck () == true) {
 			// Create Boss Room	
@@ -619,6 +634,7 @@ public class MapManager : MonoBehaviour {
 			validMap = false;
 			RecreateMap ();
 		}
+		*/
 	}
 
     // Recreates the map
@@ -626,6 +642,7 @@ public class MapManager : MonoBehaviour {
 		Destroy (Map);
 		numOfRooms = 0;
 		validMap = false;
+		bossRoomExist = false;
 		Initialization ();
 	}
 
@@ -656,6 +673,12 @@ public class MapManager : MonoBehaviour {
         currentHotbar = Instantiate(playerHotbar);
     }
 
+	/*
+	 * Original Method to check for valid room room placement.
+	 * Used for spawning the boss room after the whole floor is done spawning.
+	 * Proved to be too slow so avoiding this for now.
+	 * I like this idea better so I will tweak it in the future and implement this algorithm instead
+
 	// Check if theres a valid spot for the boss room
 	public bool BossRoomPlacementCheck(){
 		for(int i = 0; i < roomList.Length; i++){
@@ -672,7 +695,23 @@ public class MapManager : MonoBehaviour {
 		}
 		return false;
 	}
+	*/
 
+	// New checker for if an area is acceptable to spawn boss room
+	public bool BossRoomPlacementCheck(int index){
+		Debug.Log ("Index of room leading to Boss Room: " + index);
+		if (roomList [index - 7] == null && roomList [index - 8] == null && roomList [index - 9] == null &&
+		   roomList [index + 1] == null && roomList [index + 2] == null && roomList [index + 3] == null &&
+		   roomList [index + 11] == null && roomList [index + 12] == null && roomList [index + 13] == null) {
+			return true;
+		} else
+			return false;
+	}
+
+	/*
+	 * Used to get the index of where the Boss Room can be spawned north of.
+	 * Get back to this idea when I can
+	 * 
 	// Get the index of the room that will lead to the boss room
 	public int BossRoomEntrance(){
 		for(int i = 0; i < roomList.Length; i++){
@@ -690,6 +729,7 @@ public class MapManager : MonoBehaviour {
 		// Return out of bound index in the case that we forget to check if the boss room can be created in the first place
 		return -1;
 	}
+	*/
 
 	// Create boss room
 	public void CreateBossRoom(int index){
@@ -703,10 +743,16 @@ public class MapManager : MonoBehaviour {
 		int bossColumn = (bossRoomIndex - bossRow) / 10;
 		GameObject roomTemp = Instantiate(roomObject, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 		RoomManager tempRoomManager = roomTemp.GetComponent<RoomManager> ();
+		// Setting only north exit of room to exist
+		tempRoomManager.setSexit (1);
+		tempRoomManager.setNexit (0);
+		tempRoomManager.setEexit (0);
+		tempRoomManager.setWexit (0);
 		tempRoomManager.SetPosition (column, row);
 		tempRoomManager.CreateBossRoom ();
 		roomTemp.transform.Translate(bossColumn * 14, bossRow * 8, 0);
 		roomTemp.transform.SetParent (Map.transform);
+		roomTemp.SetActive (false);
 
 		// Set appropriate indexes in roomList to boss room
 		roomList[index - 9] = roomTemp;
@@ -721,7 +767,8 @@ public class MapManager : MonoBehaviour {
 
 		// Open the North exit of the room leading to Boss Room and recreate the room
 		roomList[index].GetComponent<RoomManager>().setNexit(1);
-		roomList [index].GetComponent<RoomManager> ().CreateRoom ();
+		roomList[index].GetComponent<RoomManager> ().CreateRoom ();
+		roomList[index].transform.Translate(column * 14, row * 8, 0f);
 	}
 
     // Update game when game data is loaded
