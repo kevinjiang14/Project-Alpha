@@ -15,18 +15,36 @@ public class EnemyStats : Component{
 	public int enemyType = 0;
 }
 
+public class Skeleton : EnemyStats{
+
+    public Skeleton(){
+        defense = 7;
+    }
+}
+
+public class Slime : EnemyStats{
+
+    public Slime(){
+        enemyLevel = 2;
+        vitality = 7;
+    }
+}
+
+public class Bat : EnemyStats {
+
+    public Bat(){
+        strength = 12;
+    }
+}
+
 public class Enemy: MonoBehaviour {
 
 	/* Enemy Stats */
 	private EnemyStats enemyStats;
 
-	private int enemyType;
-	// maxHealth = enemylevel * 3 + vitality
-	private int maxHealth;
-	// damage = strength / 5
-	private int damage;
-	// exp = 15x where x = enemylevel
-	private int exp;
+	private int maxHealth;	// maxHealth = enemylevel * 3 + vitality
+	private int damage;		// damage = strength / 5
+	private int exp;		// exp = 15x where x = enemylevel
 
 	// Counting timers
 	private float attackTimer;
@@ -55,10 +73,6 @@ public class Enemy: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		// Create new stats for the enemy
-		enemyStats = new EnemyStats();
-
-		ChangeStats ();
 
 		// Animator componenet
 		enemyAnimation = GetComponent<Animator> ();
@@ -99,7 +113,7 @@ public class Enemy: MonoBehaviour {
 		// Check if player is in range to start moving towards
 		if (Vector3.Distance (transform.position, player.transform.position) <= MaxRange && Vector3.Distance (transform.position, player.transform.position) >= MinRange) {
 			MoveTowardsPlayer ();
-			if (Vector3.Distance (transform.position, player.transform.position) <= MinRange + 1.0f) {
+			if (Vector3.Distance (transform.position, player.transform.position) <= MinRange) {
 				GetComponent<Rigidbody2D> ().isKinematic = true;
 			} else GetComponent<Rigidbody2D> ().isKinematic = false;
 		} 
@@ -194,18 +208,13 @@ public class Enemy: MonoBehaviour {
 	}
 
 	public void EnemyType(int i){
-		enemyType = i;
-	}
-
-	public void ChangeStats(){
-		enemyStats.enemyType = enemyType;
-		if (enemyStats.enemyType == 0){
-			enemyStats.defense = 7;
-		} else if (enemyStats.enemyType == 1){
-			enemyStats.vitality = 7;
-		} else if (enemyStats.enemyType == 2){
-			enemyStats.strength = 12;
-		}
-		AdjustStats ();
-	}
+		if(i == 0){
+            enemyStats = new Skeleton();
+        } else if(i == 1){
+            enemyStats = new Slime();
+        } else if(i == 2){
+            enemyStats = new Bat();
+        }
+        AdjustStats();
+    }
 }

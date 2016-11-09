@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerStats : Component{
     public int PlayerLevel = 1;
@@ -18,8 +19,13 @@ public class PlayerStats : Component{
     public float speed = 4f;
     public float attackRange = 1f;
     public float attackSpeed = 1f;
-    public int healthRegen = 5;
+    public float regenRate = 5f;
     public int freeAttrPoints = 5;
+    public int regenAmount = 1;
+
+	public int money = 100;
+
+    public Inventory inventory;
 
 }
 
@@ -48,10 +54,13 @@ public class Player : MonoBehaviour{
 	private Transform playerTransform;
     private Animator playerAnimation;
 
+    /* Player data */
     private PlayerStats stats;
+	private GameObject characterMenu;
 
 	void Awake(){
         stats = new PlayerStats();
+        stats.inventory = new Inventory();
 		playerTransform = GetComponent<Transform> ();
         playerAnimation = GetComponent<Animator>();
 
@@ -64,11 +73,11 @@ public class Player : MonoBehaviour{
 	}
 
 	void FixedUpdate(){
-		// Timer increments
-		attackTimer += Time.deltaTime;
-		regenTimer += Time.deltaTime;
+        // Timer increments
+        attackTimer += Time.deltaTime;
+        regenTimer += Time.deltaTime;
 
-		if (regenTimer >= stats.healthRegen) {
+		if (regenTimer >= stats.regenRate) {
 			HealthRegen();
 		}
 
@@ -83,6 +92,7 @@ public class Player : MonoBehaviour{
 		}
 	}
 
+    // Player movement
 	public void Move(){
         Vector3 direction;
 
@@ -150,12 +160,6 @@ public class Player : MonoBehaviour{
 				}
 			}
 		}
-//		foreach (GameObject enemy in enemyList) {
-//			if (Vector3.Distance (transform.position, enemy.transform.position) <= attackRange) {
-//				enemy.GetComponent<Enemy> ().TakeDamage (damage);
-//			}
-//		}
-
 		attackTimer = 0f;
 	}
 
@@ -165,14 +169,14 @@ public class Player : MonoBehaviour{
 		Debug.Log ("Respawning...");
 
         stats.CurrentHealth = maxHealth;
-		// Perhaps some sort of repercussion for dying
+		// TODO:Perhaps some sort of repercussion for dying
 		// Respawn player at some predetermined location
 		ResetPlayerLocation();
 	}
 
 	// Resets player position to spawn position
 	public void ResetPlayerLocation(){
-		playerTransform.position =  new Vector3(82f, 49f, -0.01f);
+		playerTransform.position =  new Vector3(77f, 44f, -0.01f);
 	}
 
 	// PLayer taking damage
@@ -200,17 +204,12 @@ public class Player : MonoBehaviour{
 	// Player health regeneration
 	public void HealthRegen(){
 		if (stats.CurrentHealth < maxHealth) {
-            stats.CurrentHealth += 1;
-		}
+            if (stats.CurrentHealth + stats.regenAmount > maxHealth){
+                stats.CurrentHealth = maxHealth;
+            } else stats.CurrentHealth += stats.regenAmount;
+
+        }
 		regenTimer = 0;
-	}
-
-	public int getEXPtoLVL(){
-		return expToLVLUp;
-	}
-
-	public int getPlayerLVL(){
-		return stats.PlayerLevel;
 	}
 
 	public void LevelUp(){
@@ -222,25 +221,83 @@ public class Player : MonoBehaviour{
         stats.CurrentHealth = maxHealth;
 	}
 
-	public int getMaxHealth(){
-		return maxHealth;
+    public void UseItem(GameObject item){
+        Item itemScript = item.GetComponent<Item>();
+        if (maxHealth - stats.CurrentHealth >= itemScript.healthRecovery)
+        {
+            stats.CurrentHealth += itemScript.healthRecovery;
+            stats.inventory.DecreaseItemQuantity(item);
+        } else{
+            stats.CurrentHealth = maxHealth;
+            stats.inventory.DecreaseItemQuantity(item);
+        }
+    }
+
+    // TODO: Possibly implement requirements to equip item
+	public void EquipItem(GameObject item){
+        characterMenu = GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>().getCurrentCharacter();
+        characterMenu.SetActive(true);
+        if (item.tag == "Head") {
+			characterMenu.transform.Find ("Head").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Body") {
+			characterMenu.transform.Find ("Body").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Hand") {
+			characterMenu.transform.Find ("Hand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Leg") {
+			characterMenu.transform.Find ("Leg").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Feet") {
+			characterMenu.transform.Find ("Feet").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Crown") {
+			characterMenu.transform.Find ("Accessory1").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Necklace") {
+			characterMenu.transform.Find ("Accessory2").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Ring") {
+			characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Mainhand") {
+            characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		} else if (item.tag == "Offhand") {
+			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+		}
+
+        // Check for bonus stats from items/potions/etc.
+        IncreaseBonusStats(item);
+
+    }
+
+	public void UnequipItem(GameObject item){
+        RemoveBonusStats(item);
 	}
 
-	public int getHealth(){
-		return stats.CurrentHealth;
-	}
+    public void IncreaseBonusStats(GameObject item){
+        Item tempItemScript = item.GetComponent<Item>();
+        stats.vitality += tempItemScript.vitality;
+        stats.strength += tempItemScript.strength;
+        stats.dexterity += tempItemScript.dexterity;
+        stats.defense += tempItemScript.defense;
+        stats.luck += tempItemScript.luck;
+        stats.speed += tempItemScript.speed;
+        stats.attackRange += tempItemScript.attackRange;
+        stats.attackSpeed -= tempItemScript.attackSpeed;
+        stats.regenRate -= tempItemScript.regenRate;
+        stats.regenAmount += tempItemScript.regenAmount;
+        UpdateStats();
+    }
 
-	public int getDamage(){
-		return damage;
-	}
-
-	public int getEXP(){
-		return stats.CurrentEXP;
-	}
-
-	public int getVitality(){
-		return stats.vitality;
-	}
+    public void RemoveBonusStats(GameObject item)
+    {
+        Item tempItemScript = item.GetComponent<Item>();
+        stats.vitality -= tempItemScript.vitality;
+        stats.strength -= tempItemScript.strength;
+        stats.dexterity -= tempItemScript.dexterity;
+        stats.defense -= tempItemScript.defense;
+        stats.luck -= tempItemScript.luck;
+        stats.speed -= tempItemScript.speed;
+        stats.attackRange -= tempItemScript.attackRange;
+        stats.attackSpeed += tempItemScript.attackSpeed;
+        stats.regenRate += tempItemScript.regenRate;
+        stats.regenAmount -= tempItemScript.regenAmount;
+        UpdateStats();
+    }
 
 	public void IncreaseVitality(){
 		if (stats.freeAttrPoints > 0) {
@@ -248,10 +305,6 @@ public class Player : MonoBehaviour{
             stats.freeAttrPoints -= 1;
 			UpdateStats ();
 		}
-	}
-
-	public int getStrength(){
-		return stats.strength;
 	}
 
 	public void IncreaseStrength(){
@@ -262,20 +315,12 @@ public class Player : MonoBehaviour{
 		}
 	}
 
-	public int getDexterity(){
-		return stats.dexterity;
-	}
-
 	public void IncreaseDexterity(){
 		if (stats.freeAttrPoints > 0) {
             stats.dexterity += 1;
             stats.freeAttrPoints -= 1;
 			UpdateStats ();
 		}
-	}
-
-	public int getDefense(){
-		return stats.defense;
 	}
 
 	public void IncreaseDefense(){
@@ -286,10 +331,6 @@ public class Player : MonoBehaviour{
 		}
 	}
 
-	public int getLuck(){
-		return stats.luck;
-	}
-
 	public void IncreaseLuck(){
 		if (stats.freeAttrPoints > 0) {
             stats.luck += 1;
@@ -298,13 +339,21 @@ public class Player : MonoBehaviour{
 		}
 	}
 
-    public PlayerStats getStats(){
-        return stats;
-    }
-
-	public void UpdateStats(){
+    public void UpdateStats(){
 		damage = stats.strength / 5;
 		maxHealth = (stats.PlayerLevel * 3) + stats.vitality;
+        if(stats.CurrentHealth > maxHealth)
+        {
+            stats.CurrentHealth = maxHealth;
+        }
+	}
+
+	public void IncreaseMoney(int amount){
+		stats.money += amount;
+	}
+
+	public void DecreaseMoney(int amount){
+		stats.money -= amount;
 	}
 
     public void UpdatePlayer(){
@@ -312,7 +361,75 @@ public class Player : MonoBehaviour{
         UpdateStats();
     }
 
-	public int getFreePoints(){
+    public PlayerStats getStats()
+    {
+        return stats;
+    }
+
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public int getEXPtoLVL()
+    {
+        return expToLVLUp;
+    }
+
+    public int getDamage()
+    {
+        return damage;
+    }
+
+    public int getPlayerLVL()
+    {
+        return stats.PlayerLevel;
+    }
+
+    public int getHealth()
+    {
+        return stats.CurrentHealth;
+    }
+
+    public int getEXP()
+    {
+        return stats.CurrentEXP;
+    }
+
+    public int getVitality()
+    {
+        return stats.vitality;
+    }
+
+    public int getStrength()
+    {
+        return stats.strength;
+    }
+
+    public int getDexterity()
+    {
+        return stats.dexterity;
+    }
+
+    public int getDefense()
+    {
+        return stats.defense;
+    }
+
+    public int getLuck()
+    {
+        return stats.luck;
+    }
+
+    public int getFreePoints(){
 		return stats.freeAttrPoints;
 	}
+
+	public int getMoney(){
+		return stats.money;
+	}
+
+    public Inventory getInventory(){
+        return stats.inventory;
+    }
 }

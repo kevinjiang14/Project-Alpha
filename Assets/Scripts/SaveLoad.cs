@@ -16,7 +16,7 @@ public class SaveLoad {
         PlayerPrefs.SetFloat("Speed", GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().speed);
         PlayerPrefs.SetFloat("AttackRange", GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().attackRange);
         PlayerPrefs.SetFloat("AttackSpeed", GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().attackSpeed);
-        PlayerPrefs.SetInt("HealthRegen", GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().healthRegen);
+        PlayerPrefs.SetFloat("RegenRate", GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().regenRate);
         PlayerPrefs.SetInt("FreeAttrPoints", GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().freeAttrPoints);
 
         PlayerPrefs.SetInt("Floor", GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>().getMapInfo().floorLevel);
@@ -49,7 +49,7 @@ public class SaveLoad {
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().speed = PlayerPrefs.GetFloat("Speed");
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().attackRange = PlayerPrefs.GetFloat("AttackRange");
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().attackSpeed = PlayerPrefs.GetFloat("AttackSpeed");
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().healthRegen = PlayerPrefs.GetInt("HealthRegen");
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().regenRate = PlayerPrefs.GetFloat("RegenRate");
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().freeAttrPoints = PlayerPrefs.GetInt("FreeAttrPoints");
 
         GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>().getMapInfo().floorLevel = PlayerPrefs.GetInt("Floor");
