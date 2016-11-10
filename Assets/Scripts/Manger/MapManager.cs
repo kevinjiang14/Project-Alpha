@@ -138,7 +138,7 @@ public class MapManager : MonoBehaviour {
 
     // Map Initialization
     public void MapInitization(){
-		if (mapInfo.floorLevel % 5 == 0) {
+		if (mapInfo.floorLevel % 1 == 0) {
 			bossFloor = true;
 		} else bossFloor = false;
 
@@ -750,7 +750,7 @@ public class MapManager : MonoBehaviour {
 		tempRoomManager.setNexit (0);
 		tempRoomManager.setEexit (0);
 		tempRoomManager.setWexit (0);
-		tempRoomManager.SetPosition (column - 1, row + 1);
+		tempRoomManager.SetPosition (column, row + 1);
 		tempRoomManager.CreateBossRoom (mapInfo.floorLevel);
 		roomTemp.transform.Translate(bossColumn * 14, bossRow * 8, 0);
 		roomTemp.transform.SetParent (Map.transform);

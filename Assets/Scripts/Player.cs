@@ -86,10 +86,12 @@ public class Player : MonoBehaviour{
 		// Get all enemies on the map
 		enemyList = GameObject.FindGameObjectsWithTag("Enemy");
 
-		// Check if attack button was pressed
-		if (Input.GetButtonDown("Attack") && attackTimer >= stats.attackSpeed) {
-			Attack ();
-		}
+        // Check if attack button was pressed
+        if (Input.GetButtonDown("Attack") && attackTimer >= stats.attackSpeed)
+        {
+            Attack();
+        }
+        else DeactivateHitBox();
 	}
 
     // Player movement
@@ -129,42 +131,59 @@ public class Player : MonoBehaviour{
 
 	// Player attack
 	public void Attack(){
-        // TODO: Have player only damage enemies it is facing
 		// Reduce that enemy's health
-
 		if (playerAnimation.GetInteger ("Direction") == 0) {
-			foreach (GameObject enemy in enemyList) {
-				if (enemy.transform.position.y >= transform.position.y - stats.attackRange && enemy.transform.position.y < transform.position.y && ((transform.position.y - enemy.transform.position.y > transform.position.x - enemy.transform.position.x && transform.position.x > enemy.transform.position.x) || (transform.position.y - enemy.transform.position.y > enemy.transform.position.x - transform.position.x && transform.position.x < enemy.transform.position.x))) {
-					enemy.GetComponent<Enemy> ().TakeDamage (damage);
-				}
-			}
+            transform.Find("South").gameObject.SetActive(true);
+            Debug.Log("Attack South");
+            //transform.Find("South").gameObject.SetActive(false);
+   //         foreach (GameObject enemy in enemyList) {
+			//	if (enemy.transform.position.y >= transform.position.y - stats.attackRange && enemy.transform.position.y < transform.position.y && ((transform.position.y - enemy.transform.position.y > transform.position.x - enemy.transform.position.x && transform.position.x > enemy.transform.position.x) || (transform.position.y - enemy.transform.position.y > enemy.transform.position.x - transform.position.x && transform.position.x < enemy.transform.position.x))) {
+			//		enemy.GetComponent<Enemy> ().TakeDamage (damage);
+			//	}
+			//}
 		}
 		else if (playerAnimation.GetInteger ("Direction") == 1) {
-			foreach (GameObject enemy in enemyList) {
-				if (enemy.transform.position.x >= transform.position.x - stats.attackRange && enemy.transform.position.x < transform.position.x && ((transform.position.x - enemy.transform.position.x > transform.position.y - enemy.transform.position.y && transform.position.y > enemy.transform.position.y) || (transform.position.x - enemy.transform.position.x > enemy.transform.position.y - transform.position.y && transform.position.y < enemy.transform.position.y))) {
-					enemy.GetComponent<Enemy> ().TakeDamage (damage);
-				}
-			}
-		}
+            transform.Find("West").gameObject.SetActive(true);
+            Debug.Log("Attack West");
+            //transform.Find("West").gameObject.SetActive(false);
+            //         foreach (GameObject enemy in enemyList) {
+            //	if (enemy.transform.position.x >= transform.position.x - stats.attackRange && enemy.transform.position.x < transform.position.x && ((transform.position.x - enemy.transform.position.x > transform.position.y - enemy.transform.position.y && transform.position.y > enemy.transform.position.y) || (transform.position.x - enemy.transform.position.x > enemy.transform.position.y - transform.position.y && transform.position.y < enemy.transform.position.y))) {
+            //		enemy.GetComponent<Enemy> ().TakeDamage (damage);
+            //	}
+            //}
+        }
 		else if (playerAnimation.GetInteger ("Direction") == 2) {
-			foreach (GameObject enemy in enemyList) {
-				if (enemy.transform.position.y <= transform.position.y + stats.attackRange && enemy.transform.position.y > transform.position.y && ((enemy.transform.position.y - transform.position.y > transform.position.x - enemy.transform.position.x && transform.position.x > enemy.transform.position.x) || (enemy.transform.position.y - transform.position.y > enemy.transform.position.x - transform.position.x && transform.position.x < enemy.transform.position.x))) {
-					enemy.GetComponent<Enemy> ().TakeDamage (damage);
-				}
-			}
-		}
+            transform.Find("North").gameObject.SetActive(true);
+            Debug.Log("Attack North");
+            //transform.Find("North").gameObject.SetActive(false);
+            //         foreach (GameObject enemy in enemyList) {
+            //	if (enemy.transform.position.y <= transform.position.y + stats.attackRange && enemy.transform.position.y > transform.position.y && ((enemy.transform.position.y - transform.position.y > transform.position.x - enemy.transform.position.x && transform.position.x > enemy.transform.position.x) || (enemy.transform.position.y - transform.position.y > enemy.transform.position.x - transform.position.x && transform.position.x < enemy.transform.position.x))) {
+            //		enemy.GetComponent<Enemy> ().TakeDamage (damage);
+            //	}
+            //}
+        }
 		else if (playerAnimation.GetInteger ("Direction") == 3) {
-			foreach (GameObject enemy in enemyList) {
-				if (enemy.transform.position.x <= transform.position.x + stats.attackRange && enemy.transform.position.x > transform.position.x && ((enemy.transform.position.x - transform.position.x > transform.position.y - enemy.transform.position.y && transform.position.y > enemy.transform.position.y) || (enemy.transform.position.x - transform.position.x > enemy.transform.position.y - transform.position.y && transform.position.y < enemy.transform.position.y))) {
-					enemy.GetComponent<Enemy> ().TakeDamage (damage);
-				}
-			}
-		}
+            transform.Find("East").gameObject.SetActive(true);
+            Debug.Log("Attack East");
+            //transform.Find("East").gameObject.SetActive(false);
+            //         foreach (GameObject enemy in enemyList) {
+            //	if (enemy.transform.position.x <= transform.position.x + stats.attackRange && enemy.transform.position.x > transform.position.x && ((enemy.transform.position.x - transform.position.x > transform.position.y - enemy.transform.position.y && transform.position.y > enemy.transform.position.y) || (enemy.transform.position.x - transform.position.x > enemy.transform.position.y - transform.position.y && transform.position.y < enemy.transform.position.y))) {
+            //		enemy.GetComponent<Enemy> ().TakeDamage (damage);
+            //	}
+            //}
+        }
 		attackTimer = 0f;
 	}
 
-	// Respawn player
-	public void Respawn(){
+    public void DeactivateHitBox() {
+        transform.Find("South").gameObject.SetActive(false);
+        transform.Find("West").gameObject.SetActive(false);
+        transform.Find("North").gameObject.SetActive(false);
+        transform.Find("East").gameObject.SetActive(false);
+    }
+
+    // Respawn player
+    public void Respawn(){
 		Debug.Log ("You have died!");
 		Debug.Log ("Respawning...");
 

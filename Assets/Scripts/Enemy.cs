@@ -44,7 +44,7 @@ public class SkeletonBoss : EnemyStats {
 	public SkeletonBoss(){
 		enemyLevel = 10;
 		defense = 30;
-		strength = 10;
+		strength = 5;
 		vitality = 50;
 
 		MaxRange = 10f;
@@ -139,8 +139,9 @@ public class Enemy: MonoBehaviour {
 	}
 
 	void OnCollisionStay2D(Collision2D coll) {
-		// If collision is with player then attack, if enemy then don't move
-		if (coll.gameObject.tag == "Player" && attackTimer > enemyStats.attackSpeed) {
+        attackTimer += Time.deltaTime;
+        // If collision is with player then attack, if enemy then don't move
+        if (coll.gameObject.tag == "Player" && attackTimer > enemyStats.attackSpeed) {
 			GetComponent<Rigidbody2D> ().isKinematic = true;
 			AttackPlayer ();
 			Stay ();
