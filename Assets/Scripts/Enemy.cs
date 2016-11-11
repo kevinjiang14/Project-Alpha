@@ -117,11 +117,6 @@ public class Enemy: MonoBehaviour {
 		// Timer for attacking
 		attackTimer += Time.deltaTime;
 
-		// Check if enemy can attack play when in range and is free to attack
-//		if (Vector3.Distance (transform.position, player.transform.position) <= enemyStats.attackRange && attackTimer >= enemyStats.attackSpeed) {
-//			AttackPlayer ();
-//		}
-
 		// Check if player is in range to start moving towards
 		if (Vector3.Distance (transform.position, player.transform.position) <= enemyStats.MaxRange && collision == false) {
 			MoveTowardsPlayer ();
@@ -130,20 +125,20 @@ public class Enemy: MonoBehaviour {
 		else if (transform.position.x != startX && transform.position.y != startY && Vector3.Distance (transform.position, player.transform.position) > enemyStats.MaxRange) {
 			ResetEnemy ();
 		}
+
+        // Keep enemy awake so collision events continue to be called
+        if (gameObject.GetComponent<Rigidbody2D>().IsSleeping()) {
+            gameObject.GetComponent<Rigidbody2D>().WakeUp();
+        }
 	}
 		
 	void OnCollisionEnter2D(Collision2D coll){
-		if (coll.gameObject.tag == "Player") {
+        if (coll.gameObject.tag == "Player") {
 			collision = true;
 		}
-
-//		if (coll.gameObject.tag == "Hitbox") {
-//			TakeDamage (player.GetComponent<Player> ().getDamage ());
-//		}
-	}
+    }
 
 	void OnCollisionStay2D(Collision2D coll) {
-        attackTimer += Time.deltaTime;
         // If collision is with player then attack, if enemy then don't move
         if (coll.gameObject.tag == "Player" && attackTimer > enemyStats.attackSpeed) {
 			GetComponent<Rigidbody2D> ().isKinematic = true;
@@ -153,10 +148,11 @@ public class Enemy: MonoBehaviour {
 	}
 
 	void OnCollisionExit2D(Collision2D coll){
-		if (coll.gameObject.tag == "Player") {
-			collision = false;
-		}
-	}
+
+        if (coll.gameObject.tag == "Player" || coll.gameObject.tag == "Hitbox") {
+            collision = false;
+        }
+    }
 
 	// Stay still while resetting its restrictions
     private void Stay() {
@@ -215,6 +211,11 @@ public class Enemy: MonoBehaviour {
 	public void TakeDamage(int i){
 		// damage taken = incoming damage - defense / 7
 		i = i - (enemyStats.defense / 7);
+        // Set minimum amount of damage the player can do to enemy as 1
+        if(i <= 0) {
+            i = 1;
+        }
+
 		if (enemyStats.currentHealth - i <= 0) {
 			Dead ();
 		} else
