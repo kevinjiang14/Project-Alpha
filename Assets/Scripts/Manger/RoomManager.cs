@@ -409,6 +409,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = false;
 		npcRoom = false;
 		bossRoom = false;
+		this.gameObject.name = "Enemy Room";
 	}
 
 	/* Sets this room as a chest room */
@@ -418,6 +419,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = false;
 		npcRoom = false;
 		bossRoom = false;
+		this.gameObject.name = "Chest Room";
 	}
 
 	/* Sets this room as a ladder room */
@@ -427,6 +429,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = true;
 		npcRoom = false;
 		bossRoom = false;
+		this.gameObject.name = "Ladder Room";
 	}
 
 	/* Sets this room as an NPC room */
@@ -436,6 +439,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = false;
 		npcRoom = true;
 		bossRoom = false;
+		this.gameObject.name = "NPC Room";
 	}
 
 	public void setRoomAsBoss(){
@@ -444,6 +448,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = false;
 		npcRoom = false;
 		bossRoom = true;
+		this.gameObject.name = "Boss Room";
 	}
 
 	/* Method to get the number of rows in the room */

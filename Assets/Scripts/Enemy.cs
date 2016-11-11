@@ -15,12 +15,16 @@ public class EnemyStats : Component{
 	// Range when enemy starts moving towards player
 	public float MaxRange = 4f;
 	public float MinRange = 1f;
+
+	public int enemyType = -1;
 }
 
 public class Skeleton : EnemyStats{
 
     public Skeleton(){
         defense = 7;
+
+		enemyType = 0;
     }
 }
 
@@ -29,6 +33,8 @@ public class Slime : EnemyStats{
     public Slime(){
         enemyLevel = 2;
         vitality = 7;
+
+		enemyType = 1;
     }
 }
 
@@ -36,6 +42,8 @@ public class Bat : EnemyStats {
 
     public Bat(){
         strength = 12;
+
+		enemyType = 2;
     }
 }
 
@@ -48,6 +56,8 @@ public class SkeletonBoss : EnemyStats {
 		vitality = 50;
 
 		MaxRange = 10f;
+
+		enemyType = 100;
 	}
 }
 
@@ -148,7 +158,6 @@ public class Enemy: MonoBehaviour {
 	}
 
 	void OnCollisionExit2D(Collision2D coll){
-
         if (coll.gameObject.tag == "Player" || coll.gameObject.tag == "Hitbox") {
             collision = false;
         }
@@ -181,7 +190,6 @@ public class Enemy: MonoBehaviour {
 			enemyAnimation.SetFloat ("Speed", 1.0f);
 		} else
 			enemyAnimation.SetFloat ("Speed", 1.0f);
-
 
         Vector3 direction = new Vector3(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y, 0f);
 		transform.Translate(direction * enemyStats.speed * Time.deltaTime);
@@ -224,8 +232,17 @@ public class Enemy: MonoBehaviour {
 
 	// Enemy is dead
 	public void Dead(){
+		if (enemyStats.enemyType % 100 == 0) {
+			// Get the position of the enemy if it was a boss and spawn the ladder there
+			Vector3 deathPosition = transform.position;
+			GameObject ladder = (GameObject)Instantiate (Resources.Load ("LevelObjects/Ladder"), deathPosition, Quaternion.identity) as GameObject;
+			ladder.transform.SetParent (GameObject.Find ("Boss Room").transform);
+		}
+
 		Destroy (gameObject);
 		player.GetComponent<Player> ().GainEXP (exp);
+
+
 	}
 
 	public void SetSpawn(int x, int y){

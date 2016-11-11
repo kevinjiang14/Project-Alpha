@@ -248,6 +248,8 @@ public class Player : MonoBehaviour{
 			characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		} else if (item.tag == "Mainhand") {
             characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+			// Set player's attack animation to weapon
+			playerAnimation.SetInteger ("AttackType", item.GetComponent<Item> ().ItemType);
 		} else if (item.tag == "Offhand") {
 			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		}
@@ -259,6 +261,10 @@ public class Player : MonoBehaviour{
 
 	public void UnequipItem(GameObject item){
         RemoveBonusStats(item);
+		if (item.tag == "Mainhand") {
+			// Reset player's attack animation to hand
+			playerAnimation.SetInteger ("AttackType", 0);
+		}
 	}
 
     public void IncreaseBonusStats(GameObject item){
