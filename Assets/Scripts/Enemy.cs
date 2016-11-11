@@ -136,6 +136,10 @@ public class Enemy: MonoBehaviour {
 		if (coll.gameObject.tag == "Player") {
 			collision = true;
 		}
+
+//		if (coll.gameObject.tag == "Hitbox") {
+//			TakeDamage (player.GetComponent<Player> ().getDamage ());
+//		}
 	}
 
 	void OnCollisionStay2D(Collision2D coll) {
