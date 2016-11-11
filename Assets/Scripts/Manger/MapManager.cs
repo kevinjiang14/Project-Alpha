@@ -50,6 +50,7 @@ public class MapManager : MonoBehaviour {
     public GameObject roomObject;
     public GameObject playerList;
     public GameObject Camera;
+	public GameObject MinimapCamera;
 
 	// Player GameObject that is instantiated
 	private GameObject player;
@@ -605,6 +606,7 @@ public class MapManager : MonoBehaviour {
 		Vector3 playerInitPosition = new Vector3(Pcolumn * 14f + 7f, Prow * 8f + 4f, -0.01f);
         player = Instantiate(playerList, playerInitPosition, Quaternion.identity) as GameObject;
 		SetCamera(player, playerInitPosition);
+		GameObject minimap = Instantiate (MinimapCamera, new Vector3(70, 40, -10), Quaternion.identity) as GameObject;
     }
 
     // Creates the camera to follow player
