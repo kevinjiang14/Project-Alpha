@@ -2,11 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class LoadGame : MonoBehaviour {
+public class LoadGameButton : MonoBehaviour {
 
     // Use this for initialization
     void Start()
     {
-        gameObject.GetComponent<Button>().onClick.AddListener (SaveLoad.Load);
+        gameObject.GetComponent<Button>().onClick.AddListener (SaveLoadGame.Load);
     }
 }

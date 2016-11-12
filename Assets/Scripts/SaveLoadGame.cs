@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-public class SaveLoad {
+public class SaveLoadGame {
 
     public static void Save() {
         PlayerPrefs.SetInt("PlayerLevel", GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().PlayerLevel);
@@ -24,18 +24,6 @@ public class SaveLoad {
         PlayerPrefs.SetInt("Min", GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>().getMapInfo().MinRooms);
 
         PlayerPrefs.Save();
-        /* player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        map = GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapInformation>();
-        currentFloor = GameObject.Find("Map");
-
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/saveone.pd");
-        bf.Serialize(file, SaveLoad.player);
-        file.Close();
-
-        file = File.Create(Application.persistentDataPath + "/saveone.md");
-        bf.Serialize(file, SaveLoad.map);
-        file.Close(); */
     }
     public static void Load() {  
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getStats().PlayerLevel = PlayerPrefs.GetInt("PlayerLevel");
@@ -58,18 +46,5 @@ public class SaveLoad {
 
         GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>().UpdateGame();
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().UpdatePlayer();
-
-        
-        /*  if (File.Exists(Application.persistentDataPath + "/savedGames.gd"))
-         {
-             BinaryFormatter bf = new BinaryFormatter();
-             FileStream file = File.Open(Application.persistentDataPath + "/saveone.pd", FileMode.Open);
-             SaveLoad.player = (PlayerStats)bf.Deserialize(file);
-             file.Close();
-
-             file = File.Open(Application.persistentDataPath + "/saveone.md", FileMode.Open);
-             SaveLoad.map = (MapInformation)bf.Deserialize(file);
-             file.Close();
-         } */
     }
 }
