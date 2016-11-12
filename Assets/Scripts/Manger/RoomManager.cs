@@ -64,7 +64,7 @@ public class RoomManager : MonoBehaviour {
 		// Destroy existing room if it exist
 		if (this.transform.childCount > 0) {
 			foreach (Transform child in this.transform) {
-				Destroy (child);
+				Destroy (child.gameObject);
 			}
 		}
 
@@ -185,7 +185,7 @@ public class RoomManager : MonoBehaviour {
 		}
     }
 
-	public void CreateBossRoom(){
+	public void CreateBossRoom(int floor){
 		// Set room type
 		setRoomAsBoss ();
 
@@ -198,6 +198,11 @@ public class RoomManager : MonoBehaviour {
 			foreach (Transform child in this.transform) {
 				Destroy (child);
 			}
+		}
+
+		// Spawn Boss
+		if (bossRoom == true) {
+			SpawnBoss (floor);
 		}
 
 		// Create the floor and walls for the room
@@ -276,6 +281,14 @@ public class RoomManager : MonoBehaviour {
 				instance.transform.SetParent (this.transform);
 			}
 		}
+	}
+
+	// Creates the boss in the room
+	public void SpawnBoss(int floor){
+		GameObject Boss = Instantiate (bosses [floor / 5], new Vector3 (19f, 15f, -0.1f), Quaternion.identity) as GameObject;
+		Boss.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 19, roomY * 8 + 15);
+		Boss.GetComponent<Enemy> ().EnemyType (100);
+		Boss.transform.SetParent (this.transform);
 	}
 
 	// Creates the enemies in the room 
@@ -396,6 +409,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = false;
 		npcRoom = false;
 		bossRoom = false;
+		this.gameObject.name = "Enemy Room";
 	}
 
 	/* Sets this room as a chest room */
@@ -405,6 +419,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = false;
 		npcRoom = false;
 		bossRoom = false;
+		this.gameObject.name = "Chest Room";
 	}
 
 	/* Sets this room as a ladder room */
@@ -414,6 +429,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = true;
 		npcRoom = false;
 		bossRoom = false;
+		this.gameObject.name = "Ladder Room";
 	}
 
 	/* Sets this room as an NPC room */
@@ -423,6 +439,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = false;
 		npcRoom = true;
 		bossRoom = false;
+		this.gameObject.name = "NPC Room";
 	}
 
 	public void setRoomAsBoss(){
@@ -431,6 +448,7 @@ public class RoomManager : MonoBehaviour {
 		ladderRoom = false;
 		npcRoom = false;
 		bossRoom = true;
+		this.gameObject.name = "Boss Room";
 	}
 
 	/* Method to get the number of rows in the room */

@@ -47,9 +47,6 @@ public class Player : MonoBehaviour{
 	private float attackTimer;
 	private float regenTimer;
 
-	/* GameObjects dependent on player */
-	private GameObject[] enemyList;
-
 	/* Player transform */
 	private Transform playerTransform;
     private Animator playerAnimation;
@@ -83,13 +80,12 @@ public class Player : MonoBehaviour{
 
 		Move ();
 
-		// Get all enemies on the map
-		enemyList = GameObject.FindGameObjectsWithTag("Enemy");
-
-		// Check if attack button was pressed
-		if (Input.GetButtonDown("Attack") && attackTimer >= stats.attackSpeed) {
-			Attack ();
-		}
+        // Check if attack button was pressed
+        if (Input.GetButtonDown("Attack") && attackTimer >= stats.attackSpeed)
+        {
+            Attack();
+        }
+        else DeactivateHitBox();
 	}
 
     // Player movement
@@ -103,68 +99,59 @@ public class Player : MonoBehaviour{
             direction = new Vector3(movex, 0, 0);
             playerTransform.Translate(direction);
         }
-        else if (Input.GetAxisRaw("Horizontal") > 0){
+        if (Input.GetAxisRaw("Horizontal") > 0){
             playerAnimation.SetInteger("Direction", 3);
             playerAnimation.SetFloat("Speed", 1.0f);
             movex = Input.GetAxisRaw("Horizontal") * (Time.deltaTime * stats.speed);
             direction = new Vector3(movex, 0, 0);
             playerTransform.Translate(direction);
         }
-        else if (Input.GetAxisRaw("Vertical") < 0){
+        if (Input.GetAxisRaw("Vertical") < 0){
             playerAnimation.SetInteger("Direction", 0);
             playerAnimation.SetFloat("Speed", 1.0f);
             movey = Input.GetAxisRaw("Vertical") * (Time.deltaTime * stats.speed);
             direction = new Vector3(0, movey, 0);
             playerTransform.Translate(direction);
         }
-        else if (Input.GetAxisRaw("Vertical") > 0){
+        if (Input.GetAxisRaw("Vertical") > 0){
             playerAnimation.SetInteger("Direction", 2);
             playerAnimation.SetFloat("Speed", 1.0f);
             movey = Input.GetAxisRaw("Vertical") * (Time.deltaTime * stats.speed);
             direction = new Vector3(0, movey, 0);
             playerTransform.Translate(direction);
         }
-        else playerAnimation.SetFloat("Speed", 0.0f);
+        if(Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0) {
+            playerAnimation.SetFloat("Speed", 0.0f);
+        }
     }
 
 	// Player attack
 	public void Attack(){
-        // TODO: Have player only damage enemies it is facing
 		// Reduce that enemy's health
-
 		if (playerAnimation.GetInteger ("Direction") == 0) {
-			foreach (GameObject enemy in enemyList) {
-				if (enemy.transform.position.y >= transform.position.y - stats.attackRange && enemy.transform.position.y < transform.position.y && ((transform.position.y - enemy.transform.position.y > transform.position.x - enemy.transform.position.x && transform.position.x > enemy.transform.position.x) || (transform.position.y - enemy.transform.position.y > enemy.transform.position.x - transform.position.x && transform.position.x < enemy.transform.position.x))) {
-					enemy.GetComponent<Enemy> ().TakeDamage (damage);
-				}
-			}
+            transform.Find("South").gameObject.SetActive(true);
 		}
 		else if (playerAnimation.GetInteger ("Direction") == 1) {
-			foreach (GameObject enemy in enemyList) {
-				if (enemy.transform.position.x >= transform.position.x - stats.attackRange && enemy.transform.position.x < transform.position.x && ((transform.position.x - enemy.transform.position.x > transform.position.y - enemy.transform.position.y && transform.position.y > enemy.transform.position.y) || (transform.position.x - enemy.transform.position.x > enemy.transform.position.y - transform.position.y && transform.position.y < enemy.transform.position.y))) {
-					enemy.GetComponent<Enemy> ().TakeDamage (damage);
-				}
-			}
-		}
+            transform.Find("West").gameObject.SetActive(true);
+        }
 		else if (playerAnimation.GetInteger ("Direction") == 2) {
-			foreach (GameObject enemy in enemyList) {
-				if (enemy.transform.position.y <= transform.position.y + stats.attackRange && enemy.transform.position.y > transform.position.y && ((enemy.transform.position.y - transform.position.y > transform.position.x - enemy.transform.position.x && transform.position.x > enemy.transform.position.x) || (enemy.transform.position.y - transform.position.y > enemy.transform.position.x - transform.position.x && transform.position.x < enemy.transform.position.x))) {
-					enemy.GetComponent<Enemy> ().TakeDamage (damage);
-				}
-			}
-		}
+            transform.Find("North").gameObject.SetActive(true);
+        }
 		else if (playerAnimation.GetInteger ("Direction") == 3) {
-			foreach (GameObject enemy in enemyList) {
-				if (enemy.transform.position.x <= transform.position.x + stats.attackRange && enemy.transform.position.x > transform.position.x && ((enemy.transform.position.x - transform.position.x > transform.position.y - enemy.transform.position.y && transform.position.y > enemy.transform.position.y) || (enemy.transform.position.x - transform.position.x > enemy.transform.position.y - transform.position.y && transform.position.y < enemy.transform.position.y))) {
-					enemy.GetComponent<Enemy> ().TakeDamage (damage);
-				}
-			}
-		}
+            transform.Find("East").gameObject.SetActive(true);
+        }
 		attackTimer = 0f;
 	}
 
-	// Respawn player
-	public void Respawn(){
+    public void DeactivateHitBox() {
+        transform.Find("South").gameObject.SetActive(false);
+        transform.Find("West").gameObject.SetActive(false);
+        transform.Find("North").gameObject.SetActive(false);
+        transform.Find("East").gameObject.SetActive(false);
+    }
+
+    // Respawn player
+    public void Respawn(){
 		Debug.Log ("You have died!");
 		Debug.Log ("Respawning...");
 
@@ -255,6 +242,8 @@ public class Player : MonoBehaviour{
 			characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		} else if (item.tag == "Mainhand") {
             characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+			// Set player's attack animation to weapon
+			playerAnimation.SetInteger ("AttackType", item.GetComponent<Item> ().ItemType);
 		} else if (item.tag == "Offhand") {
 			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		}
@@ -266,6 +255,10 @@ public class Player : MonoBehaviour{
 
 	public void UnequipItem(GameObject item){
         RemoveBonusStats(item);
+		if (item.tag == "Mainhand") {
+			// Reset player's attack animation to hand
+			playerAnimation.SetInteger ("AttackType", 0);
+		}
 	}
 
     public void IncreaseBonusStats(GameObject item){
