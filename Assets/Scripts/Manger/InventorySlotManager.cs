@@ -7,7 +7,6 @@ public class InventorySlotManager : MonoBehaviour {
     private Player playerScript;
 
 	private GameObject item;
-	private int quantity;
 
     void Start(){
         gameObject.GetComponent<Button>().onClick.AddListener(EquipItem);
@@ -25,7 +24,6 @@ public class InventorySlotManager : MonoBehaviour {
     // Insert item into an inventory slot
 	public void InsertItem(GameObject item, int quantity){
 		this.item = item;
-		this.quantity = quantity;
 		transform.GetChild(0).GetComponent<Image>().sprite = item.GetComponent<SpriteRenderer>().sprite;
 		transform.GetChild(1).GetComponent<Text>().text = quantity.ToString();
 	}
@@ -33,7 +31,6 @@ public class InventorySlotManager : MonoBehaviour {
     // Remove item from inventory slots
 	public void RemoveItem(){
         this.item = null;
-        this.quantity = 0;
 		transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("TransparentSprite");
 		transform.GetChild(1).GetComponent<Text>().text = "";
 	}

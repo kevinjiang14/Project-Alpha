@@ -232,7 +232,7 @@ public class Enemy: MonoBehaviour {
 
 	// Enemy is dead
 	public void Dead(){
-		if (enemyStats.enemyType % 100 == 0) {
+		if (enemyStats.enemyType % 100 == 0 && enemyStats.enemyType <= 100) {
 			// Get the position of the enemy if it was a boss and spawn the ladder there
 			Vector3 deathPosition = transform.position;
 			GameObject ladder = (GameObject)Instantiate (Resources.Load ("LevelObjects/Ladder"), deathPosition, Quaternion.identity) as GameObject;

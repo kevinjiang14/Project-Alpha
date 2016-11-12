@@ -57,7 +57,6 @@ public class MapManager : MonoBehaviour {
     
     private MapInformation mapInfo;
 	private bool bossFloor = false;
-	private bool bossRoomExist = false;
 
     public void Awake(){
 		// Verifying only one instance of MapManager is in existance
@@ -642,7 +641,6 @@ public class MapManager : MonoBehaviour {
 		Destroy (Map);
 		numOfRooms = 0;
 		validMap = false;
-		bossRoomExist = false;
 		Initialization ();
 	}
 

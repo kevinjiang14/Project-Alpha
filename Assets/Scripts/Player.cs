@@ -47,9 +47,6 @@ public class Player : MonoBehaviour{
 	private float attackTimer;
 	private float regenTimer;
 
-	/* GameObjects dependent on player */
-	private GameObject[] enemyList;
-
 	/* Player transform */
 	private Transform playerTransform;
     private Animator playerAnimation;
@@ -82,9 +79,6 @@ public class Player : MonoBehaviour{
 		}
 
 		Move ();
-
-		// Get all enemies on the map
-		enemyList = GameObject.FindGameObjectsWithTag("Enemy");
 
         // Check if attack button was pressed
         if (Input.GetButtonDown("Attack") && attackTimer >= stats.attackSpeed)
