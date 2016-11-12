@@ -80,7 +80,7 @@ public class Enemy: MonoBehaviour {
 	// Enemy difficulty multiplier based on floor number
 	private int multiplier;
 
-	// Do I really need to explain what this it?
+    // Player reference
     private GameObject player;
 	private Player playerScript;
 

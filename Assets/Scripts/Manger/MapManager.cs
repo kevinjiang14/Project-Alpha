@@ -19,6 +19,7 @@ public class MapManager : MonoBehaviour {
     private GameObject currentMenu;
     private GameObject currentInventory;
     private GameObject currentCharacter;
+    private GameObject miniMap;
 
     // Map Validation variables
     private int numOfRooms = 0;
@@ -79,44 +80,39 @@ public class MapManager : MonoBehaviour {
         CreateMenus ();
 	}
 
+    // Update handles the button inputs to open each menu
     public void Update(){
-        if (Input.GetButtonDown("StatsMenu"))
-        {
-            if (currentMenu.activeSelf == false)
-            {
+        if (Input.GetButtonDown("StatsMenu")) {
+            if (currentMenu.activeSelf == false) {
                 currentMenu.SetActive(true);
                 currentCharacter.SetActive(false);
             }
-            else
-            {
+            else {
                 currentMenu.SetActive(false);
                 currentCharacter.SetActive(false);
             }
         }
 
-        if (Input.GetButtonDown("Inventory"))
-        {
-            if(currentInventory.activeSelf == false)
-            {
+        if (Input.GetButtonDown("Inventory")) {
+            if(currentInventory.activeSelf == false) {
                 currentInventory.SetActive(true);
             }
-            else
-            {
-                currentInventory.SetActive(false);
-            }
+            else currentInventory.SetActive(false);
         }
 
-        if (Input.GetButtonDown("CharacterMenu"))
-        {
-            if (currentCharacter.activeSelf == false)
-            {
+        if (Input.GetButtonDown("CharacterMenu")) {
+            if (currentCharacter.activeSelf == false) {
                 currentCharacter.SetActive(true);
                 currentMenu.SetActive(false);
             }
-            else
-            {
-                currentCharacter.SetActive(false);
+            else currentCharacter.SetActive(false);
+        }
+
+        if (Input.GetKeyDown("m")) {
+            if (miniMap.activeSelf == false) {
+                miniMap.SetActive(true);
             }
+            else miniMap.SetActive(false);
         }
     }
 
@@ -605,7 +601,7 @@ public class MapManager : MonoBehaviour {
 		Vector3 playerInitPosition = new Vector3(Pcolumn * 14f + 7f, Prow * 8f + 4f, -0.01f);
         player = Instantiate(playerList, playerInitPosition, Quaternion.identity) as GameObject;
 		SetCamera(player, playerInitPosition);
-		GameObject minimap = Instantiate (MinimapCamera, new Vector3(70, 40, -10), Quaternion.identity) as GameObject;
+		miniMap = Instantiate (MinimapCamera, new Vector3(70, 40, -10), Quaternion.identity) as GameObject;
     }
 
     // Creates the camera to follow player
