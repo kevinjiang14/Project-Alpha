@@ -26,7 +26,7 @@ public class ShopSlotManager : MonoBehaviour {
 		this.item = item;
 
 		transform.Find ("ItemIcon").GetComponent<Image> ().sprite = item.GetComponent<SpriteRenderer> ().sprite;
-		transform.Find ("ItemName").GetComponent<Text> ().text = item.name;
+		transform.Find ("ItemName").GetComponent<Text> ().text = item.GetComponent<Item>().itemName;
 		transform.Find ("ItemCost").GetComponent<Text> ().text = "" + item.GetComponent<Item> ().cost + "g";
 	}
 }

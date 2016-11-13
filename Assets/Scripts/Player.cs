@@ -261,6 +261,72 @@ public class Player : MonoBehaviour{
 		}
 	}
 
+	public string[] GetEquipment(){
+		characterMenu = GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>().getCurrentCharacter();
+		string[] unfittedEquipments = new string[10];
+		int counter = 0;
+		if (characterMenu.transform.Find ("Head").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Head").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+		if (characterMenu.transform.Find ("Body").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Body").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+		if (characterMenu.transform.Find ("Hand").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Hand").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+		if (characterMenu.transform.Find ("Leg").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Leg").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+		if (characterMenu.transform.Find ("Feet").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Feet").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+		if (characterMenu.transform.Find ("Accessory1").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Accessory1").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+		if (characterMenu.transform.Find ("Accessory2").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Accessory2").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+		if (characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+		if (characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+		if (characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
+			unfittedEquipments [counter] = characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
+			counter++;
+		}
+
+		string[] tempEquipment = new string[counter];
+		for (int i = 0; i < counter; i++) {
+			tempEquipment [i] = unfittedEquipments [i];
+		}
+
+		return tempEquipment;
+	}
+
+	public void ClearEquipment(){
+		characterMenu.transform.Find ("Head").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+		characterMenu.transform.Find ("Body").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+		characterMenu.transform.Find ("Hand").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+		characterMenu.transform.Find ("Leg").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+		characterMenu.transform.Find ("Feet").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+		characterMenu.transform.Find ("Accessory1").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+		characterMenu.transform.Find ("Accessory2").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+		characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+		characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+		characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+	}
+
     public void IncreaseBonusStats(GameObject item){
         Item tempItemScript = item.GetComponent<Item>();
         stats.vitality += tempItemScript.vitality;

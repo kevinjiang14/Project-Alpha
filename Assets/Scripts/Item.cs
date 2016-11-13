@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Equipment : Component{
     public int ItemID { get; set; }
+	public string ItemName { get; set; }
     public int Chance { get; set; }
     public int Cost { get; set; }
 
@@ -19,6 +20,7 @@ public class Equipment : Component{
 }
 
 public class Consumable : Component{
+	public string ItemName { get; set; }
     public int ItemID { get; set; }
     public int Chance { get; set; }
     public int Cost { get; set; }
@@ -37,6 +39,7 @@ public class Item : MonoBehaviour {
      */
     public int ItemType;
 
+	public string itemName;
     public int itemID;
     public int chance;
     public int cost;
@@ -64,6 +67,7 @@ public class Item : MonoBehaviour {
 	void Start () {
 	    if(ItemType == 0){
             consumable = new Consumable();
+			consumable.ItemName = itemName;
             consumable.ItemID = itemID;
             consumable.Chance = chance;
             consumable.Cost = cost;
@@ -72,6 +76,7 @@ public class Item : MonoBehaviour {
             consumable.ManaRecovery = manaRecovery;
         } else if(ItemType == 1){
             equipment = new Equipment();
+			equipment.ItemName = itemName;
             equipment.ItemID = itemID;
             equipment.Chance = chance;
             equipment.Cost = cost;
