@@ -17,7 +17,7 @@ public class InventoryManager : MonoBehaviour{
         ClearInventory();
 
         numOfItems = 0;
-        inventoryDictionary = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getInventory().getInventory();
+        inventoryDictionary = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().getInventory().GetInventory();
         Dictionary<GameObject, int>.KeyCollection tempInventoryHolder = inventoryDictionary.Keys;
         if (tempInventoryHolder != null){
             foreach (GameObject item in tempInventoryHolder)
