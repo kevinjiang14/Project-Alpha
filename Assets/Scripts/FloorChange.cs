@@ -8,8 +8,8 @@ public class FloorChange : MonoBehaviour {
 			Debug.Log ("Entering next floor");
 			GameObject mapManager = GameObject.FindGameObjectWithTag("MapManager");
 			MapManager mapScript = mapManager.GetComponent<MapManager> ();
-			mapScript.RecreateMap ();
 			mapScript.IncreaseFloor ();
+			mapScript.RecreateMap ();
 
 			GameObject player = GameObject.FindGameObjectWithTag ("Player");
 			Player playerScript = player.GetComponent<Player> ();
