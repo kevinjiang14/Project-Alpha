@@ -2,79 +2,6 @@
 using System.Collections;
 using System;
 
-[System.Serializable]
-public class EnemyStats : Component{
-	public float speed = 0.7f;
-	public int enemyLevel = 1;
-	public int defense = 5;
-	public int strength = 10;
-	public int vitality = 5;
-	public int currentHealth;
-	public float attackRange = 1f;
-	public float attackSpeed = 1f;
-	// Range when enemy starts moving towards player
-	public float MaxRange = 4f;
-	public float MinRange = 1f;
-
-	public int enemyType = -1;
-}
-
-public class Skeleton : EnemyStats{
-
-    public Skeleton(){
-        defense = 7;
-
-		enemyType = 0;
-    }
-}
-
-public class Slime : EnemyStats{
-
-    public Slime(){
-        enemyLevel = 2;
-        vitality = 7;
-
-		enemyType = 1;
-    }
-}
-
-public class Bat : EnemyStats {
-
-    public Bat(){
-        strength = 12;
-
-		enemyType = 2;
-    }
-}
-
-public class SkeletonBoss : EnemyStats {
-
-	public SkeletonBoss(){
-		enemyLevel = 10;
-		defense = 30;
-		strength = 5;
-		vitality = 50;
-
-		MaxRange = 10f;
-
-		enemyType = 100;
-	}
-}
-
-public class ChickenBoss : EnemyStats {
-
-	public ChickenBoss(){
-		enemyLevel = 20;
-		defense = 30;
-		strength = 5;
-		vitality = 50;
-
-		MaxRange = 10f;
-
-		enemyType = 100;
-	}
-}
-
 public class Enemy: MonoBehaviour {
 
 	/* Enemy Stats */
@@ -109,6 +36,7 @@ public class Enemy: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		enemyStats = GetComponent<EnemyStats> ();
 
 		// Animator componenet
 		enemyAnimation = GetComponent<Animator> ();
@@ -122,7 +50,9 @@ public class Enemy: MonoBehaviour {
 		mapScript = map.GetComponent<MapManager> ();
 
 		HPTextBox = transform.GetChild (0);
-		multiplier = mapScript.getFloor ();
+		if (enemyStats.enemyType % 100 == 0 && enemyStats.enemyType >= 100) {
+			multiplier = 1;
+		}else multiplier = mapScript.getFloor ();
 
 		AdjustStats ();
 
@@ -272,19 +202,4 @@ public class Enemy: MonoBehaviour {
 			enemyStats.vitality = enemyStats.vitality * multiplier;
 		}
 	}
-
-	public void EnemyType(int i){
-		if(i == 100){
-			enemyStats = new SkeletonBoss ();
-		} else if(i == 200){
-			enemyStats = new ChickenBoss ();
-		} else if(i == 0){
-            enemyStats = new Skeleton();
-        } else if(i == 1){
-            enemyStats = new Slime();
-        } else if(i == 2){
-            enemyStats = new Bat();
-        }
-        AdjustStats();
-    }
 }
