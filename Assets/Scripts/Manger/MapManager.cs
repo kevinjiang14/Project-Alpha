@@ -135,7 +135,7 @@ public class MapManager : MonoBehaviour {
     // Map Initialization
     public void MapInitization(){
 		// Boss Level Check
-		if (mapInfo.floorLevel % 5 == 0) {
+		if (mapInfo.floorLevel % 1 == 0) {
 			bossFloor = true;
 		} else bossFloor = false;
 

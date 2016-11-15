@@ -286,7 +286,7 @@ public class RoomManager : MonoBehaviour {
 	// Creates the boss in the room
 	public void SpawnBoss(int floor){
 		// Boss Level Check
-		GameObject Boss = Instantiate (bosses [1 - floor / 5], new Vector3 (19f, 15f, -0.1f), Quaternion.identity) as GameObject;
+		GameObject Boss = Instantiate (bosses [1 - floor / 1], new Vector3 (19f, 15f, -0.1f), Quaternion.identity) as GameObject;
 		Boss.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 19, roomY * 8 + 15);
 		Boss.GetComponent<Enemy> ().EnemyType (100);
 		Boss.transform.SetParent (this.transform);

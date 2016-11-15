@@ -61,6 +61,20 @@ public class SkeletonBoss : EnemyStats {
 	}
 }
 
+public class ChickenBoss : EnemyStats {
+
+	public ChickenBoss(){
+		enemyLevel = 20;
+		defense = 30;
+		strength = 5;
+		vitality = 50;
+
+		MaxRange = 10f;
+
+		enemyType = 100;
+	}
+}
+
 public class Enemy: MonoBehaviour {
 
 	/* Enemy Stats */
@@ -262,6 +276,8 @@ public class Enemy: MonoBehaviour {
 	public void EnemyType(int i){
 		if(i == 100){
 			enemyStats = new SkeletonBoss ();
+		} else if(i == 200){
+			enemyStats = new ChickenBoss ();
 		} else if(i == 0){
             enemyStats = new Skeleton();
         } else if(i == 1){
