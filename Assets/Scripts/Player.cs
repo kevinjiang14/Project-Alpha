@@ -168,13 +168,14 @@ public class Player : MonoBehaviour{
 
 	// PLayer taking damage
 	public void TakeDamage(int i){
-		// damage taken = incoming damage - defense / 7
-		i = i - (stats.defense / 7);
-		if (i >= 0) {
+		// damage taken = incoming damage - defense / 5
+		i = i - (stats.defense / 5);
+		if (i > 0) {
 			if (stats.CurrentHealth - i <= 0) {
 				Respawn ();
 			} else
-                stats.CurrentHealth -= i;
+				// Ensures the player always take 1 point of damage no matter how high their defense is
+                stats.CurrentHealth -= 1;
 		}
 	}
 
