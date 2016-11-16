@@ -32,11 +32,11 @@ public class PlayerStats : Component{
 public class Player : MonoBehaviour{
 
 	/* Non-Adjustable Attributes */
-	// maxHealth = playerlevel * 3 + vitality
+	// MaxHealth = playerlevel * 3 + vitality
 	private int maxHealth;
-	// damage = strength * 5
+	// Damage = strength / 5
 	private int damage;
-	// exp to level up = 20(x^2 + x + 3) where x = playerlvl
+	// EXP to level up = 20(x^2 + x + 3) where x = playerlvl
 	private int expToLVLUp;
 
 	/* Movement direction */

@@ -9,6 +9,7 @@ public class Enemy: MonoBehaviour {
 	private int maxHealth;	// maxHealth = enemylevel * 3 + vitality
 	private int damage;		// damage = strength / 5
 	private int exp;		// exp = 15x where x = enemylevel
+	private int gold;
 
 	// Counting timers
 	private float attackTimer;
