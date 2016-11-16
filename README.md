@@ -3,14 +3,14 @@ Project-Alpha is a 2D RPG dungeon crawler game. Fight your way through each floo
 
 
 Controls:  
-Arrow keys - movement
-A: Attack
-Q: Inventory screen
-E: Stats menu
-C: Equipment menu
-M: Minimap
-1-6: Hotbar keys to use potions
-ESC - Menu to quit the game
+Arrow keys - movement  
+A: Attack  
+Q: Inventory screen  
+E: Stats menu  
+C: Equipment menu  
+M: Minimap  
+1-6: Hotbar keys to use potions  
+ESC: Menu to quit the game  
 
 What to know when you start playing:
 - Currently you only start off with 100g which can be used to purchase items from the shop. There is no way for you to earn     any more as of now so spend that starting gold wisely.
