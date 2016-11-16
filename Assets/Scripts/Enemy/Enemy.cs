@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
 public class Enemy: MonoBehaviour {
 
-	/* Enemy Stats */
+	// Enemy Stats 
 	private EnemyStats enemyStats;
 
 	private int maxHealth;	// maxHealth = enemylevel * 3 + vitality
@@ -182,14 +181,11 @@ public class Enemy: MonoBehaviour {
 			GameObject ladder = (GameObject)Instantiate (Resources.Load ("LevelObjects/Ladder"), deathPosition, Quaternion.identity) as GameObject;
 			ladder.transform.SetParent (GameObject.Find ("Boss Room").transform);
 		}
-
-		Destroy (gameObject);
 		player.GetComponent<Player> ().GainEXP (exp);
+        Destroy(gameObject);
+    }
 
-
-	}
-
-	public void SetSpawn(int x, int y){
+    public void SetSpawn(int x, int y){
 		startX = x;
 		startY = y;
 	}
