@@ -94,28 +94,28 @@ public class RoomManager : MonoBehaviour {
                 if (x == 7 && y == 0 && sExit == 1)
                 {
                     toInstantiate = southDoor;
-                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, -0.1f), Quaternion.identity) as GameObject;
 
                     instance.GetComponent<DoorManager>().SetDoortoRoom((roomX * 10 + roomY), 0);
                 }
                 else if (x == 0 && y == 4 && wExit == 1)
                 {
                     toInstantiate = westDoor;
-                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, -0.1f), Quaternion.identity) as GameObject;
 
                     instance.GetComponent<DoorManager>().SetDoortoRoom((roomX * 10 + roomY), 1);
                 }
                 else if (x == 7 && y == rows && nExit == 1)
                 {
                     toInstantiate = northDoor;
-                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, -0.1f), Quaternion.identity) as GameObject;
 
                     instance.GetComponent<DoorManager>().SetDoortoRoom((roomX * 10 + roomY), 2);
                 }
                 else if (x == columns && y == 4 && eExit == 1)
                 {
                     toInstantiate = eastDoor;
-                    instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                    instance = Instantiate(toInstantiate, new Vector3(x, y, -0.1f), Quaternion.identity) as GameObject;
 
                     instance.GetComponent<DoorManager>().SetDoortoRoom((roomX * 10 + roomY), 3);
                 }
@@ -213,7 +213,7 @@ public class RoomManager : MonoBehaviour {
 				if (x == 21 && y == 0 && sExit == 1)
 				{
 					toInstantiate = southDoor;
-					instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+					instance = Instantiate(toInstantiate, new Vector3(x, y, -0.1f), Quaternion.identity) as GameObject;
 
 					instance.GetComponent<DoorManager>().SetDoortoRoom((roomX * 10 + roomY), 0);
 				}
@@ -286,37 +286,32 @@ public class RoomManager : MonoBehaviour {
 	// Creates the boss in the room
 	public void SpawnBoss(int floor){
 		// Boss Level Check
-		GameObject Boss = Instantiate (bosses [1 - floor / 1], new Vector3 (19f, 15f, -0.1f), Quaternion.identity) as GameObject;
+		GameObject Boss = Instantiate (bosses [1 - floor / 5], new Vector3 (19f, 15f, -0.1f), Quaternion.identity) as GameObject;
 		Boss.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 19, roomY * 8 + 15);
-		Boss.GetComponent<Enemy> ().EnemyType (100);
 		Boss.transform.SetParent (this.transform);
 	}
 
 	// Creates the enemies in the room 
 	public void SpawnEnemies(){
-		int choice = Random.Range (0, 3);
+		int choice = Random.Range (0, enemies.Length);
 		GameObject enemy = Instantiate (enemies [choice], new Vector3 (3f, 2f, -0.01f), Quaternion.identity) as GameObject;
 		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 3, roomY * 8 + 2);
 		enemy.transform.SetParent (this.transform);
-		enemy.GetComponent<Enemy> ().EnemyType (choice);
 
-		choice = Random.Range (0, 3);
+		choice = Random.Range (0, enemies.Length);
 		enemy = Instantiate (enemies [choice], new Vector3 (3f, 6f, -0.01f), Quaternion.identity) as GameObject;
 		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 3, roomY * 8 + 6);
 		enemy.transform.SetParent (this.transform);
-		enemy.GetComponent<Enemy> ().EnemyType (choice);
 
-		choice = Random.Range (0, 3);
+		choice = Random.Range (0, enemies.Length);
 		enemy = Instantiate (enemies [choice], new Vector3 (11f, 2f, -0.01f), Quaternion.identity) as GameObject;
 		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 11, roomY * 8 + 2);
 		enemy.transform.SetParent (this.transform);
-		enemy.GetComponent<Enemy> ().EnemyType (choice);
 
-		choice = Random.Range (0, 3);
+		choice = Random.Range (0, enemies.Length);
 		enemy = Instantiate (enemies [choice], new Vector3 (11f, 6f, -0.01f), Quaternion.identity) as GameObject;
 		enemy.GetComponent<Enemy> ().SetSpawn (roomX * 14 + 11, roomY * 8 + 6);
 		enemy.transform.SetParent (this.transform);
-		enemy.GetComponent<Enemy> ().EnemyType (choice);
 	}
 
 	// Creates the ladder in the room
