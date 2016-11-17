@@ -68,6 +68,11 @@ public class Player : MonoBehaviour{
 	void Awake(){
         stats = new PlayerStats();
         stats.inventory = new Inventory();
+		// Temporary bow given to player for testing
+		stats.inventory.AddtoInventory ((GameObject)Resources.Load ("Item/128"), 1);
+		// Start player off with a sword and shield
+		stats.inventory.AddtoInventory ((GameObject)Resources.Load ("Item/92"), 1);
+		stats.inventory.AddtoInventory ((GameObject)Resources.Load ("Item/150"), 1);
 		playerTransform = GetComponent<Transform> ();
         playerAnimation = GetComponent<Animator>();
 
@@ -251,7 +256,7 @@ public class Player : MonoBehaviour{
 	public void EquipItem(GameObject item){
         characterMenu = GameObject.FindGameObjectWithTag("MapManager").GetComponent<MapManager>().getCurrentCharacter();
         characterMenu.SetActive(true);
-        if (item.tag == "Head") {
+		if (item.tag == "Head") {
 			characterMenu.transform.Find ("Head").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		} else if (item.tag == "Body") {
 			characterMenu.transform.Find ("Body").GetComponent<EquipmentSlotManager> ().EquipItem (item);
@@ -268,11 +273,19 @@ public class Player : MonoBehaviour{
 		} else if (item.tag == "Ring") {
 			characterMenu.transform.Find ("Accessory3").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		} else if (item.tag == "Mainhand") {
-            characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+			characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 			// Set player's attack animation to weapon
 			playerAnimation.SetInteger ("AttackType", item.GetComponent<Item> ().ItemType);
 		} else if (item.tag == "Offhand") {
 			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+			if (characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().tag == "2-Handed") {
+				characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().UnequipItem();
+
+			}
+		} else if (item.tag == "2-Handed") {
+			characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
+			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+			playerAnimation.SetInteger ("AttackType", item.GetComponent<Item> ().ItemType);
 		}
         // Check for bonus stats from items/potions/etc.
         IncreaseBonusStats(item);
@@ -380,8 +393,10 @@ public class Player : MonoBehaviour{
         stats.speed -= tempItemScript.speed;
         stats.attackRange -= tempItemScript.attackRange;
         stats.attackSpeed += tempItemScript.attackSpeed;
-        stats.healthRegenRate += tempItemScript.healthRegenRate;
-        stats.healthRegenAmount -= tempItemScript.healthRegenAmount;
+		stats.healthRegenRate += tempItemScript.healthRegenRate;
+		stats.healthRegenAmount -= tempItemScript.healthRegenAmount;
+		stats.manaRegenRate += tempItemScript.manaRegenRate;
+		stats.manaRegenAmount -= tempItemScript.manaRegenAmount;
         UpdateStats();
     }
 
