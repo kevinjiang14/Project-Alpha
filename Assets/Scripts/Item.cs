@@ -9,14 +9,18 @@ public class Equipment : Component{
 
     public int Vitality { get; set; }
     public int Strength { get; set; }
+	public int Defense { get; set; }
+	public int Intelligence { get; set; }
+	public int Wisdom { get; set; }
     public int Dexterity { get; set; }
-    public int Defense { get; set; }
     public int Luck { get; set; }
     public int Speed { get; set; }
     public float AttackRange { get; set; }
     public float AttackSpeed { get; set; }
     public float HealthRegen { get; set; }
-    public int RegenAmount { get; set; }
+    public int HealthRegenAmount { get; set; }
+	public float ManaRegen { get; set; }
+	public int ManaRegenAmount { get; set; }
 }
 
 public class Consumable : Component{
@@ -47,14 +51,18 @@ public class Item : MonoBehaviour {
     // Stats if item is equipable
     public int vitality;
     public int strength;
+	public int defense;
+	public int intelligence;
+	public int wisdom;
     public int dexterity;
-    public int defense;
     public int luck;
     public int speed;
     public float attackRange;
     public float attackSpeed;
-    public float regenRate;
-    public int regenAmount;
+    public float healthRegenRate;
+    public int healthRegenAmount;
+	public float manaRegenRate;
+	public int manaRegenAmount;
 
     // Benefits if item is consumable
     public int healthRecovery;
@@ -83,14 +91,18 @@ public class Item : MonoBehaviour {
 
             equipment.Vitality = vitality;
             equipment.Strength = strength;
+			equipment.Defense = defense;
+			equipment.Intelligence = intelligence;
+			equipment.Wisdom = wisdom;
             equipment.Dexterity = dexterity;
-            equipment.Defense = defense;
             equipment.Luck = luck;
             equipment.Speed = speed;
             equipment.AttackRange = attackRange;
             equipment.AttackSpeed = attackSpeed;
-            equipment.HealthRegen = regenRate;
-            equipment.RegenAmount = regenAmount;
+            equipment.HealthRegen = healthRegenRate;
+            equipment.HealthRegenAmount = healthRegenAmount;
+			equipment.ManaRegen = manaRegenRate;
+			equipment.ManaRegenAmount = manaRegenAmount;
         }
 	}
 }

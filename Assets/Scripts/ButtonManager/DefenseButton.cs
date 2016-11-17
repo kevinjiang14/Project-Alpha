@@ -11,10 +11,10 @@ public class DefenseButton : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseVitality);
+		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseDefense);
 	}
 
-	void IncreaseVitality(){
+	void IncreaseDefense(){
 		playerScript.IncreaseDefense ();
 	}
 }

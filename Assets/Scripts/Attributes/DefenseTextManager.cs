@@ -11,11 +11,11 @@ public class DefenseTextManager : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		GetComponent<Text> ().text = "Defense:\t" + playerScript.getDefense ().ToString ();
+		GetComponent<Text> ().text = "Defense:\t\t" + playerScript.getDefense ().ToString ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		GetComponent<Text> ().text = "Defense:\t" + playerScript.getDefense ().ToString ();
+		GetComponent<Text> ().text = "Defense:\t\t" + playerScript.getDefense ().ToString ();
 	}
 }

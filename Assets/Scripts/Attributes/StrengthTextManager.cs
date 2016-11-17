@@ -11,11 +11,11 @@ public class StrengthTextManager : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		GetComponent<Text> ().text = "Strength:\t" + playerScript.getStrength ().ToString ();
+		GetComponent<Text> ().text = "Strength:\t\t" + playerScript.getStrength ().ToString ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		GetComponent<Text> ().text = "Strength:\t" + playerScript.getStrength ().ToString ();
+		GetComponent<Text> ().text = "Strength:\t\t" + playerScript.getStrength ().ToString ();
 	}
 }

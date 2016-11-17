@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DexterityButton : MonoBehaviour {
+public class IntelligenceButton : MonoBehaviour {
 
 	private GameObject player;
 	private Player playerScript;
@@ -11,10 +11,10 @@ public class DexterityButton : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseDexterity);
+		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseIntelligence);
 	}
 
-	void IncreaseDexterity(){
-		playerScript.IncreaseDexterity ();
+	void IncreaseIntelligence(){
+		playerScript.IncreaseIntelligence ();
 	}
 }

@@ -39,7 +39,7 @@ public class SaveLoadGame {
 		PlayerPrefs.SetFloat("Speed", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().speed);
 		PlayerPrefs.SetFloat("AttackRange", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().attackRange);
 		PlayerPrefs.SetFloat("AttackSpeed", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().attackSpeed);
-		PlayerPrefs.SetFloat("RegenRate", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().regenRate);
+		PlayerPrefs.SetFloat("RegenRate", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().healthRegenRate);
 		PlayerPrefs.SetInt("FreeAttrPoints", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().freeAttrPoints);
 	}
 
@@ -56,7 +56,7 @@ public class SaveLoadGame {
 		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().speed = PlayerPrefs.GetFloat("Speed");
 		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().attackRange = PlayerPrefs.GetFloat("AttackRange");
 		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().attackSpeed = PlayerPrefs.GetFloat("AttackSpeed");
-		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().regenRate = PlayerPrefs.GetFloat("RegenRate");
+		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().healthRegenRate = PlayerPrefs.GetFloat("RegenRate");
 		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().freeAttrPoints = PlayerPrefs.GetInt("FreeAttrPoints");
 	}
 

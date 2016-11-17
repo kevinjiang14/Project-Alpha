@@ -11,10 +11,10 @@ public class StrengthButton : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseVitality);
+		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseStrength);
 	}
 
-	void IncreaseVitality(){
+	void IncreaseStrength(){
 		playerScript.IncreaseStrength ();
 	}
 }

@@ -11,11 +11,11 @@ public class VitalityTextManager : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		GetComponent<Text> ().text = "Vitality:\t\t" + playerScript.getVitality ().ToString ();
+		GetComponent<Text> ().text = "Vitality:\t\t\t" + playerScript.getVitality ().ToString ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		GetComponent<Text> ().text = "Vitality:\t\t" + playerScript.getVitality ().ToString ();
+		GetComponent<Text> ().text = "Vitality:\t\t\t" + playerScript.getVitality ().ToString ();
 	}
 }

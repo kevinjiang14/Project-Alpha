@@ -61,6 +61,7 @@ public class Enemy: MonoBehaviour {
 		enemyStats.currentHealth = maxHealth;
 		damage = enemyStats.strength / 5;
 		exp = enemyStats.enemyLevel * 15;
+		gold = Random.Range (enemyStats.enemyLevel * enemyStats.enemyLevel + 1, enemyStats.enemyLevel * enemyStats.enemyLevel + 1 + playerScript.getLuck ());
 	}
 	
 	// Update is called once per frame
@@ -183,6 +184,8 @@ public class Enemy: MonoBehaviour {
 			ladder.transform.SetParent (GameObject.Find ("Boss Room").transform);
 		}
 		player.GetComponent<Player> ().GainEXP (exp);
+
+		player.GetComponent<Player> ().IncreaseMoney (gold);
         Destroy(gameObject);
     }
 
@@ -193,7 +196,7 @@ public class Enemy: MonoBehaviour {
 
 	public void AdjustStats(){
 		if (multiplier > 1) {
-			enemyStats.enemyLevel = enemyStats.enemyLevel + multiplier;
+			enemyStats.enemyLevel = enemyStats.enemyLevel + multiplier * 2;
 			enemyStats.strength = enemyStats.strength * multiplier;
 			enemyStats.defense = enemyStats.defense * multiplier;
 			enemyStats.vitality = enemyStats.vitality * multiplier;

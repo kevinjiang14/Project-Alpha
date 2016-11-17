@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DexterityButton : MonoBehaviour {
+
+public class GoldTextManager : MonoBehaviour {
 
 	private GameObject player;
 	private Player playerScript;
@@ -11,10 +12,11 @@ public class DexterityButton : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseDexterity);
+		GetComponent<Text> ().text = "" + playerScript.getMoney ().ToString () + "G";
 	}
 
-	void IncreaseDexterity(){
-		playerScript.IncreaseDexterity ();
+	// Update is called once per frame
+	void Update () {
+		GetComponent<Text> ().text = "" + playerScript.getMoney ().ToString () + "G";
 	}
 }

@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DexterityTextManager : MonoBehaviour {
+
+public class MPTextManager : MonoBehaviour {
 
 	private GameObject player;
 	private Player playerScript;
@@ -11,11 +12,11 @@ public class DexterityTextManager : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		GetComponent<Text> ().text = "Dexterity:\t\t" + playerScript.getDexterity ().ToString ();
+		GetComponent<Text> ().text = "MP: " + playerScript.getMana ().ToString () + "/" + playerScript.getMaxMana ().ToString ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		GetComponent<Text> ().text = "Dexterity:\t\t" + playerScript.getDexterity ().ToString ();
+		GetComponent<Text> ().text = "MP: " + playerScript.getMana ().ToString () + "/" + playerScript.getMaxMana ().ToString ();
 	}
 }

@@ -10,10 +10,10 @@ public class LuckButton : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseVitality);
+		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseLuck);
 	}
 
-	void IncreaseVitality(){
+	void IncreaseLuck(){
 		playerScript.IncreaseLuck ();
 	}
 }

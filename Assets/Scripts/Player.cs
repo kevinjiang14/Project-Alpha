@@ -5,25 +5,32 @@ using UnityEngine.UI;
 public class PlayerStats : Component{
     public int PlayerLevel = 1;
     public int CurrentHealth;
+	public int CurrentMana;
     public int CurrentEXP;
     // Vitality increases health
     public int vitality = 10;
     // Strength increases damage
     public int strength = 10;
-    // Dexterity increases critical rate and damge
-    public int dexterity = 10;
     // Defense lowers damage taken
     public int defense = 5;
+	// Intelligence increase magic damage
+	public int intelligence = 10;
+	// Wisdom increases mana
+	public int wisdom = 5;
+	// Dexterity increases critical rate and damge
+	public int dexterity = 10;
     // Luck increases rare item finds?
     public int luck = 5;
     public float speed = 4f;
     public float attackRange = 1f;
     public float attackSpeed = 1f;
-    public float regenRate = 5f;
+    public float healthRegenRate = 5f;
+	public int healthRegenAmount = 1;
+	public float manaRegenRate = 3f;
+	public int manaRegenAmount = 1;
     public int freeAttrPoints = 5;
-    public int regenAmount = 1;
 
-	public int money = 100;
+	public int gold = 100;
 
     public Inventory inventory;
 
@@ -34,6 +41,8 @@ public class Player : MonoBehaviour{
 	/* Non-Adjustable Attributes */
 	// MaxHealth = playerlevel * 3 + vitality
 	private int maxHealth;
+	// MaxMana = Wisdom * 2 + 10
+	private int maxMana;
 	// Damage = strength / 5
 	private int damage;
 	// EXP to level up = 20(x^2 + x + 3) where x = playerlvl
@@ -45,7 +54,8 @@ public class Player : MonoBehaviour{
 
 	/* Timers for player action */
 	private float attackTimer;
-	private float regenTimer;
+	private float healthRegenTimer;
+	private float manaRegenTimer;
 
 	/* Player transform */
 	private Transform playerTransform;
@@ -64,19 +74,20 @@ public class Player : MonoBehaviour{
 		// Initialize non-adjustable attributes
 		expToLVLUp = 20 * ((stats.PlayerLevel * stats.PlayerLevel) + stats.PlayerLevel + 3);
 		stats.CurrentEXP = 0;
-		damage = stats.strength / 5;
-		maxHealth = (stats.PlayerLevel * 3) + stats.vitality;
+		UpdateStats ();
 		stats.CurrentHealth = maxHealth;
+		stats.CurrentMana = maxMana;
 	}
 
 	void FixedUpdate(){
         // Timer increments
         attackTimer += Time.deltaTime;
-        regenTimer += Time.deltaTime;
+        healthRegenTimer += Time.deltaTime;
+		manaRegenTimer += Time.deltaTime;
 
-		if (regenTimer >= stats.regenRate) {
-			HealthRegen();
-		}
+		if (healthRegenTimer >= stats.healthRegenRate) {HealthRegen();}
+
+		if (manaRegenTimer >= stats.manaRegenRate) {ManaRegen();}
 
 		Move ();
 
@@ -171,16 +182,20 @@ public class Player : MonoBehaviour{
 		// damage taken = incoming damage - defense / 5
 		i = i - (stats.defense / 5);
 		// Ensures the player always take 1 point of damage no matter how high their defense is
-		if (i < 1) {
-			i = 1;
-		}
+		if (i < 1) {i = 1;}
 
 		if (i >= 0) {
-			if (stats.CurrentHealth - i <= 0) {
-				Respawn ();
-			} else
-                stats.CurrentHealth -= i;
+			if (stats.CurrentHealth - i <= 0) {Respawn ();}
+			else stats.CurrentHealth -= i;
 		}
+	}
+
+	// PLayer use mana
+	public bool UseMana(int i){
+		if (stats.CurrentMana >= i) {
+			stats.CurrentMana -= i;
+			return true;
+		} else return false;
 	}
 
 	// Player EXP gain
@@ -196,12 +211,19 @@ public class Player : MonoBehaviour{
 	// Player health regeneration
 	public void HealthRegen(){
 		if (stats.CurrentHealth < maxHealth) {
-            if (stats.CurrentHealth + stats.regenAmount > maxHealth){
-                stats.CurrentHealth = maxHealth;
-            } else stats.CurrentHealth += stats.regenAmount;
-
+            if (stats.CurrentHealth + stats.healthRegenAmount > maxHealth){stats.CurrentHealth = maxHealth;}
+			else stats.CurrentHealth += stats.healthRegenAmount;
         }
-		regenTimer = 0;
+		healthRegenTimer = 0;
+	}
+
+	// Player mana regeneration
+	public void ManaRegen(){
+		if (stats.CurrentMana < maxMana) {
+			if (stats.CurrentMana + stats.manaRegenAmount > maxMana){stats.CurrentMana = maxMana;}
+			else stats.CurrentMana += stats.manaRegenAmount;
+		}
+		manaRegenTimer = 0;
 	}
 
 	public void LevelUp(){
@@ -211,18 +233,18 @@ public class Player : MonoBehaviour{
 		// Increase max health and return player back to full health
 		maxHealth = (stats.PlayerLevel * 3) + stats.vitality;
         stats.CurrentHealth = maxHealth;
+		stats.CurrentMana = maxMana;
 	}
 
     public void UseItem(GameObject item){
         Item itemScript = item.GetComponent<Item>();
-        if (maxHealth - stats.CurrentHealth >= itemScript.healthRecovery)
-        {
-            stats.CurrentHealth += itemScript.healthRecovery;
-            stats.inventory.DecreaseItemQuantity(item);
-        } else{
-            stats.CurrentHealth = maxHealth;
-            stats.inventory.DecreaseItemQuantity(item);
-        }
+		if (maxHealth - stats.CurrentHealth >= itemScript.healthRecovery) {stats.CurrentHealth += itemScript.healthRecovery;}
+		else stats.CurrentHealth = maxHealth;
+
+		if (maxMana - stats.CurrentMana >= itemScript.manaRecovery) {stats.CurrentMana += itemScript.manaRecovery;}
+		else stats.CurrentMana = maxMana;
+
+		stats.inventory.DecreaseItemQuantity(item);
     }
 
     // TODO: Possibly implement requirements to equip item
@@ -252,10 +274,8 @@ public class Player : MonoBehaviour{
 		} else if (item.tag == "Offhand") {
 			characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().EquipItem (item);
 		}
-
         // Check for bonus stats from items/potions/etc.
         IncreaseBonusStats(item);
-
     }
 
 	public void UnequipItem(GameObject item){
@@ -310,12 +330,10 @@ public class Player : MonoBehaviour{
 			unfittedEquipments [counter] = characterMenu.transform.Find ("Offhand").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().name;
 			counter++;
 		}
-
 		string[] tempEquipment = new string[counter];
 		for (int i = 0; i < counter; i++) {
 			tempEquipment [i] = unfittedEquipments [i];
 		}
-
 		return tempEquipment;
 	}
 
@@ -336,14 +354,16 @@ public class Player : MonoBehaviour{
         Item tempItemScript = item.GetComponent<Item>();
         stats.vitality += tempItemScript.vitality;
         stats.strength += tempItemScript.strength;
+		stats.defense += tempItemScript.defense;
+		stats.intelligence += tempItemScript.intelligence;
+		stats.wisdom += tempItemScript.wisdom;
         stats.dexterity += tempItemScript.dexterity;
-        stats.defense += tempItemScript.defense;
         stats.luck += tempItemScript.luck;
         stats.speed += tempItemScript.speed;
         stats.attackRange += tempItemScript.attackRange;
         stats.attackSpeed -= tempItemScript.attackSpeed;
-        stats.regenRate -= tempItemScript.regenRate;
-        stats.regenAmount += tempItemScript.regenAmount;
+        stats.healthRegenRate -= tempItemScript.healthRegenRate;
+        stats.healthRegenAmount += tempItemScript.healthRegenAmount;
         UpdateStats();
     }
 
@@ -352,14 +372,16 @@ public class Player : MonoBehaviour{
         Item tempItemScript = item.GetComponent<Item>();
         stats.vitality -= tempItemScript.vitality;
         stats.strength -= tempItemScript.strength;
+		stats.defense -= tempItemScript.defense;
+		stats.intelligence -= tempItemScript.intelligence;
+		stats.wisdom -= tempItemScript.wisdom;
         stats.dexterity -= tempItemScript.dexterity;
-        stats.defense -= tempItemScript.defense;
         stats.luck -= tempItemScript.luck;
         stats.speed -= tempItemScript.speed;
         stats.attackRange -= tempItemScript.attackRange;
         stats.attackSpeed += tempItemScript.attackSpeed;
-        stats.regenRate += tempItemScript.regenRate;
-        stats.regenAmount -= tempItemScript.regenAmount;
+        stats.healthRegenRate += tempItemScript.healthRegenRate;
+        stats.healthRegenAmount -= tempItemScript.healthRegenAmount;
         UpdateStats();
     }
 
@@ -379,17 +401,33 @@ public class Player : MonoBehaviour{
 		}
 	}
 
-	public void IncreaseDexterity(){
+	public void IncreaseDefense(){
 		if (stats.freeAttrPoints > 0) {
-            stats.dexterity += 1;
-            stats.freeAttrPoints -= 1;
+			stats.defense += 1;
+			stats.freeAttrPoints -= 1;
 			UpdateStats ();
 		}
 	}
 
-	public void IncreaseDefense(){
+	public void IncreaseIntelligence(){
 		if (stats.freeAttrPoints > 0) {
-            stats.defense += 1;
+			stats.intelligence += 1;
+			stats.freeAttrPoints -= 1;
+			UpdateStats ();
+		}
+	}
+
+	public void IncreaseWisdom(){
+		if (stats.freeAttrPoints > 0) {
+			stats.wisdom += 1;
+			stats.freeAttrPoints -= 1;
+			UpdateStats ();
+		}
+	}
+
+	public void IncreaseDexterity(){
+		if (stats.freeAttrPoints > 0) {
+            stats.dexterity += 1;
             stats.freeAttrPoints -= 1;
 			UpdateStats ();
 		}
@@ -406,94 +444,55 @@ public class Player : MonoBehaviour{
     public void UpdateStats(){
 		damage = stats.strength / 5;
 		maxHealth = (stats.PlayerLevel * 3) + stats.vitality;
-        if(stats.CurrentHealth > maxHealth)
-        {
-            stats.CurrentHealth = maxHealth;
-        }
+		maxMana = stats.wisdom * 2 + 10;
+        if(stats.CurrentHealth > maxHealth){stats.CurrentHealth = maxHealth;}
+		if(stats.CurrentMana > maxMana){stats.CurrentMana = maxMana;}
 	}
 
-	public void IncreaseMoney(int amount){
-		stats.money += amount;
+	public void UpdatePlayer(){
+		ResetPlayerLocation();
+		UpdateStats();
 	}
 
-	public void DecreaseMoney(int amount){
-		stats.money -= amount;
-	}
+	public void IncreaseMoney(int amount){stats.gold += amount;}
 
-    public void UpdatePlayer(){
-        ResetPlayerLocation();
-        UpdateStats();
-    }
+	public void DecreaseMoney(int amount){stats.gold -= amount;}
 
-    public PlayerStats getStats()
-    {
-        return stats;
-    }
+    public PlayerStats getStats(){return stats;}
 
-    public int getMaxHealth()
-    {
-        return maxHealth;
-    }
+    public int getMaxHealth(){return maxHealth;}
 
-    public int getEXPtoLVL()
-    {
-        return expToLVLUp;
-    }
+	public int getMaxMana(){return maxMana;}
 
-    public int getDamage()
-    {
-        return damage;
-    }
+    public int getEXPtoLVL(){return expToLVLUp;}
 
-    public int getPlayerLVL()
-    {
-        return stats.PlayerLevel;
-    }
+    public int getDamage(){return damage;}
 
-    public int getHealth()
-    {
-        return stats.CurrentHealth;
-    }
+    public int getPlayerLVL(){return stats.PlayerLevel;}
 
-    public int getEXP()
-    {
-        return stats.CurrentEXP;
-    }
+    public int getHealth(){return stats.CurrentHealth;}
 
-    public int getVitality()
-    {
-        return stats.vitality;
-    }
+	public int getMana(){return stats.CurrentMana;}
 
-    public int getStrength()
-    {
-        return stats.strength;
-    }
+    public int getEXP(){return stats.CurrentEXP;}
 
-    public int getDexterity()
-    {
-        return stats.dexterity;
-    }
+    public int getVitality(){return stats.vitality;}
 
-    public int getDefense()
-    {
-        return stats.defense;
-    }
+    public int getStrength(){return stats.strength;}
 
-    public int getLuck()
-    {
-        return stats.luck;
-    }
+	public int getDefense(){return stats.defense;}
 
-    public int getFreePoints(){
-		return stats.freeAttrPoints;
-	}
+	public int getIntelligence(){return stats.intelligence;}
 
-	public int getMoney(){
-		return stats.money;
-	}
+	public int getWisdom(){return stats.wisdom;}
 
-    public Inventory getInventory(){
-        return stats.inventory;
-    }
+    public int getDexterity(){return stats.dexterity;}
+
+    public int getLuck(){return stats.luck;}
+
+    public int getFreePoints(){return stats.freeAttrPoints;}
+
+	public int getMoney(){return stats.gold;}
+
+    public Inventory getInventory(){return stats.inventory;}
 }

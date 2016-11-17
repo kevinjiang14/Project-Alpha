@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DexterityButton : MonoBehaviour {
+public class WisdomTextManager : MonoBehaviour {
 
 	private GameObject player;
 	private Player playerScript;
@@ -11,10 +11,11 @@ public class DexterityButton : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		gameObject.GetComponent<Button> ().onClick.AddListener (IncreaseDexterity);
+		GetComponent<Text> ().text = "Wisdom:\t\t\t" + playerScript.getWisdom ().ToString ();
 	}
 
-	void IncreaseDexterity(){
-		playerScript.IncreaseDexterity ();
+	// Update is called once per frame
+	void Update () {
+		GetComponent<Text> ().text = "Wisdom:\t\t\t" + playerScript.getWisdom ().ToString ();
 	}
 }
