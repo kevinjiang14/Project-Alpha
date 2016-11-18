@@ -153,6 +153,7 @@ public class Player : MonoBehaviour{
 		// Reduce that enemy's health
 		if (attackStyle == 0) {
 			// MELEE ATTACKS
+			Debug.Log("Melee Attack");
 			if (playerAnimation.GetInteger ("Direction") == 0) {
 				transform.Find ("South").gameObject.SetActive (true);
 			} else if (playerAnimation.GetInteger ("Direction") == 1) {
@@ -164,7 +165,24 @@ public class Player : MonoBehaviour{
 			}
 		} else if (attackStyle == 1) {
 			// RANGED ATTACKS
-
+			Vector3 projectilePos = transform.position;
+			Quaternion rotation = Quaternion.Euler(0, 0, 0);
+			if (playerAnimation.GetInteger ("Direction") == 0) {
+				projectilePos.y -= 1;
+				rotation = Quaternion.Euler(0, 0, 90);
+			} else if (playerAnimation.GetInteger ("Direction") == 1) {
+				projectilePos.x -= 1;
+				rotation = Quaternion.Euler(0, 0, 0);
+			} else if (playerAnimation.GetInteger ("Direction") == 2) {
+				projectilePos.y += 1;
+				rotation = Quaternion.Euler(0, 0, -90);
+			} else if (playerAnimation.GetInteger ("Direction") == 3) {
+				projectilePos.x += 1;
+				rotation = Quaternion.Euler(0, 0, 180);
+			} 
+			GameObject projectile = (GameObject) Instantiate(Resources.Load("Item/Arrow"), projectilePos, rotation);
+			Debug.Log ("Player Direction is " + playerAnimation.GetInteger ("Direction"));
+			projectile.GetComponent<Projectile>().SetArrowsParams(rangeDamage ,playerAnimation.GetInteger ("Direction"));
 		} else if(attackStyle == 0){
 			// MAGIC ATTACKS
 		}
@@ -309,6 +327,7 @@ public class Player : MonoBehaviour{
 			if (characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().GetEquippedItem () != null) {
 				if (characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().GetEquippedItem ().tag == "2-Handed") {
 					characterMenu.transform.Find ("Mainhand").GetComponent<EquipmentSlotManager> ().UnequipItem ();
+					attackStyle = 0;
 				}
 			}
 		} else if (item.tag == "2-Handed") {
@@ -334,7 +353,7 @@ public class Player : MonoBehaviour{
 
 	public void UnequipItem(GameObject item){
 		RemoveBonusStats(item);
-		if (item.tag == "Mainhand") {
+		if (item.tag == "Mainhand" || item.tag == "2-Handed") {
 			// Reset player's attack animation to hand
 			playerAnimation.SetInteger ("AttackType", 0);
 		}

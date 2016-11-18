@@ -79,7 +79,8 @@ public class Enemy: MonoBehaviour {
 		// If not then return to starting position if displaced
 		else if (transform.position.x != startX && transform.position.y != startY && Vector3.Distance (transform.position, player.transform.position) > enemyStats.MaxRange) {
 			ResetEnemy ();
-		}
+		} else
+			Stay ();
 
 		// Keep enemy awake so collision events continue to be called
 		if (gameObject.GetComponent<Rigidbody2D>().IsSleeping()) {
@@ -111,6 +112,7 @@ public class Enemy: MonoBehaviour {
 	// Stay still while resetting its restrictions
 	private void Stay() {
 		enemyAnimation.SetFloat ("Speed", 0.0f);
+		GetComponent<Rigidbody2D> ().isKinematic = false;
 	}
 
 
@@ -149,7 +151,9 @@ public class Enemy: MonoBehaviour {
 	// Return to starting position
 	private void ResetEnemy(){
 		// Turn on kinematic so enemy doesnt get stuck behind a wall when returning to original position
-		GetComponent<Rigidbody2D> ().isKinematic = true;
+		if (Vector3.Distance (transform.position, new Vector3 (startX, startY, transform.position.z)) < 0.01f) {
+			GetComponent<Rigidbody2D> ().isKinematic = false;
+		} else GetComponent<Rigidbody2D> ().isKinematic = true;
 
 		Vector3 direction = new Vector3 (startX - transform.position.x, startY - transform.position.y, 0);
 		transform.Translate (direction * Time.deltaTime);
