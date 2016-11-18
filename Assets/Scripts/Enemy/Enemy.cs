@@ -21,8 +21,8 @@ public class Enemy: MonoBehaviour {
 	// Enemy difficulty multiplier based on floor number
 	private int multiplier;
 
-    // Player reference
-    private GameObject player;
+	// Player reference
+	private GameObject player;
 	private Player playerScript;
 
 	private GameObject map;
@@ -34,15 +34,15 @@ public class Enemy: MonoBehaviour {
 
 	private bool collision = false;
 
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+	void Start () {
 		enemyStats = GetComponent<EnemyStats> ();
 
 		// Animator componenet
 		enemyAnimation = GetComponent<Animator> ();
 
 		// Find Player
-        player = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.FindGameObjectWithTag("Player");
 		playerScript = player.GetComponent<Player> ();
 
 		// Find MapManager
@@ -63,7 +63,7 @@ public class Enemy: MonoBehaviour {
 		exp = enemyStats.enemyLevel * 15;
 		gold = Random.Range (enemyStats.enemyLevel * enemyStats.enemyLevel + 1, enemyStats.enemyLevel * enemyStats.enemyLevel + 1 + playerScript.getLuck ());
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		// Update HP textbox
@@ -81,21 +81,21 @@ public class Enemy: MonoBehaviour {
 			ResetEnemy ();
 		}
 
-        // Keep enemy awake so collision events continue to be called
-        if (gameObject.GetComponent<Rigidbody2D>().IsSleeping()) {
-            gameObject.GetComponent<Rigidbody2D>().WakeUp();
-        }
+		// Keep enemy awake so collision events continue to be called
+		if (gameObject.GetComponent<Rigidbody2D>().IsSleeping()) {
+			gameObject.GetComponent<Rigidbody2D>().WakeUp();
+		}
 	}
-		
+
 	void OnCollisionEnter2D(Collision2D coll){
-        if (coll.gameObject.tag == "Player") {
+		if (coll.gameObject.tag == "Player") {
 			collision = true;
 		}
-    }
+	}
 
 	void OnCollisionStay2D(Collision2D coll) {
-        // If collision is with player then attack, if enemy then don't move
-        if (coll.gameObject.tag == "Player" && attackTimer > enemyStats.attackSpeed) {
+		// If collision is with player then attack, if enemy then don't move
+		if (coll.gameObject.tag == "Player" && attackTimer > enemyStats.attackSpeed) {
 			GetComponent<Rigidbody2D> ().isKinematic = true;
 			AttackPlayer ();
 			Stay ();
@@ -103,19 +103,19 @@ public class Enemy: MonoBehaviour {
 	}
 
 	void OnCollisionExit2D(Collision2D coll){
-        if (coll.gameObject.tag == "Player" || coll.gameObject.tag == "Hitbox") {
-            collision = false;
-        }
-    }
+		if (coll.gameObject.tag == "Player" || coll.gameObject.tag == "Hitbox") {
+			collision = false;
+		}
+	}
 
 	// Stay still while resetting its restrictions
-    private void Stay() {
+	private void Stay() {
 		enemyAnimation.SetFloat ("Speed", 0.0f);
-    }
+	}
 
 
 	// Move towards player
-    private void MoveTowardsPlayer() {
+	private void MoveTowardsPlayer() {
 		GetComponent<Rigidbody2D> ().isKinematic = false;
 
 		float diffX = player.transform.position.x - transform.position.x;
@@ -136,9 +136,9 @@ public class Enemy: MonoBehaviour {
 		} else
 			enemyAnimation.SetFloat ("Speed", 1.0f);
 
-        Vector3 direction = new Vector3(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y, 0f);
+		Vector3 direction = new Vector3(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y, 0f);
 		transform.Translate(direction * enemyStats.speed * Time.deltaTime);
-    }
+	}
 
 	// Attack player
 	private void AttackPlayer(){
@@ -150,7 +150,7 @@ public class Enemy: MonoBehaviour {
 	private void ResetEnemy(){
 		// Turn on kinematic so enemy doesnt get stuck behind a wall when returning to original position
 		GetComponent<Rigidbody2D> ().isKinematic = true;
-		
+
 		Vector3 direction = new Vector3 (startX - transform.position.x, startY - transform.position.y, 0);
 		transform.Translate (direction * Time.deltaTime);
 
@@ -164,10 +164,10 @@ public class Enemy: MonoBehaviour {
 	public void TakeDamage(int i){
 		// damage taken = incoming damage - defense / 7
 		i = i - (enemyStats.defense / 7);
-        // Set minimum amount of damage the player can do to enemy as 1
-        if(i <= 0) {
-            i = 1;
-        }
+		// Set minimum amount of damage the player can do to enemy as 1
+		if(i <= 0) {
+			i = 1;
+		}
 
 		if (enemyStats.currentHealth - i <= 0) {
 			Dead ();
@@ -185,11 +185,11 @@ public class Enemy: MonoBehaviour {
 		}
 		player.GetComponent<Player> ().GainEXP (exp);
 
-		player.GetComponent<Player> ().IncreaseMoney (gold);
-        Destroy(gameObject);
-    }
+		player.GetComponent<Player> ().IncreaseGold (gold);
+		Destroy(gameObject);
+	}
 
-    public void SetSpawn(int x, int y){
+	public void SetSpawn(int x, int y){
 		startX = x;
 		startY = y;
 	}

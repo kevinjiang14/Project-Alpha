@@ -16,8 +16,8 @@ public class ShopSlotManager : MonoBehaviour {
 	public void BuyItem(){
 		playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-		if (playerScript.getMoney() >= item.GetComponent<Item> ().cost && item != null) {
-			playerScript.DecreaseMoney (item.GetComponent<Item> ().cost);
+		if (playerScript.getGold() >= item.GetComponent<Item> ().cost && item != null) {
+			playerScript.DecreaseGold (item.GetComponent<Item> ().cost);
 			playerScript.getInventory ().AddtoInventory (item, 1);
 		}
 	}

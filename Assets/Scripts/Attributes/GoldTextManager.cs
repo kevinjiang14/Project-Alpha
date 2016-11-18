@@ -12,11 +12,11 @@ public class GoldTextManager : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		GetComponent<Text> ().text = "" + playerScript.getMoney ().ToString () + "G";
+		GetComponent<Text> ().text = "" + playerScript.getGold ().ToString () + "G";
 	}
 
 	// Update is called once per frame
 	void Update () {
-		GetComponent<Text> ().text = "" + playerScript.getMoney ().ToString () + "G";
+		GetComponent<Text> ().text = "" + playerScript.getGold ().ToString () + "G";
 	}
 }
