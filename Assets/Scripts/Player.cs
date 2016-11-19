@@ -153,7 +153,6 @@ public class Player : MonoBehaviour{
 		// Reduce that enemy's health
 		if (attackStyle == 0) {
 			// MELEE ATTACKS
-			Debug.Log("Melee Attack");
 			if (playerAnimation.GetInteger ("Direction") == 0) {
 				transform.Find ("South").gameObject.SetActive (true);
 			} else if (playerAnimation.GetInteger ("Direction") == 1) {
@@ -181,7 +180,6 @@ public class Player : MonoBehaviour{
 				rotation = Quaternion.Euler(0, 0, 180);
 			} 
 			GameObject projectile = (GameObject) Instantiate(Resources.Load("Item/Arrow"), projectilePos, rotation);
-			Debug.Log ("Player Direction is " + playerAnimation.GetInteger ("Direction"));
 			projectile.GetComponent<Projectile>().SetArrowsParams(rangeDamage ,playerAnimation.GetInteger ("Direction"));
 		} else if(attackStyle == 0){
 			// MAGIC ATTACKS
@@ -519,8 +517,8 @@ public class Player : MonoBehaviour{
 
 	public void UpdateStats(){
 		meleeDamage = stats.strength / 5;
-		rangeDamage = stats.dexterity / 5;
-		magicDamage = stats.intelligence / 5;
+		rangeDamage = stats.dexterity / 10;
+		magicDamage = stats.intelligence / 10;
 		maxHealth = (stats.PlayerLevel * 3) + stats.vitality;
 		maxMana = stats.wisdom * 2 + 10;
 		if(stats.CurrentHealth > maxHealth){stats.CurrentHealth = maxHealth;}

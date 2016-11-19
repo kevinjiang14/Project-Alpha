@@ -13,6 +13,10 @@ public class Enemy: MonoBehaviour {
 
 	// Counting timers
 	private float attackTimer;
+	private float aggroTimer = 10f;
+
+	// Flag
+	private bool aggroFlag = false;
 
 	// Position of enemy
 	private int startX = 66;
@@ -71,16 +75,21 @@ public class Enemy: MonoBehaviour {
 
 		// Timer for attacking
 		attackTimer += Time.deltaTime;
+		aggroTimer += Time.deltaTime;
+
+		if (aggroTimer <= 2.5f) {
+			aggroFlag = true;
+		} else
+			aggroFlag = false;
 
 		// Check if player is in range to start moving towards
-		if (Vector3.Distance (transform.position, player.transform.position) <= enemyStats.MaxRange && collision == false) {
+		if ((Vector3.Distance (transform.position, player.transform.position) <= enemyStats.MaxRange || aggroFlag == true) && collision == false) {
 			MoveTowardsPlayer ();
 		} 
 		// If not then return to starting position if displaced
 		else if (transform.position.x != startX && transform.position.y != startY && Vector3.Distance (transform.position, player.transform.position) > enemyStats.MaxRange) {
 			ResetEnemy ();
-		} else
-			Stay ();
+		}
 
 		// Keep enemy awake so collision events continue to be called
 		if (gameObject.GetComponent<Rigidbody2D>().IsSleeping()) {
@@ -118,6 +127,7 @@ public class Enemy: MonoBehaviour {
 
 	// Move towards player
 	private void MoveTowardsPlayer() {
+		aggroFlag = true;
 		GetComponent<Rigidbody2D> ().isKinematic = false;
 
 		float diffX = player.transform.position.x - transform.position.x;
@@ -150,8 +160,9 @@ public class Enemy: MonoBehaviour {
 
 	// Return to starting position
 	private void ResetEnemy(){
+		aggroFlag = false;
 		// Turn on kinematic so enemy doesnt get stuck behind a wall when returning to original position
-		if (Vector3.Distance (transform.position, new Vector3 (startX, startY, transform.position.z)) < 0.01f) {
+		if (Vector3.Distance (transform.position, new Vector3 (startX, startY, transform.position.z)) < 1f) {
 			GetComponent<Rigidbody2D> ().isKinematic = false;
 		} else GetComponent<Rigidbody2D> ().isKinematic = true;
 
@@ -166,6 +177,8 @@ public class Enemy: MonoBehaviour {
 
 	// Enemy taking damage 
 	public void TakeDamage(int i){
+		aggroFlag = true;
+		aggroTimer = 0;
 		// damage taken = incoming damage - defense / 7
 		i = i - (enemyStats.defense / 7);
 		// Set minimum amount of damage the player can do to enemy as 1
