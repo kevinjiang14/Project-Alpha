@@ -108,7 +108,6 @@ public class Enemy: MonoBehaviour {
 		if (coll.gameObject.tag == "Player" && attackTimer > enemyStats.attackSpeed) {
 			GetComponent<Rigidbody2D> ().isKinematic = true;
 			AttackPlayer ();
-			Stay ();
 		}
 	}
 

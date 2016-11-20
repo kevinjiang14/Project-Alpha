@@ -167,22 +167,22 @@ public class Player : MonoBehaviour{
 			Vector3 projectilePos = transform.position;
 			Quaternion rotation = Quaternion.Euler(0, 0, 0);
 			if (playerAnimation.GetInteger ("Direction") == 0) {
-				projectilePos.y -= 1;
+				projectilePos.y -= 0.55f;
 				rotation = Quaternion.Euler(0, 0, 90);
 			} else if (playerAnimation.GetInteger ("Direction") == 1) {
-				projectilePos.x -= 1;
+				projectilePos.x -= 0.55f;
 				rotation = Quaternion.Euler(0, 0, 0);
 			} else if (playerAnimation.GetInteger ("Direction") == 2) {
-				projectilePos.y += 1;
+				projectilePos.y += 0.55f;
 				rotation = Quaternion.Euler(0, 0, -90);
 			} else if (playerAnimation.GetInteger ("Direction") == 3) {
-				projectilePos.x += 1;
+				projectilePos.x += 0.55f;
 				rotation = Quaternion.Euler(0, 0, 180);
 			} 
 			GameObject projectile = (GameObject) Instantiate(Resources.Load("Item/Arrow"), projectilePos, rotation);
-			projectile.GetComponent<Projectile>().SetArrowsParams(rangeDamage ,playerAnimation.GetInteger ("Direction"));
 		} else if(attackStyle == 0){
 			// MAGIC ATTACKS
+
 		}
 		attackTimer = 0f;
 	}
@@ -316,7 +316,7 @@ public class Player : MonoBehaviour{
 				attackStyle = 1;
 				playerAnimation.SetInteger ("AttackType", 1);
 			}
-			else if(item.GetComponent<Item>().ItemType > 10){
+			else if(item.GetComponent<Item>().ItemType < 10){
 				attackStyle = 0;
 				playerAnimation.SetInteger ("AttackType", 0);
 			}
@@ -340,7 +340,7 @@ public class Player : MonoBehaviour{
 				attackStyle = 1;
 				playerAnimation.SetInteger ("AttackType", 1);
 			}
-			else if(item.GetComponent<Item>().ItemType > 10){
+			else if(item.GetComponent<Item>().ItemType < 10){
 				attackStyle = 0;
 				playerAnimation.SetInteger ("AttackType", 0);
 			}
@@ -542,7 +542,11 @@ public class Player : MonoBehaviour{
 
 	public int getEXPtoLVL(){return expToLVLUp;}
 
-	public int getDamage(){return meleeDamage;}
+	public int getMeleeDamage(){return meleeDamage;}
+
+	public int getRangeDamage(){return rangeDamage;}
+
+	public int getMagicDamage(){return magicDamage;}
 
 	public int getPlayerLVL(){return stats.PlayerLevel;}
 

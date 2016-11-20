@@ -12,7 +12,7 @@ public class PlayerHitBox : MonoBehaviour {
         if (coll.gameObject.tag == "Enemy")
         {
             playerScript = transform.parent.gameObject.GetComponent<Player>();
-            coll.gameObject.GetComponent<Enemy>().TakeDamage(playerScript.getDamage());
+            coll.gameObject.GetComponent<Enemy>().TakeDamage(playerScript.getMeleeDamage());
         }
     }
 }
