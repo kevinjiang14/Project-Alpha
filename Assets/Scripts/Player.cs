@@ -70,8 +70,10 @@ public class Player : MonoBehaviour{
 	/* Player data */
 	private PlayerStats stats;
 	private GameObject characterMenu;
+	private SkillHolder playerSkills;
 
 	void Awake(){
+		playerSkills = gameObject.GetComponent<SkillHolder> ();
 		stats = new PlayerStats();
 		stats.inventory = new Inventory();
 		// Temporary bow given to player for testing
@@ -167,19 +169,19 @@ public class Player : MonoBehaviour{
 			Vector3 projectilePos = transform.position;
 			Quaternion rotation = Quaternion.Euler(0, 0, 0);
 			if (playerAnimation.GetInteger ("Direction") == 0) {
-				projectilePos.y -= 0.55f;
+				projectilePos.y -= 0.6f;
 				rotation = Quaternion.Euler(0, 0, 90);
 			} else if (playerAnimation.GetInteger ("Direction") == 1) {
-				projectilePos.x -= 0.55f;
+				projectilePos.x -= 0.6f;
 				rotation = Quaternion.Euler(0, 0, 0);
 			} else if (playerAnimation.GetInteger ("Direction") == 2) {
-				projectilePos.y += 0.55f;
+				projectilePos.y += 0.6f;
 				rotation = Quaternion.Euler(0, 0, -90);
 			} else if (playerAnimation.GetInteger ("Direction") == 3) {
-				projectilePos.x += 0.55f;
+				projectilePos.x += 0.6f;
 				rotation = Quaternion.Euler(0, 0, 180);
 			} 
-			GameObject projectile = (GameObject) Instantiate(Resources.Load("Item/Arrow"), projectilePos, rotation);
+			Instantiate(Resources.Load("Item/Arrow"), projectilePos, rotation);
 		} else if(attackStyle == 0){
 			// MAGIC ATTACKS
 

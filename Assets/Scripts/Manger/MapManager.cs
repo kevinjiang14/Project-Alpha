@@ -19,6 +19,7 @@ public class MapManager : MonoBehaviour {
     private GameObject currentMenu;
     private GameObject currentInventory;
     private GameObject currentCharacter;
+	private GameObject currentSkillMenu;
     private GameObject miniMap;
 
     // Map Validation variables
@@ -52,6 +53,7 @@ public class MapManager : MonoBehaviour {
     public GameObject playerList;
     public GameObject Camera;
 	public GameObject MinimapCamera;
+	public GameObject skillMenu;
 
 	// Player GameObject that is instantiated
 	private GameObject player;
@@ -109,10 +111,14 @@ public class MapManager : MonoBehaviour {
         }
 
         if (Input.GetKeyDown("m")) {
-            if (miniMap.activeSelf == false) {
-                miniMap.SetActive(true);
-            }
-            else miniMap.SetActive(false);
+//            if (miniMap.activeSelf == false) {
+//                miniMap.SetActive(true);
+//            }
+//            else miniMap.SetActive(false);
+			if (currentSkillMenu.activeSelf == false) {
+				currentSkillMenu.SetActive (true);
+			} else
+				currentSkillMenu.SetActive (false);
         }
     }
 
@@ -666,6 +672,8 @@ public class MapManager : MonoBehaviour {
         currentCharacter.SetActive(false);
         currentMonitor = Instantiate(playerMonitorView);
         currentHotbar = Instantiate(playerHotbar);
+		currentSkillMenu = Instantiate (skillMenu);
+		currentSkillMenu.SetActive (false);
     }
 
 	/*
@@ -795,6 +803,10 @@ public class MapManager : MonoBehaviour {
     public GameObject getCurrentCharacter(){
         return currentCharacter;
     }
+
+	public GameObject getCurrentSkillMenu(){
+		return currentSkillMenu;
+	}
 
     public GameObject[] getRoomList(){
         return roomList;

@@ -46,6 +46,7 @@ public class SaveLoadGame {
 		PlayerPrefs.SetFloat("ManaRegenRate", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().manaRegenRate);
 		PlayerPrefs.SetInt("ManaRegenAmount", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().manaRegenAmount);
 		PlayerPrefs.SetInt("FreeAttrPoints", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().freeAttrPoints);
+		PlayerPrefs.SetInt("Gold", GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().gold);
 	}
 
 	// Load Player Stats
@@ -68,6 +69,7 @@ public class SaveLoadGame {
 		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().manaRegenRate = PlayerPrefs.GetFloat("ManaRegenRate");
 		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().manaRegenAmount = PlayerPrefs.GetInt("ManaRegenAmount");
 		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().freeAttrPoints = PlayerPrefs.GetInt("FreeAttrPoints");
+		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().getStats().gold = PlayerPrefs.GetInt("Gold");
 	}
 
 	// Save Floor Information
