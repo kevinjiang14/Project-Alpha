@@ -5,11 +5,11 @@ public interface Skill {
 
 	string GetSkillName();
 
-	void Cast (Vector3 position, Quaternion rotation);
-
-	void LearnSkill ();
+	void Cast (Vector3 position, int direction);
 
 	void LevelUp ();
 
 	int getSkillLevel();
+
+	void setSkillLevel(int level);
 }

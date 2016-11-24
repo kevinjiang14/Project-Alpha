@@ -11,6 +11,7 @@ public class SkillSlotManager : MonoBehaviour {
 		transform.Find ("SkillLevel").GetComponent<Text> ().text = skill.GetComponent<Skill> ().getSkillLevel ().ToString();
 	}
 
+	// Add skill to skill menu
 	public void AddSkill(GameObject skill){
 		this.skill = skill;
 		AddSkillIconFunction ();
@@ -18,19 +19,23 @@ public class SkillSlotManager : MonoBehaviour {
 		transform.Find ("SkillName").GetComponent<Text> ().text = skill.GetComponent<Skill>().GetSkillName();
 	}
 
+	// Add the button function for the skill icon
 	public void AddSkillIconFunction(){
 		Transform icon = transform.Find ("SkillIcon");
 		icon.GetComponent<Image> ().sprite = skill.GetComponent<SpriteRenderer> ().sprite;
 		icon.GetComponent<Button> ().onClick.AddListener (AddToHotbar);
 	}
 
+	// Add button function to increase skill level
 	public void AddButtonFunction(){
 		transform.Find ("SkillLevelButton").GetComponent<Button> ().onClick.AddListener (skill.GetComponent<Skill>().LevelUp);
 	}
 
 	public void AddToHotbar(){
-		GameObject currentHotbar = GameObject.FindGameObjectWithTag("HotbarMenu");
-		currentHotbar.GetComponent<HotbarManager>().AddtoHotbar(skill);
+		if (skill.GetComponent<Skill> ().getSkillLevel () > 0) {
+			GameObject currentHotbar = GameObject.FindGameObjectWithTag ("HotbarMenu");
+			currentHotbar.GetComponent<HotbarManager> ().AddtoHotbar (skill);
+		}
 	}
 
 }

@@ -4,18 +4,22 @@ using UnityEngine.UI;
 
 public class SkillsManager : MonoBehaviour {
 
-	private Player playerRef;
 	private SkillHolder playerSkills;
+	private Player playerRef;
 
 	// Skill slots
 	public GameObject skillSlot;
 
 	// Use this for initialization
-	void Start () {
-		playerRef = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+	void OnEnable () {
 		playerSkills = GameObject.FindGameObjectWithTag ("Player").GetComponent<SkillHolder> ();
+		playerRef = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
 		AddRangeSkills ();
 		AddButtonListeners ();
+	}
+
+	void Update(){
+		transform.Find ("SkillPoints").GetComponent<Text> ().text = " Skill Points: " + playerRef.getSkillPoints ();
 	}
 
 	public void AddMeleeSkills(){

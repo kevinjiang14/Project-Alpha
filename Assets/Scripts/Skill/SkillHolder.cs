@@ -7,6 +7,18 @@ public class SkillHolder : MonoBehaviour {
 	public GameObject[] rangeSkills;
 	public GameObject[] magicSkills;
 
+	void Start(){
+		foreach (GameObject skill in meleeSkills) {
+			skill.GetComponent<Skill> ().setSkillLevel (0);
+		}
+		foreach (GameObject skill in rangeSkills) {
+			skill.GetComponent<Skill> ().setSkillLevel (0);
+		}
+		foreach (GameObject skill in magicSkills) {
+			skill.GetComponent<Skill> ().setSkillLevel (0);
+		}
+	}
+
 	public GameObject[] GetMeleeSkillsList(){
 		return meleeSkills;
 	}

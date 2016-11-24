@@ -3,14 +3,20 @@ using System.Collections;
 
 public class RoundShotScript : MonoBehaviour, Skill {
 
+	public RuntimeAnimatorController animation;
 	public string skillName;
 	public float cooldown;
 
 	private float timer;
-	private bool learned = true;
-	private int skillLevel = 0;
+	private bool learned;
+	private int skillLevel;
 
+	private Player playerRef;
 
+	// Use this for initialization
+	void Start(){
+		playerRef = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -21,10 +27,10 @@ public class RoundShotScript : MonoBehaviour, Skill {
 		return skillName;
 	}
 
-	public void Cast(Vector3 position, Quaternion rotation){
-		if (timer >= cooldown && learned) {
+	public void Cast(Vector3 position, int direction){
+		if (timer >= cooldown && learned && playerRef.getAttackStyle() == 1) {
 			Vector3 arrowPos;
-			rotation = Quaternion.Euler (0, 0, 0);
+			Quaternion rotation = Quaternion.Euler (0, 0, 0);
 			arrowPos = new Vector3 (position.x - 0.6f, position.y, position.z);
 			Instantiate(Resources.Load("Item/Arrow"), arrowPos, rotation);
 			rotation = Quaternion.Euler (0, 0, 45);
@@ -53,19 +59,28 @@ public class RoundShotScript : MonoBehaviour, Skill {
 		}
 	}
 
-	public void LearnSkill (){
-		if (!learned) {
-			learned = true;
-		}
-	}
-
 	public void LevelUp(){
-		if (skillLevel < 10){
-			skillLevel++;
+		playerRef = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+		if (playerRef.getSkillPoints() > 0) {
+			if (!learned) {
+				learned = true;
+				skillLevel++;
+				playerRef.DecreaseSkillPoint ();
+			} else if (skillLevel < 10) {
+				skillLevel++;
+				playerRef.DecreaseSkillPoint ();
+			}
 		}
 	}
 
 	public int getSkillLevel(){
 		return skillLevel;
+	}
+
+	public void setSkillLevel(int level){
+		if (level > 0) {
+			learned = true;
+		}
+		skillLevel = level;
 	}
 }

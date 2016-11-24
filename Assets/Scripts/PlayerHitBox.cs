@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class PlayerHitBox : MonoBehaviour {
 
-
     private Player playerScript;
  
     void OnTriggerEnter2D(Collider2D coll)

@@ -11,11 +11,11 @@ public class HPTextManager : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		GetComponent<Text> ().text = "HP: " + playerScript.getHealth ().ToString () + "/" + playerScript.getMaxHealth ().ToString ();
+		GetComponent<Text> ().text = "HP: " + playerScript.getCurrentHealth ().ToString () + "/" + playerScript.getMaxHealth ().ToString ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		GetComponent<Text> ().text = "HP: " + playerScript.getHealth ().ToString () + "/" + playerScript.getMaxHealth ().ToString ();
+		GetComponent<Text> ().text = "HP: " + playerScript.getCurrentHealth ().ToString () + "/" + playerScript.getMaxHealth ().ToString ();
 	}
 }

@@ -17,9 +17,9 @@ public class PlayerStats : Component{
 	public int intelligence = 10;
 	// Wisdom increases mana
 	public int wisdom = 5;
-	// Dexterity increases critical rate and damge
+	// Dexterity increases range damge
 	public int dexterity = 10;
-	// Luck increases rare item finds?
+	// Luck increases gold drop and rare item finds?
 	public int luck = 5;
 	public float speed = 4f;
 	public float attackRange = 1f;
@@ -29,7 +29,7 @@ public class PlayerStats : Component{
 	public float manaRegenRate = 3f;
 	public int manaRegenAmount = 1;
 	public int freeAttrPoints = 5;
-
+	public int skillPoints = 1;
 	public int gold = 100;
 
 	public Inventory inventory;
@@ -70,10 +70,10 @@ public class Player : MonoBehaviour{
 	/* Player data */
 	private PlayerStats stats;
 	private GameObject characterMenu;
-	private SkillHolder playerSkills;
+
+	private bool attackFlag = false;
 
 	void Awake(){
-		playerSkills = gameObject.GetComponent<SkillHolder> ();
 		stats = new PlayerStats();
 		stats.inventory = new Inventory();
 		// Temporary bow given to player for testing
@@ -106,11 +106,12 @@ public class Player : MonoBehaviour{
 		Move ();
 
 		// Check if attack button was pressed
-		if (Input.GetButtonDown("Attack") && attackTimer >= stats.attackSpeed)
-		{
-			Attack();
+		if (Input.GetButtonDown ("Attack") && attackTimer >= stats.attackSpeed) {
+			Attack ();
+		} else if (attackFlag) {
+			DeactivateHitBox ();
+			attackFlag = false;
 		}
-		else DeactivateHitBox();
 	}
 
 	// Player movement
@@ -152,6 +153,7 @@ public class Player : MonoBehaviour{
 
 	// Player attack
 	public void Attack(){
+		attackFlag = true;
 		// Reduce that enemy's health
 		if (attackStyle == 0) {
 			// MELEE ATTACKS
@@ -264,6 +266,7 @@ public class Player : MonoBehaviour{
 	public void LevelUp(){
 		stats.PlayerLevel += 1;
 		stats.freeAttrPoints += 5;
+		stats.skillPoints += 1;
 		expToLVLUp = 20 * ((stats.PlayerLevel * stats.PlayerLevel) + stats.PlayerLevel + 3);
 		// Increase max health and return player back to full health
 		maxHealth = (stats.PlayerLevel * 3) + stats.vitality;
@@ -517,6 +520,11 @@ public class Player : MonoBehaviour{
 		}
 	}
 
+	// Decrease skill point by 1
+	public void DecreaseSkillPoint(){
+		stats.skillPoints -= 1;
+	}
+
 	public void UpdateStats(){
 		meleeDamage = stats.strength / 5;
 		rangeDamage = stats.dexterity / 10;
@@ -538,25 +546,25 @@ public class Player : MonoBehaviour{
 
 	public PlayerStats getStats(){return stats;}
 
-	public int getMaxHealth(){return maxHealth;}
-
-	public int getMaxMana(){return maxMana;}
-
-	public int getEXPtoLVL(){return expToLVLUp;}
-
 	public int getMeleeDamage(){return meleeDamage;}
 
 	public int getRangeDamage(){return rangeDamage;}
 
 	public int getMagicDamage(){return magicDamage;}
 
+	public int getMaxHealth(){return maxHealth;}
+
+	public int getMaxMana(){return maxMana;}
+
+	public int getEXPtoLVL(){return expToLVLUp;}
+
 	public int getPlayerLVL(){return stats.PlayerLevel;}
 
-	public int getHealth(){return stats.CurrentHealth;}
+	public int getCurrentHealth(){return stats.CurrentHealth;}
 
-	public int getMana(){return stats.CurrentMana;}
+	public int getCurrentMana(){return stats.CurrentMana;}
 
-	public int getEXP(){return stats.CurrentEXP;}
+	public int getCurrentEXP(){return stats.CurrentEXP;}
 
 	public int getVitality(){return stats.vitality;}
 
@@ -572,9 +580,39 @@ public class Player : MonoBehaviour{
 
 	public int getLuck(){return stats.luck;}
 
+	public float getSpeed(){return stats.speed;}
+
+	public float getAttackRange(){return stats.attackRange;}
+
+	public float getAttackSpeed(){return stats.attackSpeed;}
+
+	public float getHealthRegenRate(){return stats.healthRegenRate;}
+
+	public int getHealthRegenAmount(){return stats.healthRegenAmount;}
+
+	public float getManaRegenRate(){return stats.manaRegenRate;}
+
+	public int getManaRegenAmount(){return stats.manaRegenAmount;}
+
 	public int getFreePoints(){return stats.freeAttrPoints;}
 
+	public int getSkillPoints(){return stats.skillPoints;}
+
 	public int getGold(){return stats.gold;}
+
+	public int getAttackStyle(){return attackStyle;}
+
+	public void IncreaseMeleeDamage(int bonus){meleeDamage += bonus;}
+
+	public void DecreaseMeleeDamage(int bonus){meleeDamage -= bonus;}
+
+	public void IncreaseRangeDamage(int bonus){rangeDamage += bonus;}
+
+	public void DecreaseRangeDamage(int bonus){rangeDamage -= bonus;}
+
+	public void IncreaseMagicDamage(int bonus){magicDamage += bonus;}
+
+	public void DecreaseMagicDamage(int bonus){magicDamage -= bonus;}
 
 	public Inventory getInventory(){return stats.inventory;}
 }

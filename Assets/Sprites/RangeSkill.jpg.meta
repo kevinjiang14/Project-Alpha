@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: cc7cf9fe2dd514498ab1de530919af2a
-timeCreated: 1479760980
+timeCreated: 1479850244
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -280,7 +280,7 @@ TextureImporter:
       name: RangeSkill_8
       rect:
         serializedVersion: 2
-        x: 512
+        x: 528
         y: 726
         width: 64
         height: 64
@@ -293,7 +293,7 @@ TextureImporter:
       name: RangeSkill_9
       rect:
         serializedVersion: 2
-        x: 576
+        x: 594
         y: 726
         width: 64
         height: 64

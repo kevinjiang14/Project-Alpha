@@ -2,16 +2,20 @@
 using System.Collections;
 
 public class VolleyScript : MonoBehaviour, Skill {
-
+	
+	public RuntimeAnimatorController animation;
 	public string skillName;
 	public float cooldown;
 
 	private float timer;
-	private bool learned = true;
-	private int skillLevel = 0;
+	private bool learned;
+	private int skillLevel;
+
+	private Player playerRef;
+
 	// Use this for initialization
-	void Start () {
-	
+	void Start(){
+		playerRef = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
 	}
 	
 	// Update is called once per frame
@@ -23,10 +27,13 @@ public class VolleyScript : MonoBehaviour, Skill {
 		return skillName;
 	}
 
-	public void Cast(Vector3 position, Quaternion rotation){
-		if (timer >= cooldown && learned) {
-			Quaternion newRotation = GetRotation ();
-			Vector3 newPosition = UpdatePosition (position);
+	public void Cast(Vector3 position, int direction){
+		if (timer >= cooldown && learned && playerRef.getAttackStyle() == 1) {
+			// Original rotation
+			Quaternion rotation = GetRotation (direction);
+			// Rotation of additional arrows from original rotation
+			Quaternion newRotation = rotation;
+			Vector3 newPosition = UpdatePosition (position, direction);
 			Instantiate(Resources.Load("Item/Arrow"), newPosition, newRotation);
 			newRotation = Quaternion.Euler (0, 0, rotation.eulerAngles.z + 30);
 			Instantiate(Resources.Load("Item/Arrow"), newPosition, newRotation);
@@ -41,49 +48,56 @@ public class VolleyScript : MonoBehaviour, Skill {
 		}
 	}
 
-	public Quaternion GetRotation(){
-		Animator playerAnimation = GameObject.FindGameObjectWithTag ("Player").gameObject.GetComponent<Animator> ();
+	public Quaternion GetRotation(int direction){
 		Quaternion rotation = Quaternion.Euler(0, 0, 0);
-		if (playerAnimation.GetInteger ("Direction") == 0) {
+		if (direction == 0) {
 			rotation = Quaternion.Euler(0, 0, 90);
-		} else if (playerAnimation.GetInteger ("Direction") == 1) {
+		} else if (direction == 1) {
 			rotation = Quaternion.Euler(0, 0, 0);
-		} else if (playerAnimation.GetInteger ("Direction") == 2) {
+		} else if (direction == 2) {
 			rotation = Quaternion.Euler(0, 0, -90);
-		} else if (playerAnimation.GetInteger ("Direction") == 3) {
+		} else if (direction == 3) {
 			rotation = Quaternion.Euler(0, 0, 180);
 		}
 		return rotation;
 	}
 
-	public Vector3 UpdatePosition(Vector3 originPos){
-		Animator playerAnimation = GameObject.FindGameObjectWithTag ("Player").gameObject.GetComponent<Animator> ();
+	public Vector3 UpdatePosition(Vector3 originPos, int direction){
 		Vector3 projectilePos = originPos;
-		if (playerAnimation.GetInteger ("Direction") == 0) {
+		if (direction == 0) {
 			projectilePos.y -= 0.6f;
-		} else if (playerAnimation.GetInteger ("Direction") == 1) {
+		} else if (direction == 1) {
 			projectilePos.x -= 0.6f;
-		} else if (playerAnimation.GetInteger ("Direction") == 2) {
+		} else if (direction == 2) {
 			projectilePos.y += 0.6f;
-		} else if (playerAnimation.GetInteger ("Direction") == 3) {
+		} else if (direction == 3) {
 			projectilePos.x += 0.6f;
 		}
 		return projectilePos;
 	}
 
-	public void LearnSkill (){
-		if (!learned) {
-			learned = true;
-		}
-	}
-
 	public void LevelUp(){
-		if (skillLevel < 10){
-			skillLevel++;
+		playerRef = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+		if (playerRef.getSkillPoints() > 0) {
+			if (!learned) {
+				learned = true;
+				skillLevel++;
+				playerRef.DecreaseSkillPoint ();
+			} else if (skillLevel < 10) {
+				skillLevel++;
+				playerRef.DecreaseSkillPoint ();
+			}
 		}
 	}
 
 	public int getSkillLevel(){
 		return skillLevel;
+	}
+
+	public void setSkillLevel(int level){
+		if (level > 0) {
+			learned = true;
+		}
+		skillLevel = level;
 	}
 }

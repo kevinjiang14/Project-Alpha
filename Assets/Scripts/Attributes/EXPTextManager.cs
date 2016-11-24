@@ -11,11 +11,11 @@ public class EXPTextManager : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerScript = player.GetComponent<Player> ();
-		GetComponent<Text> ().text = "EXP: " + playerScript.getEXP ().ToString () + "/" + playerScript.getEXPtoLVL ().ToString ();
+		GetComponent<Text> ().text = "EXP: " + playerScript.getCurrentEXP ().ToString () + "/" + playerScript.getEXPtoLVL ().ToString ();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		GetComponent<Text> ().text = "EXP: " + playerScript.getEXP ().ToString () + "/" + playerScript.getEXPtoLVL ().ToString ();
+		GetComponent<Text> ().text = "EXP: " + playerScript.getCurrentEXP ().ToString () + "/" + playerScript.getEXPtoLVL ().ToString ();
 	}
 }
