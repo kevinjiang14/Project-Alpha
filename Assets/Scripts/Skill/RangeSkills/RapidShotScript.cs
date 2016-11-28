@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class VolleyScript : MonoBehaviour, Skill {
-	
+public class RapidShotScript : MonoBehaviour, Skill {
+
 	new public RuntimeAnimatorController animation;
 	public string skillName;
 	public float cooldown;
@@ -11,16 +11,36 @@ public class VolleyScript : MonoBehaviour, Skill {
 	private bool learned;
 	private int skillLevel;
 
+	private bool skillCasted;
+	private int arrowsFired;
+	private int damage;
+	private Vector3 pos;
+	private int dir;
+
 	private Player playerRef;
 
 	// Use this for initialization
 	void Start(){
 		playerRef = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+		skillCasted = false;
+		arrowsFired = 1;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		timer += Time.deltaTime;
+
+		if (skillCasted && arrowsFired % 2 == 0) {
+			arrowsFired += 1;
+			damage = playerRef.getRangeDamage ();
+			GameObject arrow = (GameObject) Instantiate (Resources.Load ("Item/Projectiles/Arrow"), UpdatePosition (pos, dir), GetRotation (dir));
+			arrow.GetComponent<Projectile> ().DecreaseDamage (damage - (damage / 2));
+		} else if (skillCasted && arrowsFired <= 6) {
+			arrowsFired += 1;
+		} else{
+			arrowsFired = 1;
+			skillCasted = false;
+		}
 	}
 
 	public string GetSkillName(){
@@ -29,20 +49,9 @@ public class VolleyScript : MonoBehaviour, Skill {
 
 	public void Cast(Vector3 position, int direction){
 		if (timer >= cooldown && learned && playerRef.getAttackStyle() == 1) {
-			// Original rotation
-			Quaternion rotation = GetRotation (direction);
-			// Rotation of additional arrows from original rotation
-			Quaternion newRotation = rotation;
-			Vector3 newPosition = UpdatePosition (position, direction);
-			Instantiate(Resources.Load("Item/Projectiles/Arrow"), newPosition, newRotation);
-			newRotation = Quaternion.Euler (0, 0, rotation.eulerAngles.z + 30);
-			Instantiate(Resources.Load("Item/Projectiles/Arrow"), newPosition, newRotation);
-			newRotation = Quaternion.Euler (0, 0, rotation.eulerAngles.z + 15);
-			Instantiate(Resources.Load("Item/Projectiles/Arrow"), newPosition, newRotation);
-			newRotation = Quaternion.Euler (0, 0, rotation.eulerAngles.z - 30);
-			Instantiate(Resources.Load("Item/Projectiles/Arrow"), newPosition, newRotation);
-			newRotation = Quaternion.Euler (0, 0, rotation.eulerAngles.z - 15);
-			Instantiate(Resources.Load("Item/Projectiles/Arrow"), newPosition, newRotation);
+			pos = position;
+			dir = direction;
+			skillCasted = true;
 			// Put skill on cooldown
 			timer = 0;
 		}

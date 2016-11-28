@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CrushScript : MonoBehaviour, Skill {
 
-	public RuntimeAnimatorController animation;
+	new public RuntimeAnimatorController animation;
 	public string skillName;
 	public float cooldown;
 

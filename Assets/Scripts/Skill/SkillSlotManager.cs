@@ -31,6 +31,7 @@ public class SkillSlotManager : MonoBehaviour {
 		transform.Find ("SkillLevelButton").GetComponent<Button> ().onClick.AddListener (skill.GetComponent<Skill>().LevelUp);
 	}
 
+	// Add Skill to hotbar
 	public void AddToHotbar(){
 		if (skill.GetComponent<Skill> ().getSkillLevel () > 0) {
 			GameObject currentHotbar = GameObject.FindGameObjectWithTag ("HotbarMenu");

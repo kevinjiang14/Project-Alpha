@@ -59,7 +59,7 @@ public class HotbarManager : MonoBehaviour {
         }
     }
 
-    // Add consumable to hotbar if there is room
+    // Add skill to hotbar if there is room
     public void AddtoHotbar(GameObject skill){
         Transform temphotitem;
         bool attached = false;

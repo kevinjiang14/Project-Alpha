@@ -20,6 +20,7 @@ public class MapManager : MonoBehaviour {
     private GameObject currentInventory;
     private GameObject currentCharacter;
 	private GameObject currentSkillMenu;
+	private GameObject currentBuffBar;
     private GameObject miniMap;
 
     // Map Validation variables
@@ -54,6 +55,7 @@ public class MapManager : MonoBehaviour {
     public GameObject Camera;
 	public GameObject MinimapCamera;
 	public GameObject skillMenu;
+	public GameObject buffbar;
 
 	// Player GameObject that is instantiated
 	private GameObject player;
@@ -674,6 +676,7 @@ public class MapManager : MonoBehaviour {
         currentHotbar = Instantiate(playerHotbar);
 		currentSkillMenu = Instantiate (skillMenu);
 		currentSkillMenu.SetActive (false);
+		currentBuffBar = Instantiate (buffbar);
     }
 
 	/*

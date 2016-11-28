@@ -25,4 +25,12 @@ public class Projectile : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+	public void DecreaseDamage(int bonus){
+		damage -= bonus;
+	}
+
+	public void IncreaseDamage(int bonus){
+		damage += bonus;
+	}
 }

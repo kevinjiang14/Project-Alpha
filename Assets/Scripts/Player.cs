@@ -29,7 +29,7 @@ public class PlayerStats : Component{
 	public float manaRegenRate = 3f;
 	public int manaRegenAmount = 1;
 	public int freeAttrPoints = 5;
-	public int skillPoints = 1;
+	public int skillPoints = 10;
 	public int gold = 100;
 
 	public Inventory inventory;
@@ -183,7 +183,7 @@ public class Player : MonoBehaviour{
 				projectilePos.x += 0.6f;
 				rotation = Quaternion.Euler(0, 0, 180);
 			} 
-			Instantiate(Resources.Load("Item/Arrow"), projectilePos, rotation);
+			Instantiate(Resources.Load("Item/Projectiles/Arrow"), projectilePos, rotation);
 		} else if(attackStyle == 0){
 			// MAGIC ATTACKS
 
@@ -601,6 +601,18 @@ public class Player : MonoBehaviour{
 	public int getGold(){return stats.gold;}
 
 	public int getAttackStyle(){return attackStyle;}
+
+	public void IncreaseDefenseTemp(int bonus){stats.defense += bonus;}
+
+	public void DecreaseDefenseTemp(int bonus){stats.defense -= bonus;}
+
+	public void IncreaseStrengthTemp(int bonus){stats.strength += bonus;}
+
+	public void DecreaseStrengthTemp(int bonus){stats.strength -= bonus;}
+
+	public void IncreaseDexterityTemp(int bonus){stats.dexterity += bonus;}
+
+	public void DecreaseDexterityTemp(int bonus){stats.dexterity -= bonus;}
 
 	public void IncreaseMeleeDamage(int bonus){meleeDamage += bonus;}
 

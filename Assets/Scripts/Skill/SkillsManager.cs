@@ -14,7 +14,7 @@ public class SkillsManager : MonoBehaviour {
 	void OnEnable () {
 		playerSkills = GameObject.FindGameObjectWithTag ("Player").GetComponent<SkillHolder> ();
 		playerRef = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
-		AddRangeSkills ();
+		AddMeleeSkills ();
 		AddButtonListeners ();
 	}
 
@@ -22,6 +22,7 @@ public class SkillsManager : MonoBehaviour {
 		transform.Find ("SkillPoints").GetComponent<Text> ().text = " Skill Points: " + playerRef.getSkillPoints ();
 	}
 
+	// Add Melee skills to list
 	public void AddMeleeSkills(){
 		ClearSkillList ();
 
@@ -33,6 +34,7 @@ public class SkillsManager : MonoBehaviour {
 		}
 	}
 
+	// Add Range skills to list
 	public void AddRangeSkills(){
 		ClearSkillList ();
 
@@ -44,7 +46,7 @@ public class SkillsManager : MonoBehaviour {
 		}
 	}
 
-	// 
+	// Add Magic skills to list
 	public void AddMagicSkills(){
 		ClearSkillList ();
 

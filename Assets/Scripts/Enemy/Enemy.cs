@@ -191,6 +191,23 @@ public class Enemy: MonoBehaviour {
 			enemyStats.currentHealth -= i;
 	}
 
+	/* TODO: Implement knockback
+	* Enemy knocked back movement
+	*/
+//	public void Knockback(Transform playerTransform){
+//		knockbackDirection = playerTransform;
+//		if (knockbackFlag) {
+//			knockbackDistance -= Time.deltaTime;
+//			Vector3 knockback = new Vector3 (transform.position.x - knockbackDirection.position.x, transform.position.y - knockbackDirection.position.y, 0f);
+//			GetComponent<Rigidbody2D> ().AddForce (transform.up * 2f);
+//			knockbackSpeed -= Time.deltaTime;
+//			if (knockbackDistance < 0) {
+//				knockbackSpeed = 3f;
+//				knockbackFlag = false;
+//			}
+//		}
+//	}
+
 	// Enemy is dead
 	public void Dead(){
 		if (enemyStats.enemyType % 100 == 0 && enemyStats.enemyType >= 100) {
